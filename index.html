@@ -41,19 +41,26 @@ html { -webkit-text-size-adjust: none; text-size-adjust: none; -webkit-font-smoo
 body { font-family: var(--font-body); background: var(--cream); color: var(--text); font-size: 15px; min-height: 100dvh; padding-bottom: 80px; overscroll-behavior: none; }
 img, svg { display: block; max-width: 100%; }
 button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
-input, select { font: inherit; color: inherit; }
+input, select, textarea { font: inherit; color: inherit; }
 
-#config-banner { background: linear-gradient(135deg, var(--green-dark), var(--green)); color: #fff; padding: 20px; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 20px; }
-#config-banner h2 { font-family: var(--font-display); font-size: 22px; }
-#config-banner p { color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.6; max-width: 320px; }
-#config-banner input { width: 100%; max-width: 340px; padding: 12px 16px; border-radius: var(--radius-md); border: none; font-size: 14px; background: rgba(255,255,255,0.15); color: #fff; }
-#config-banner input::placeholder { color: rgba(255,255,255,0.5); }
-#config-banner input:focus { outline: 2px solid rgba(255,255,255,0.6); }
-.btn-white { background: #fff; color: var(--green-dark); padding: 12px 28px; border-radius: var(--radius-full); font-weight: 600; font-size: 14px; width: 100%; max-width: 340px; box-shadow: var(--shadow-md); transition: opacity .15s; }
-.btn-white:hover { opacity: .9; }
-
-#app { display: none; }
-#app.ready { display: block; }
+/* LOADING SCREEN */
+#loading-screen {
+  position: fixed; inset: 0; z-index: 999;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px; color: #fff;
+}
+#loading-screen .logo { font-size: 52px; }
+#loading-screen h2 { font-family: var(--font-display); font-size: 22px; }
+#loading-screen p { font-size: 13px; color: rgba(255,255,255,0.7); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner-ring {
+  width: 32px; height: 32px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
 
 .app-header { background: linear-gradient(180deg, var(--green-dark) 0%, var(--green) 100%); padding: 20px 16px 16px; position: relative; overflow: hidden; }
 .app-header::before { content:''; position: absolute; inset: 0; background: radial-gradient(circle at 15% 50%, rgba(255,255,255,0.06) 1px, transparent 1px), radial-gradient(circle at 85% 25%, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 36px 36px, 50px 50px; }
@@ -127,7 +134,6 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
 .no-result p { color: #9a6a00; font-size: 13px; margin-top: 8px; }
 
 .loading { text-align: center; padding: 40px 20px; color: var(--text-muted); font-style: italic; font-size: 14px; }
-@keyframes spin { to { transform: rotate(360deg); } }
 .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--green-light); border-top-color: var(--green); border-radius: 50%; animation: spin .8s linear infinite; margin-right: 8px; vertical-align: middle; }
 
 #toast { position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%) translateY(8px); background: var(--green-dark); color: #fff; padding: 10px 20px; border-radius: var(--radius-full); font-size: 13px; opacity: 0; transition: opacity .3s, transform .3s; pointer-events: none; white-space: nowrap; z-index: 200; box-shadow: var(--shadow-md); }
@@ -136,8 +142,7 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
 .sync-row { display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 10px 14px 0; }
 .sync-btn { display: flex; align-items: center; gap: 5px; background: var(--green-faint); color: var(--green-dark); padding: 7px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; border: 1px solid var(--green-light); }
 .sync-btn:active { background: var(--green-light); }
-@keyframes spin-icon { to { transform: rotate(360deg); } }
-.spin { display: inline-block; animation: spin-icon .8s linear infinite; }
+.spin { display: inline-block; animation: spin .8s linear infinite; }
 
 .flower-grid { display: flex; flex-wrap: wrap; gap: 6px; }
 .f-chip { display: flex; align-items: center; gap: 4px; background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-full); padding: 4px 10px; font-size: 12px; color: var(--green-dark); }
@@ -150,20 +155,22 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
 .flower-pill-edit:active { opacity: .8; }
 
 .rar-divider { width: 100%; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 8px; border-radius: var(--radius-sm); margin: 8px 0 4px; display: inline-block; }
+
+/* Regras Firestore */
+.rules-box { background: #1e1e2e; color: #cdd6f4; border-radius: var(--radius-md); padding: 14px; font-family: monospace; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-top: 8px; }
 </style>
 </head>
 <body>
 
-<div id="config-banner">
-  <div style="font-size:48px">🌸</div>
+<!-- TELA DE LOADING -->
+<div id="loading-screen">
+  <div class="logo">🌸</div>
   <h2>Zoe Guild · Flores</h2>
-  <p>Cole a URL do Web App do Google Apps Script para conectar à planilha.</p>
-  <input type="url" id="api-url-input" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off" autocorrect="off" spellcheck="false">
-  <button class="btn-white" onclick="saveConfig()">Conectar ✨</button>
-  <p style="font-size:11px;color:rgba(255,255,255,0.5);max-width:300px">A URL fica salva neste dispositivo. Para mudar, acesse ⚙️ Config no app.</p>
+  <div class="spinner-ring"></div>
+  <p>Conectando ao banco de dados…</p>
 </div>
 
-<div id="app">
+<div id="app" style="display:none">
   <header class="app-header">
     <h1>🌸 Zoe Guild</h1>
     <p>Galeria da Guilda · Cozy Florist</p>
@@ -228,10 +235,17 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
 
     <!-- CONFIG -->
     <div id="tab-config" class="tab-panel">
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
+        <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🔥 Firebase Firestore</strong>
+        Dados salvos em tempo real na nuvem. Qualquer jogadora pode editar de qualquer dispositivo!
+        <br><br>
+        <strong style="color:var(--green-dark)">Projeto:</strong> zoe-cozy-florist<br>
+        <strong style="color:var(--green-dark)">Coleções:</strong> <code>catalogo</code> · <code>membros</code> · <code>colecoes</code>
+      </div>
       <div class="card">
-        <div class="label">🔗 URL do Web App (Apps Script)</div>
-        <textarea id="api-url-edit" class="form-input" rows="4" style="resize:none;border-radius:var(--radius-md);font-size:13px"></textarea>
-        <button class="btn btn-green btn-full" style="margin-top:10px" onclick="updateConfig()">Salvar URL</button>
+        <strong style="color:var(--green-dark);font-size:13px">⚠️ Regras do Firestore</strong>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;margin-bottom:8px">Se aparecer erro de permissão, configure as regras no console Firebase com:</p>
+        <div class="rules-box">rules_version = '2';<br>service cloud.firestore {<br>&nbsp;&nbsp;match /databases/{db}/documents {<br>&nbsp;&nbsp;&nbsp;&nbsp;match /{doc=**} {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if true;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
         <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🌸 Legenda de Raridades</strong>
@@ -263,65 +277,79 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
 
 <div id="toast"></div>
 
+<!-- Firebase SDK (compat mode — funciona sem bundler) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
 <script>
-let API_URL = 'https://script.google.com/macros/s/AKfycbyTSC2G2mzne0RBYxm9eGSnKEk0mDjspacHlcJkywDOoxuf2YpnNaADh5KY-gruK3speA/exec';
+// ── Firebase config ──────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyBNJ0h4KFw-U_tTq6hZASqBnrhCIuS5sdI",
+  authDomain: "zoe-cozy-florist.firebaseapp.com",
+  projectId: "zoe-cozy-florist",
+  storageBucket: "zoe-cozy-florist.firebasestorage.app",
+  messagingSenderId: "151582355026",
+  appId: "1:151582355026:web:4cd2934f9e8c0b5ca8b98b"
+};
+firebase.initializeApp(firebaseConfig);
+const db   = firebase.firestore();
+const auth = firebase.auth();
+
+// ── Estado ───────────────────────────────────────────────────────
 let catalogo = [];
-let colecoes = {};
-let membros  = [];
-let editOpen = {};
+let colecoes  = {};
+let membros   = [];
+let editOpen  = {};
 let currentTab = 'buscar';
 
-const RARITY_ORDER = { 'N':1,'R':2,'SR':3,'SSR':4,'UR':5 };
-const RAR_LABEL = { 'N':'Normal','R':'Rare','SR':'Super Rare','SSR':'SSR','UR':'Ultra Rare' };
-const RAR_BG    = { 'N':'var(--rar-N-bg)','R':'var(--rar-R-bg)','SR':'var(--rar-SR-bg)','SSR':'var(--rar-SSR-bg)','UR':'var(--rar-UR-bg)' };
-const RAR_TEXT  = { 'N':'var(--rar-N-text)','R':'var(--rar-R-text)','SR':'var(--rar-SR-text)','SSR':'var(--rar-SSR-text)','UR':'var(--rar-UR-text)' };
+const RARITY_ORDER = { N:1, R:2, SR:3, SSR:4, UR:5 };
+const RAR_LABEL    = { N:'Normal', R:'Rare', SR:'Super Rare', SSR:'SSR', UR:'Ultra Rare' };
+const RAR_BG       = { N:'var(--rar-N-bg)', R:'var(--rar-R-bg)', SR:'var(--rar-SR-bg)', SSR:'var(--rar-SSR-bg)', UR:'var(--rar-UR-bg)' };
+const RAR_TEXT     = { N:'var(--rar-N-text)', R:'var(--rar-R-text)', SR:'var(--rar-SR-text)', SSR:'var(--rar-SSR-text)', UR:'var(--rar-UR-text)' };
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Tenta localStorage; se bloqueado (iframe sandbox), usa a URL padrão embutida
+// ── Init ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const saved = localStorage.getItem('zoe_guild_url');
-    if (saved) API_URL = saved;
-  } catch(e) {}
-  document.getElementById('api-url-edit').value = API_URL;
-  showApp();
-  loadAll();
+    await auth.signInAnonymously();
+    await loadAll();
+  } catch(e) {
+    console.error(e);
+    document.querySelector('#loading-screen p').textContent = '❌ Erro ao conectar. Verifique a conexão.';
+    return;
+  }
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
 });
 
-function saveConfig() {
-  const url = document.getElementById('api-url-input').value.trim();
-  if (!url.startsWith('https://script.google.com')) { alert('URL inválida.'); return; }
-  try { localStorage.setItem('zoe_guild_url', url); } catch(e) {}
-  API_URL = url; showApp(); loadAll();
-}
-function updateConfig() {
-  const url = document.getElementById('api-url-edit').value.trim();
-  try { localStorage.setItem('zoe_guild_url', url); } catch(e) {}
-  API_URL = url; toast('✅ URL salva!'); loadAll();
-}
-function showApp() {
-  document.getElementById('config-banner').style.display = 'none';
-  document.getElementById('app').classList.add('ready');
-}
-
-async function api(params) {
-  const url = new URL(API_URL);
-  Object.entries(params).forEach(([k,v]) => url.searchParams.set(k, v));
-  const res = await fetch(url.toString());
-  return res.json();
-}
-
+// ── Carregar dados ────────────────────────────────────────────────
 async function loadAll() {
   const icon = document.getElementById('sync-icon');
   icon.className = 'spin';
   try {
-    catalogo = await api({ action:'getCatalogo' });
-    colecoes = await api({ action:'getColecoes' });
-    membros  = Object.keys(colecoes);
-    renderCurrentTab(); buildPills();
-  } catch(e) { toast('❌ Erro ao conectar. Verifique a URL em ⚙️'); }
-  finally { icon.className = ''; }
+    // Catálogo
+    const catSnap = await db.collection('catalogo').orderBy('rarity').get();
+    catalogo = catSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    // Membros
+    const memSnap = await db.collection('membros').orderBy('nome').get();
+    membros = memSnap.docs.map(d => d.data().nome);
+
+    // Coleções
+    colecoes = {};
+    const colSnap = await db.collection('colecoes').get();
+    colSnap.docs.forEach(d => { colecoes[d.id] = d.data().flores || []; });
+
+    renderCurrentTab();
+    buildPills();
+  } catch(e) {
+    console.error(e);
+    toast('❌ Erro Firebase: ' + (e.code || e.message));
+  }
+  icon.className = '';
 }
 
+// ── Navegação ─────────────────────────────────────────────────────
 function switchTab(name, btn) {
   currentTab = name;
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -334,16 +362,17 @@ function switchTab(name, btn) {
 }
 function renderCurrentTab() {
   if (currentTab === 'galeria') renderGaleria();
-  if (currentTab === 'editar')  renderEditar();
-  if (currentTab === 'buscar')  buildPills();
+  else if (currentTab === 'editar') renderEditar();
+  else buildPills();
 }
 
+// ── Buscar ────────────────────────────────────────────────────────
 function buildPills() {
   const wrap = document.getElementById('flower-pills-wrap');
   const el   = document.getElementById('all-pills');
   if (!catalogo.length) { wrap.style.display = 'none'; return; }
   el.innerHTML = catalogo.map(f =>
-    `<span class="pill" onclick="setSearch('${escJs(f.pt)}')">${f.emoji} <span style="font-size:11px">${escHtml(f.pt)}</span></span>`
+    `<span class="pill" onclick="setSearch('${escJs(f.pt)}')">${f.emoji || '🌸'} <span style="font-size:11px">${escHtml(f.pt)}</span></span>`
   ).join('');
   wrap.style.display = '';
 }
@@ -375,12 +404,13 @@ function doSearch(term) {
         <div style="flex:1;min-width:0">
           <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
           <div class="pills" style="margin-top:6px">
-            ${flores.map(f => `<span class="pill has" style="cursor:default">${f.emoji} ${escHtml(f.pt)}<span style="display:block;font-size:10px;opacity:.7;line-height:1;margin-top:1px">${escHtml(f.en)}</span></span>`).join('')}
+            ${flores.map(f => `<span class="pill has" style="cursor:default">${f.emoji||'🌸'} ${escHtml(f.pt)}<span style="display:block;font-size:10px;opacity:.7;line-height:1;margin-top:1px">${escHtml(f.en)}</span></span>`).join('')}
           </div>
         </div>
       </div>`).join('');
 }
 
+// ── Galeria ───────────────────────────────────────────────────────
 function renderGaleria() {
   const el = document.getElementById('galeria-content');
   if (!membros.length) { el.innerHTML = '<p class="empty">Nenhuma jogadora cadastrada.</p>'; return; }
@@ -390,14 +420,14 @@ function renderGaleria() {
       return ra !== rb ? ra - rb : (a.pt||a.en).localeCompare(b.pt||b.en,'pt-BR');
     });
     const byRar = {};
-    flores.forEach(f => { const r=f.rarity||'N'; if(!byRar[r]) byRar[r]=[]; byRar[r].push(f); });
+    flores.forEach(f => { const r = f.rarity||'N'; if (!byRar[r]) byRar[r]=[]; byRar[r].push(f); });
     const sections = Object.entries(byRar)
       .sort((a,b) => (RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5))
       .map(([r,fs]) => `
         <div class="rar-section">
           <div class="rar-section-title" style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}">${r} — ${RAR_LABEL[r]||r}</div>
           <div class="flower-grid">
-            ${fs.map(f => `<span class="f-chip">${f.emoji} ${escHtml(f.pt)}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(f.en)}</span></span>`).join('')}
+            ${fs.map(f => `<span class="f-chip">${f.emoji||'🌸'} ${escHtml(f.pt)}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(f.en)}</span></span>`).join('')}
           </div>
         </div>`).join('');
     return `<div class="member-card">
@@ -413,6 +443,7 @@ function renderGaleria() {
   }).join('');
 }
 
+// ── Editar ────────────────────────────────────────────────────────
 function renderEditar() {
   const el = document.getElementById('editar-content');
   if (!membros.length) { el.innerHTML = '<p class="empty">Adicione uma jogadora acima.</p>'; return; }
@@ -421,7 +452,7 @@ function renderEditar() {
     const set = new Set(flores.map(f => f.en));
     const open = editOpen[m];
     const byRar = {};
-    catalogo.forEach(f => { if(!byRar[f.rarity]) byRar[f.rarity]=[]; byRar[f.rarity].push(f); });
+    catalogo.forEach(f => { if (!byRar[f.rarity]) byRar[f.rarity]=[]; byRar[f.rarity].push(f); });
     const sections = Object.entries(byRar)
       .sort((a,b) => (RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5))
       .map(([r,fs]) => `
@@ -431,8 +462,8 @@ function renderEditar() {
             ${fs.map(f => {
               const has = set.has(f.en);
               return `<span class="flower-pill-edit ${has?'has':''}"
-                onclick="toggleFlor('${escJs(m)}','${escJs(f.en)}',${!has},'${escJs(f.pt)}','${escJs(f.emoji)}','${escJs(f.rarity)}')">
-                ${f.emoji} ${escHtml(f.pt)}
+                onclick="toggleFlor('${escJs(m)}','${escJs(f.en)}',${!has},'${escJs(f.pt)}','${escJs(f.emoji||'🌸')}','${escJs(f.rarity)}')">
+                ${f.emoji||'🌸'} ${escHtml(f.pt)}
                 <span style="display:block;font-size:10px;opacity:.65;line-height:1;margin-top:1px">${escHtml(f.en)}</span>
               </span>`;
             }).join('')}
@@ -452,46 +483,55 @@ function renderEditar() {
 }
 function toggleEdit(m) { editOpen[m] = !editOpen[m]; renderEditar(); }
 
+// ── CRUD ──────────────────────────────────────────────────────────
 async function addMembro() {
   const nome = document.getElementById('new-member').value.trim();
   if (!nome) return;
   try {
-    const r = await api({ action:'addMembro', nome });
-    if (r.ok) { document.getElementById('new-member').value=''; toast('✅ '+nome+' adicionada!'); loadAll(); }
-    else toast('⚠️ '+r.msg);
-  } catch(e) { toast('❌ Erro de conexão'); }
+    await db.collection('membros').doc(nome).set({ nome });
+    await db.collection('colecoes').doc(nome).set({ flores: [] });
+    document.getElementById('new-member').value = '';
+    toast('✅ ' + nome + ' adicionada!');
+    await loadAll();
+  } catch(e) { toast('❌ Erro: ' + e.message); }
 }
+
 async function removeMembro(nome) {
-  if (!confirm('Remover '+nome+'?')) return;
+  if (!confirm('Remover ' + nome + '?')) return;
   try {
-    const r = await api({ action:'removeMembro', nome });
-    if (r.ok) { toast('Removida: '+nome); loadAll(); }
-    else toast('Erro: '+r.msg);
-  } catch(e) { toast('❌ Erro de conexão'); }
+    await db.collection('membros').doc(nome).delete();
+    await db.collection('colecoes').doc(nome).delete();
+    toast('Removida: ' + nome);
+    await loadAll();
+  } catch(e) { toast('❌ Erro: ' + e.message); }
 }
+
 async function toggleFlor(membro, florEN, checked, florPT, emoji, rarity) {
   if (!colecoes[membro]) colecoes[membro] = [];
-  if (checked) colecoes[membro].push({ en:florEN, pt:florPT, emoji, rarity });
+  if (checked) colecoes[membro].push({ en: florEN, pt: florPT, emoji, rarity });
   else colecoes[membro] = colecoes[membro].filter(f => f.en !== florEN);
   renderEditar();
-  try { await api({ action:'toggleFlor', membro, florEN, checked:String(checked) }); }
-  catch(e) { toast('❌ Erro ao salvar'); }
+  try {
+    await db.collection('colecoes').doc(membro).set({ flores: colecoes[membro] });
+  } catch(e) { toast('❌ Erro ao salvar'); }
 }
+
 async function addFlorCustom() {
   const en  = document.getElementById('new-fl-en').value.trim();
   const pt  = document.getElementById('new-fl-pt').value.trim();
   const emo = document.getElementById('new-fl-emoji').value.trim() || '🌿';
   const rar = document.getElementById('new-fl-rar').value;
-  if (!en||!pt) { toast('⚠️ Preencha EN e PT'); return; }
+  if (!en || !pt) { toast('⚠️ Preencha EN e PT'); return; }
   try {
-    const r = await api({ action:'addFlorCustom', en, pt, emoji:emo, rarity:rar });
-    if (r.ok) {
-      ['new-fl-en','new-fl-pt','new-fl-emoji'].forEach(id => document.getElementById(id).value='');
-      toast('🌷 Adicionada: '+pt); loadAll();
-    } else toast('Erro: '+r.msg);
-  } catch(e) { toast('❌ Erro de conexão'); }
+    const rarOrder = RARITY_ORDER[rar] || 1;
+    await db.collection('catalogo').doc(en).set({ en, pt, emoji: emo, rarity: rar, rarOrder });
+    ['new-fl-en','new-fl-pt','new-fl-emoji'].forEach(id => document.getElementById(id).value = '');
+    toast('🌷 Adicionada: ' + pt);
+    await loadAll();
+  } catch(e) { toast('❌ Erro: ' + e.message); }
 }
 
+// ── Utils ─────────────────────────────────────────────────────────
 let toastTimer;
 function toast(msg) {
   const t = document.getElementById('toast');
@@ -500,7 +540,7 @@ function toast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
 function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escJs(s)   { return String(s||'').replace(/\/g,'\\').replace(/'/g,"\'"); }
+function escJs(s)   { return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
 </script>
 </body>
 </html>
