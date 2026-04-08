@@ -289,12 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function saveConfig() {
   const url = document.getElementById('api-url-input').value.trim();
   if (!url.startsWith('https://script.google.com')) { alert('URL inválida.'); return; }
-  localStorage.setItem('zoe_guild_url', url);
+  try { localStorage.setItem('zoe_guild_url', url); } catch(e) {}
   API_URL = url; showApp(); loadAll();
 }
 function updateConfig() {
   const url = document.getElementById('api-url-edit').value.trim();
-  localStorage.setItem('zoe_guild_url', url);
+  try { localStorage.setItem('zoe_guild_url', url); } catch(e) {}
   API_URL = url; toast('✅ URL salva!'); loadAll();
 }
 function showApp() {
