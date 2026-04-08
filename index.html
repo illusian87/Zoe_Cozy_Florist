@@ -430,7 +430,7 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
 
 <script>
 // ── Estado ─────────────────────────────────────────────────
-let API_URL = '';
+let API_URL = 'https://script.google.com/macros/s/AKfycbxCUDrazmqL0qj1Y6OOzfzgeoICVhjMSzyBz1DYyvjgzBkV65Mnly7IR81kAiNLR75y0g/exec';
 let catalogo = [];
 let colecoes = {};
 let membros  = [];
@@ -440,7 +440,7 @@ const RARITY_ORDER = { 'Comum':1,'Incomum':2,'Raro':3,'Lendário':4 };
 
 // ── Init ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('zoe_guild_url');
+  const saved = localStorage.getItem('zoe_guild_url') || API_URL;
   if (saved) {
     API_URL = saved;
     showApp();
