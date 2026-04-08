@@ -277,9 +277,10 @@ const RAR_BG    = { 'N':'var(--rar-N-bg)','R':'var(--rar-R-bg)','SR':'var(--rar-
 const RAR_TEXT  = { 'N':'var(--rar-N-text)','R':'var(--rar-R-text)','SR':'var(--rar-SR-text)','SSR':'var(--rar-SSR-text)','UR':'var(--rar-UR-text)' };
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Tenta localStorage; se bloqueado (iframe sandbox), usa a URL padrão embutida
   try {
     const saved = localStorage.getItem('zoe_guild_url');
-    if (saved && saved.startsWith('https://script.google.com')) API_URL = saved;
+    if (saved) API_URL = saved;
   } catch(e) {}
   document.getElementById('api-url-edit').value = API_URL;
   showApp();
