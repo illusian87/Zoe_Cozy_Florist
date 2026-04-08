@@ -626,11 +626,12 @@ function renderEditar() {
         <div class="pills">
           ${catalogo.map(f => {
             const has = set.has(f.en);
-            return `<span class="flower-pill-edit ${has?'has':''}"
-              onclick="toggleFlor('${escJs(m)}','${escJs(f.en)}',${!has},'${escJs(f.pt)}','${escJs(f.emoji)}','${escJs(f.rarity)}')">
-              ${f.emoji} ${escHtml(f.pt)}
-              <span class="rar rar-${escHtml(f.rarity)}" style="margin-left:2px">${f.rarity[0]}</span>
-            </span>`;
+           return `<span class="flower-pill-edit ${has?'has':''}"
+           onclick="toggleFlor('${escJs(m)}','${escJs(f.en)}',${!has},'${escJs(f.pt)}','${escJs(f.emoji)}','${escJs(f.rarity)}')">
+  ${f.emoji} ${escHtml(f.en)}
+  <span class="rar rar-${escHtml(f.rarity)}" style="margin-left:2px">${f.rarity[0]}</span>
+  <span style="display:block;font-size:10px;opacity:0.65;line-height:1;margin-top:2px">${escHtml(f.pt)}</span>
+</span>`;
           }).join('')}
         </div>
       </div>` : ''}
