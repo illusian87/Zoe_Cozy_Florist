@@ -524,7 +524,7 @@ function buildPills() {
   const el   = document.getElementById('all-pills');
   if (!catalogo.length) { wrap.style.display = 'none'; return; }
   el.innerHTML = catalogo.map(f =>
-    `<span class="pill" onclick="setSearch('${escJs(f.pt)}')">${f.emoji} ${escHtml(f.pt)}</span>`
+    `<span class="pill" onclick="setSearch('${escJs(f.en)}')">${f.emoji} ${escHtml(f.en)}</span>`
   ).join('');
   wrap.style.display = '';
 }
