@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── Tokens ──────────────────────────────────────────────── */
 :root {
   --green-dark:  #2d5a3d;
   --green:       #4a7c59;
@@ -19,189 +18,87 @@
   --green-light: #d4e8d0;
   --green-faint: #f0f9f1;
   --cream:       #fdf6ee;
-  --cream-2:     #f5efe6;
   --text:        #2d3a2e;
   --text-muted:  #5e7263;
   --text-faint:  #9aab9e;
   --border:      rgba(74,124,89,0.18);
   --shadow-sm:   0 1px 4px rgba(45,90,61,0.08);
   --shadow-md:   0 4px 16px rgba(45,90,61,0.12);
-  --shadow-lg:   0 12px 32px rgba(45,90,61,0.16);
   --radius-sm:   6px;
   --radius-md:   10px;
   --radius-lg:   16px;
   --radius-full: 9999px;
   --font-display: 'Lora', Georgia, serif;
   --font-body:    'DM Sans', system-ui, sans-serif;
-  /* Raridade */
-  --rar-comum-bg:    #f1f8e9; --rar-comum-text:    #2e7d32;
-  --rar-incomum-bg:  #e3f2fd; --rar-incomum-text:  #1565c0;
-  --rar-raro-bg:     #fce4ec; --rar-raro-text:     #c62828;
-  --rar-lendario-bg: #fff8e1; --rar-lendario-text: #e65100;
+  --rar-N-bg:   #e8f5e9; --rar-N-text:   #2e7d32;
+  --rar-R-bg:   #e3f2fd; --rar-R-text:   #1565c0;
+  --rar-SR-bg:  #f3e5f5; --rar-SR-text:  #7b1fa2;
+  --rar-SSR-bg: #fff8e1; --rar-SSR-text: #e65100;
+  --rar-UR-bg:  #ffebee; --rar-UR-text:  #c62828;
 }
-
-/* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: none; text-size-adjust: none; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: var(--font-body);
-  background: var(--cream);
-  color: var(--text);
-  font-size: 15px;
-  min-height: 100dvh;
-  padding-bottom: 80px; /* nav height */
-  overscroll-behavior: none;
-}
+body { font-family: var(--font-body); background: var(--cream); color: var(--text); font-size: 15px; min-height: 100dvh; padding-bottom: 80px; overscroll-behavior: none; }
 img, svg { display: block; max-width: 100%; }
 button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
 input, select { font: inherit; color: inherit; }
 
-/* ── Config Banner ───────────────────────────────────────── */
-#config-banner {
-  background: linear-gradient(135deg, var(--green-dark), var(--green));
-  color: #fff;
-  padding: 20px;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 20px;
-}
+#config-banner { background: linear-gradient(135deg, var(--green-dark), var(--green)); color: #fff; padding: 20px; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 20px; }
 #config-banner h2 { font-family: var(--font-display); font-size: 22px; }
 #config-banner p { color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.6; max-width: 320px; }
-#config-banner input {
-  width: 100%; max-width: 340px; padding: 12px 16px;
-  border-radius: var(--radius-md); border: none; font-size: 14px;
-  background: rgba(255,255,255,0.15); color: #fff;
-}
+#config-banner input { width: 100%; max-width: 340px; padding: 12px 16px; border-radius: var(--radius-md); border: none; font-size: 14px; background: rgba(255,255,255,0.15); color: #fff; }
 #config-banner input::placeholder { color: rgba(255,255,255,0.5); }
 #config-banner input:focus { outline: 2px solid rgba(255,255,255,0.6); }
-.btn-white {
-  background: #fff; color: var(--green-dark);
-  padding: 12px 28px; border-radius: var(--radius-full);
-  font-weight: 600; font-size: 14px; width: 100%; max-width: 340px;
-  box-shadow: var(--shadow-md); transition: opacity .15s;
-}
+.btn-white { background: #fff; color: var(--green-dark); padding: 12px 28px; border-radius: var(--radius-full); font-weight: 600; font-size: 14px; width: 100%; max-width: 340px; box-shadow: var(--shadow-md); transition: opacity .15s; }
 .btn-white:hover { opacity: .9; }
 
-/* ── App (oculto até configurar) ─────────────────────────── */
 #app { display: none; }
 #app.ready { display: block; }
 
-/* ── Header ──────────────────────────────────────────────── */
-.app-header {
-  background: linear-gradient(180deg, var(--green-dark) 0%, var(--green) 100%);
-  padding: 20px 16px 16px;
-  position: relative; overflow: hidden;
-}
-.app-header::before {
-  content:'';
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at 15% 50%, rgba(255,255,255,0.06) 1px, transparent 1px),
-              radial-gradient(circle at 85% 25%, rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 36px 36px, 50px 50px;
-}
-.app-header h1 {
-  font-family: var(--font-display);
-  color: #fff; font-size: 20px; font-weight: 600;
-  letter-spacing: .5px; position: relative;
-}
+.app-header { background: linear-gradient(180deg, var(--green-dark) 0%, var(--green) 100%); padding: 20px 16px 16px; position: relative; overflow: hidden; }
+.app-header::before { content:''; position: absolute; inset: 0; background: radial-gradient(circle at 15% 50%, rgba(255,255,255,0.06) 1px, transparent 1px), radial-gradient(circle at 85% 25%, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 36px 36px, 50px 50px; }
+.app-header h1 { font-family: var(--font-display); color: #fff; font-size: 20px; font-weight: 600; letter-spacing: .5px; position: relative; }
 .app-header p { color: rgba(255,255,255,0.7); font-size: 12px; font-style: italic; margin-top: 2px; position: relative; }
 
-/* ── Bottom Nav ──────────────────────────────────────────── */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-  background: #fff; border-top: 1px solid var(--border);
-  display: flex; height: 72px;
-  box-shadow: 0 -4px 16px rgba(45,90,61,0.08);
-  padding-bottom: env(safe-area-inset-bottom, 0);
-}
-.nav-btn {
-  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 4px; font-size: 11px; color: var(--text-faint);
-  transition: color .15s; min-height: 44px;
-  -webkit-tap-highlight-color: transparent;
-}
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: #fff; border-top: 1px solid var(--border); display: flex; height: 72px; box-shadow: 0 -4px 16px rgba(45,90,61,0.08); padding-bottom: env(safe-area-inset-bottom, 0); }
+.nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: var(--text-faint); transition: color .15s; min-height: 44px; -webkit-tap-highlight-color: transparent; }
 .nav-btn.active { color: var(--green); }
 .nav-btn .nav-icon { font-size: 22px; line-height: 1; }
 .nav-btn.active .nav-label { font-weight: 600; color: var(--green); }
 
-/* ── Content Area ────────────────────────────────────────── */
 .content { padding: 14px 14px 0; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* ── Card ────────────────────────────────────────────────── */
-.card {
-  background: #fff; border-radius: var(--radius-lg); padding: 14px;
-  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
-  margin-bottom: 12px;
-}
+.card { background: #fff; border-radius: var(--radius-lg); padding: 14px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); margin-bottom: 12px; }
 
-/* ── Search ──────────────────────────────────────────────── */
 .search-wrap { position: relative; margin-bottom: 12px; }
-.search-wrap input {
-  width: 100%; padding: 11px 14px 11px 40px;
-  border-radius: var(--radius-full); border: 2px solid var(--green-light);
-  background: #fff; font-size: 15px;
-  box-shadow: var(--shadow-sm); outline: none; transition: border-color .2s;
-}
+.search-wrap input { width: 100%; padding: 11px 14px 11px 40px; border-radius: var(--radius-full); border: 2px solid var(--green-light); background: #fff; font-size: 15px; box-shadow: var(--shadow-sm); outline: none; transition: border-color .2s; }
 .search-wrap input:focus { border-color: var(--green); }
 .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 18px; pointer-events: none; }
 
-/* ── Pills ───────────────────────────────────────────────── */
 .pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.pill {
-  background: var(--green-faint); border: 1px solid var(--green-light);
-  border-radius: var(--radius-full); padding: 4px 12px;
-  font-size: 12px; color: var(--green-dark); cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background .15s;
-  user-select: none;
-}
+.pill { background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-full); padding: 4px 12px; font-size: 12px; color: var(--green-dark); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s; user-select: none; }
 .pill:active { background: var(--green-light); }
 .pill.has { background: var(--green); color: #fff; border-color: var(--green); }
 
-/* ── Result cards ────────────────────────────────────────── */
-.result-card {
-  background: #fff; border-radius: var(--radius-md); padding: 12px;
-  margin-bottom: 10px; border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 10px;
-}
-.avatar {
-  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--green-light), #a5d6a7);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px; font-weight: 700; color: var(--green-dark);
-}
+.result-card { background: #fff; border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 10px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, var(--green-light), #a5d6a7); display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; color: var(--green-dark); }
 
-/* ── Member cards (Galeria) ──────────────────────────────── */
 .member-card { background: #fff; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
-.member-card-header {
-  background: linear-gradient(90deg, var(--green-dark), var(--green-mid));
-  padding: 11px 14px; display: flex; align-items: center; gap: 10px;
-}
+.member-card-header { background: linear-gradient(90deg, var(--green-dark), var(--green-mid)); padding: 11px 14px; display: flex; align-items: center; gap: 10px; }
 .member-card-header span { color: #fff; font-weight: 600; flex: 1; font-size: 15px; }
 .badge { background: rgba(255,255,255,0.22); color: #fff; border-radius: var(--radius-full); padding: 2px 10px; font-size: 11px; }
 .member-card-body { padding: 12px 14px; }
 
-/* ── Raridade badge ──────────────────────────────────────── */
-.rar { font-size: 10px; border-radius: 4px; padding: 2px 6px; font-weight: 600; }
-.rar-Comum    { background: var(--rar-comum-bg);    color: var(--rar-comum-text); }
-.rar-Incomum  { background: var(--rar-incomum-bg);  color: var(--rar-incomum-text); }
-.rar-Raro     { background: var(--rar-raro-bg);     color: var(--rar-raro-text); }
-.rar-Lendário { background: var(--rar-lendario-bg); color: var(--rar-lendario-text); }
+.rar { font-size: 10px; border-radius: 4px; padding: 2px 6px; font-weight: 700; }
+.rar-N   { background: var(--rar-N-bg);   color: var(--rar-N-text); }
+.rar-R   { background: var(--rar-R-bg);   color: var(--rar-R-text); }
+.rar-SR  { background: var(--rar-SR-bg);  color: var(--rar-SR-text); }
+.rar-SSR { background: var(--rar-SSR-bg); color: var(--rar-SSR-text); }
+.rar-UR  { background: var(--rar-UR-bg);  color: var(--rar-UR-text); }
 
-/* ── Editar: accordion ───────────────────────────────────── */
-.acc-header {
-  padding: 12px 14px; display: flex; align-items: center; gap: 8px;
-  background: #fff; border-radius: var(--radius-lg);
-  border: 1px solid var(--border); cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background .15s;
-}
+.acc-header { padding: 12px 14px; display: flex; align-items: center; gap: 8px; background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s; }
 .acc-header:active { background: var(--green-faint); }
 .acc-header .acc-name { flex: 1; font-weight: 600; color: var(--green-dark); font-size: 15px; }
 .acc-header .acc-count { font-size: 12px; color: var(--text-faint); }
@@ -209,107 +106,64 @@ input, select { font: inherit; color: inherit; }
 .acc-chevron.open { transform: rotate(180deg); }
 .acc-body { padding: 12px 14px 14px; border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg); background: #fafffe; margin-top: -4px; }
 
-/* ── Buttons ─────────────────────────────────────────────── */
-.btn {
-  padding: 10px 18px; border-radius: var(--radius-full);
-  font-size: 14px; font-weight: 600;
-  transition: opacity .15s, transform .1s;
-  -webkit-tap-highlight-color: transparent;
-}
+.btn { padding: 10px 18px; border-radius: var(--radius-full); font-size: 14px; font-weight: 600; transition: opacity .15s, transform .1s; -webkit-tap-highlight-color: transparent; }
 .btn:active { transform: scale(.97); opacity: .9; }
 .btn-green { background: var(--green); color: #fff; }
 .btn-red   { background: #c62828; color: #fff; font-size: 12px; padding: 7px 14px; }
 .btn-sm    { padding: 7px 14px; font-size: 12px; }
 .btn-full  { width: 100%; text-align: center; }
 
-/* ── Form inputs ─────────────────────────────────────────── */
-.form-input {
-  width: 100%; padding: 11px 14px;
-  border-radius: var(--radius-md); border: 2px solid var(--green-light);
-  background: #fafff9; font-size: 15px; outline: none;
-  transition: border-color .2s;
-}
+.form-input { width: 100%; padding: 11px 14px; border-radius: var(--radius-md); border: 2px solid var(--green-light); background: #fafff9; font-size: 15px; outline: none; transition: border-color .2s; }
 .form-input:focus { border-color: var(--green); }
 select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235e9470' fill='none' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-/* ── Row ─────────────────────────────────────────────────── */
-.row { display: flex; gap: 8px; align-items: center; }
+.row   { display: flex; gap: 8px; align-items: center; }
 .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-/* ── Label ───────────────────────────────────────────────── */
 .label { font-size: 12px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; }
 
-/* ── Empty / No result ───────────────────────────────────── */
 .empty { color: var(--text-faint); font-style: italic; font-size: 13px; text-align: center; padding: 24px; }
 .no-result { background: #fff8f0; border-radius: var(--radius-md); padding: 20px; text-align: center; border: 1px dashed #f4b942; margin-top: 8px; }
 .no-result .emoji { font-size: 28px; }
 .no-result p { color: #9a6a00; font-size: 13px; margin-top: 8px; }
 
-/* ── Loading ─────────────────────────────────────────────── */
 .loading { text-align: center; padding: 40px 20px; color: var(--text-muted); font-style: italic; font-size: 14px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--green-light); border-top-color: var(--green); border-radius: 50%; animation: spin .8s linear infinite; margin-right: 8px; vertical-align: middle; }
 
-/* ── Toast ───────────────────────────────────────────────── */
-#toast {
-  position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%) translateY(8px);
-  background: var(--green-dark); color: #fff; padding: 10px 20px; border-radius: var(--radius-full);
-  font-size: 13px; opacity: 0; transition: opacity .3s, transform .3s; pointer-events: none;
-  white-space: nowrap; z-index: 200; box-shadow: var(--shadow-md);
-}
+#toast { position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%) translateY(8px); background: var(--green-dark); color: #fff; padding: 10px 20px; border-radius: var(--radius-full); font-size: 13px; opacity: 0; transition: opacity .3s, transform .3s; pointer-events: none; white-space: nowrap; z-index: 200; box-shadow: var(--shadow-md); }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ── Sync button ─────────────────────────────────────────── */
 .sync-row { display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 10px 14px 0; }
 .sync-btn { display: flex; align-items: center; gap: 5px; background: var(--green-faint); color: var(--green-dark); padding: 7px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; border: 1px solid var(--green-light); }
 .sync-btn:active { background: var(--green-light); }
 @keyframes spin-icon { to { transform: rotate(360deg); } }
 .spin { display: inline-block; animation: spin-icon .8s linear infinite; }
 
-/* ── Flores na galeria: grade compacta ───────────────────── */
 .flower-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-.f-chip {
-  display: flex; align-items: center; gap: 4px;
-  background: var(--green-faint); border: 1px solid var(--green-light);
-  border-radius: var(--radius-full); padding: 4px 10px;
-  font-size: 12px; color: var(--green-dark);
-}
+.f-chip { display: flex; align-items: center; gap: 4px; background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-full); padding: 4px 10px; font-size: 12px; color: var(--green-dark); }
 
-/* ── Seção de raridade ───────────────────────────────────── */
 .rar-section { margin-bottom: 10px; }
-.rar-section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; padding: 3px 8px; border-radius: var(--radius-sm); display: inline-block; }
+.rar-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; padding: 3px 8px; border-radius: var(--radius-sm); display: inline-block; }
 
-/* ── Editar: pills interativas ───────────────────────────── */
-.flower-pill-edit {
-  display: flex; align-items: center; gap: 4px;
-  background: var(--green-faint); border: 1px solid var(--green-light);
-  border-radius: var(--radius-full); padding: 5px 12px;
-  font-size: 12px; color: var(--green-dark); cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background .15s, color .15s, border-color .15s;
-  user-select: none;
-}
+.flower-pill-edit { display: flex; align-items: center; gap: 4px; background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-full); padding: 5px 12px; font-size: 12px; color: var(--green-dark); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s, color .15s, border-color .15s; user-select: none; }
 .flower-pill-edit.has { background: var(--green); color: #fff; border-color: var(--green); }
 .flower-pill-edit:active { opacity: .8; }
+
+.rar-divider { width: 100%; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 8px; border-radius: var(--radius-sm); margin: 8px 0 4px; display: inline-block; }
 </style>
 </head>
 <body>
 
-<!-- ── Config: inserir URL do Web App ──────────────────────── -->
 <div id="config-banner">
-  <div style="font-size: 48px">🌸</div>
+  <div style="font-size:48px">🌸</div>
   <h2>Zoe Guild · Flores</h2>
   <p>Cole a URL do Web App do Google Apps Script para conectar à planilha.</p>
   <input type="url" id="api-url-input" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off" autocorrect="off" spellcheck="false">
   <button class="btn-white" onclick="saveConfig()">Conectar ✨</button>
-  <p style="font-size:11px;color:rgba(255,255,255,0.5);max-width:300px">
-    A URL fica salva neste dispositivo. Para mudar, acesse ⚙️ Configurações no app.
-  </p>
+  <p style="font-size:11px;color:rgba(255,255,255,0.5);max-width:300px">A URL fica salva neste dispositivo. Para mudar, acesse ⚙️ Config no app.</p>
 </div>
 
-<!-- ── App principal ───────────────────────────────────────── -->
 <div id="app">
-
   <header class="app-header">
     <h1>🌸 Zoe Guild</h1>
     <p>Galeria da Guilda · Cozy Florist</p>
@@ -351,7 +205,7 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
         </div>
       </div>
       <div class="card">
-        <div class="label">🌷 Adicionar flor ao catálogo</div>
+        <div class="label">🌷 Adicionar flor nova ao catálogo</div>
         <div class="row-2" style="margin-bottom:8px">
           <input type="text" id="new-fl-en" class="form-input" placeholder="Nome EN">
           <input type="text" id="new-fl-pt" class="form-input" placeholder="Nome PT">
@@ -359,10 +213,11 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
         <div class="row">
           <input type="text" id="new-fl-emoji" class="form-input" placeholder="🌸" style="width:64px;flex-shrink:0;text-align:center">
           <select id="new-fl-rar" class="form-input" style="flex:1">
-            <option value="Comum">Comum</option>
-            <option value="Incomum">Incomum</option>
-            <option value="Raro">Raro</option>
-            <option value="Lendário">Lendário</option>
+            <option value="N">🌿 N — Normal</option>
+            <option value="R">💙 R — Rare</option>
+            <option value="SR">💜 SR — Super Rare</option>
+            <option value="SSR">✨ SSR</option>
+            <option value="UR">❤️ UR — Ultra Rare</option>
           </select>
           <button class="btn btn-green btn-sm" onclick="addFlorCustom()">Add</button>
         </div>
@@ -371,109 +226,80 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
       <div id="editar-content" class="loading"><span class="spinner"></span>Carregando…</div>
     </div>
 
-    <!-- CONFIGURAÇÕES -->
+    <!-- CONFIG -->
     <div id="tab-config" class="tab-panel">
       <div class="card">
         <div class="label">🔗 URL do Web App (Apps Script)</div>
         <textarea id="api-url-edit" class="form-input" rows="4" style="resize:none;border-radius:var(--radius-md);font-size:13px"></textarea>
         <button class="btn btn-green btn-full" style="margin-top:10px" onclick="updateConfig()">Salvar URL</button>
       </div>
-      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.7">
-        <strong style="color:var(--green-dark)">Como configurar:</strong><br>
-        1. No Google Sheets, abra <em>Extensões → Apps Script</em><br>
-        2. No <code>Code.gs</code>, adicione a função <code>doGet()</code> abaixo<br>
-        3. Implante como <em>Web App</em> (Execute as: Me, Anyone)<br>
-        4. Cole a URL aqui
-      </div>
-      <div class="card" style="background:#1e1e1e;border:none">
-        <pre style="font-size:11px;color:#d4d4d4;white-space:pre-wrap;line-height:1.6">function doGet(e) {
-  const action = e.parameter.action;
-  let result;
-  if (action === 'getCatalogo')       result = getCatalogo();
-  else if (action === 'getColecoes')  result = getColecoes();
-  else if (action === 'getMembros')   result = getMembros();
-  else if (action === 'addMembro')    result = addMembro(e.parameter.nome);
-  else if (action === 'removeMembro') result = removeMembro(e.parameter.nome);
-  else if (action === 'toggleFlor')   result = toggleFlor(e.parameter.membro, e.parameter.florEN, e.parameter.checked === 'true');
-  else if (action === 'addFlorCustom') result = addFlorCustom(e.parameter.en, e.parameter.pt, e.parameter.emoji, e.parameter.rarity);
-  else result = { error: 'Ação desconhecida' };
-  return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
-}</pre>
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
+        <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🌸 Legenda de Raridades</strong>
+        <span class="rar rar-N">N</span> Normal &nbsp;&nbsp;
+        <span class="rar rar-R">R</span> Rare (Azul) &nbsp;&nbsp;
+        <span class="rar rar-SR">SR</span> Super Rare (Roxo)<br><br>
+        <span class="rar rar-SSR">SSR</span> (Dourado) &nbsp;&nbsp;
+        <span class="rar rar-UR">UR</span> Ultra Rare (Vermelho)
       </div>
     </div>
 
-  </div><!-- /content -->
+  </div>
 
-  <!-- Bottom Nav -->
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="switchTab('buscar',this)">
-      <span class="nav-icon">🔍</span>
-      <span class="nav-label">Buscar</span>
+      <span class="nav-icon">🔍</span><span class="nav-label">Buscar</span>
     </button>
     <button class="nav-btn" onclick="switchTab('galeria',this)">
-      <span class="nav-icon">🌺</span>
-      <span class="nav-label">Galeria</span>
+      <span class="nav-icon">🌺</span><span class="nav-label">Galeria</span>
     </button>
     <button class="nav-btn" onclick="switchTab('editar',this)">
-      <span class="nav-icon">✏️</span>
-      <span class="nav-label">Editar</span>
+      <span class="nav-icon">✏️</span><span class="nav-label">Editar</span>
     </button>
     <button class="nav-btn" onclick="switchTab('config',this)">
-      <span class="nav-icon">⚙️</span>
-      <span class="nav-label">Config</span>
+      <span class="nav-icon">⚙️</span><span class="nav-label">Config</span>
     </button>
   </nav>
-
-</div><!-- /app -->
+</div>
 
 <div id="toast"></div>
 
 <script>
-// ── Estado ─────────────────────────────────────────────────
-let API_URL = 'https://script.google.com/macros/s/AKfycbxCUDrazmqL0qj1Y6OOzfzgeoICVhjMSzyBz1DYyvjgzBkV65Mnly7IR81kAiNLR75y0g/exec';
+let API_URL  =  + NEW_URL + ;
 let catalogo = [];
 let colecoes = {};
 let membros  = [];
 let editOpen = {};
+let currentTab = 'buscar';
 
-const RARITY_ORDER = { 'Comum':1,'Incomum':2,'Raro':3,'Lendário':4 };
+const RARITY_ORDER = { 'N':1,'R':2,'SR':3,'SSR':4,'UR':5 };
+const RAR_LABEL = { 'N':'Normal','R':'Rare','SR':'Super Rare','SSR':'SSR','UR':'Ultra Rare' };
+const RAR_BG    = { 'N':'var(--rar-N-bg)','R':'var(--rar-R-bg)','SR':'var(--rar-SR-bg)','SSR':'var(--rar-SSR-bg)','UR':'var(--rar-UR-bg)' };
+const RAR_TEXT  = { 'N':'var(--rar-N-text)','R':'var(--rar-R-text)','SR':'var(--rar-SR-text)','SSR':'var(--rar-SSR-text)','UR':'var(--rar-UR-text)' };
 
-// ── Init ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('zoe_guild_url') || API_URL;
-  if (saved) {
-    API_URL = saved;
-    showApp();
-    loadAll();
-  }
-  document.getElementById('api-url-edit').value = saved || '';
+  API_URL = saved;
+  document.getElementById('api-url-edit').value = saved;
+  showApp();
+  loadAll();
 });
 
 function saveConfig() {
   const url = document.getElementById('api-url-input').value.trim();
-  if (!url.startsWith('https://script.google.com')) {
-    alert('URL inválida. Deve começar com https://script.google.com'); return;
-  }
+  if (!url.startsWith('https://script.google.com')) { alert('URL inválida.'); return; }
   localStorage.setItem('zoe_guild_url', url);
-  API_URL = url;
-  showApp();
-  loadAll();
+  API_URL = url; showApp(); loadAll();
 }
-
 function updateConfig() {
   const url = document.getElementById('api-url-edit').value.trim();
   localStorage.setItem('zoe_guild_url', url);
-  API_URL = url;
-  toast('✅ URL salva!');
-  loadAll();
+  API_URL = url; toast('✅ URL salva!'); loadAll();
 }
-
 function showApp() {
   document.getElementById('config-banner').style.display = 'none';
   document.getElementById('app').classList.add('ready');
 }
 
-// ── API ────────────────────────────────────────────────────
 async function api(params) {
   const url = new URL(API_URL);
   Object.entries(params).forEach(([k,v]) => url.searchParams.set(k, v));
@@ -481,26 +307,18 @@ async function api(params) {
   return res.json();
 }
 
-// ── Load ───────────────────────────────────────────────────
 async function loadAll() {
-  const btn = document.getElementById('sync-btn');
   const icon = document.getElementById('sync-icon');
-  icon.className = 'spin'; icon.textContent = '↻';
+  icon.className = 'spin';
   try {
-    catalogo = await api({ action: 'getCatalogo' });
-    colecoes = await api({ action: 'getColecoes' });
+    catalogo = await api({ action:'getCatalogo' });
+    colecoes = await api({ action:'getColecoes' });
     membros  = Object.keys(colecoes);
-    renderCurrentTab();
-    buildPills();
-  } catch(e) {
-    toast('❌ Erro ao conectar. Verifique a URL em ⚙️');
-  } finally {
-    icon.className = ''; icon.textContent = '↻';
-  }
+    renderCurrentTab(); buildPills();
+  } catch(e) { toast('❌ Erro ao conectar. Verifique a URL em ⚙️'); }
+  finally { icon.className = ''; }
 }
 
-// ── Tabs ───────────────────────────────────────────────────
-let currentTab = 'buscar';
 function switchTab(name, btn) {
   currentTab = name;
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -511,85 +329,74 @@ function switchTab(name, btn) {
   if (name === 'editar')  renderEditar();
   if (name === 'buscar')  buildPills();
 }
-
 function renderCurrentTab() {
   if (currentTab === 'galeria') renderGaleria();
   if (currentTab === 'editar')  renderEditar();
   if (currentTab === 'buscar')  buildPills();
 }
 
-// ── Buscar ─────────────────────────────────────────────────
 function buildPills() {
   const wrap = document.getElementById('flower-pills-wrap');
   const el   = document.getElementById('all-pills');
   if (!catalogo.length) { wrap.style.display = 'none'; return; }
   el.innerHTML = catalogo.map(f =>
-    `<span class="pill" onclick="setSearch('${escJs(f.en)}')">${f.emoji} ${escHtml(f.en)}</span>`
+    `<span class="pill" onclick="setSearch('${escJs(f.pt)}')">${f.emoji} <span style="font-size:11px">${escHtml(f.pt)}</span></span>`
   ).join('');
   wrap.style.display = '';
 }
-
 function setSearch(term) {
   document.getElementById('search-input').value = term;
   doSearch(term);
 }
-
 function doSearch(term) {
   const res  = document.getElementById('search-results');
   const wrap = document.getElementById('flower-pills-wrap');
   term = term.trim().toLowerCase();
   if (!term) { res.innerHTML = ''; wrap.style.display = ''; return; }
   wrap.style.display = 'none';
-
   const found = {};
   for (const [m, flores] of Object.entries(colecoes)) {
-    const match = flores.filter(f => f.pt.toLowerCase().includes(term) || f.en.toLowerCase().includes(term));
+    const match = flores.filter(f =>
+      (f.pt||'').toLowerCase().includes(term) || (f.en||'').toLowerCase().includes(term)
+    );
     if (match.length) found[m] = match;
   }
-
   if (!Object.keys(found).length) {
-    res.innerHTML = `<div class="no-result"><div class="emoji">🌿</div><p>Nenhuma jogadora tem "<strong>${escHtml(term)}</strong>".<br><span style="font-size:11px">Tente outro nome ou cadastre na aba Editar.</span></p></div>`;
+    res.innerHTML = `<div class="no-result"><div class="emoji">🌿</div><p>Nenhuma jogadora tem "<strong>${escHtml(term)}</strong>".</p></div>`;
     return;
   }
-
-  res.innerHTML = `<p style="font-size:12px;color:var(--green);font-style:italic;margin-bottom:8px">✨ ${Object.keys(found).length} jogadora(s) encontrada(s):</p>` +
+  res.innerHTML = `<p style="font-size:12px;color:var(--green);font-style:italic;margin-bottom:8px">✨ ${Object.keys(found).length} jogadora(s):</p>` +
     Object.entries(found).map(([m, flores]) => `
       <div class="result-card">
         <div class="avatar">${escHtml(m[0].toUpperCase())}</div>
         <div style="flex:1;min-width:0">
           <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
           <div class="pills" style="margin-top:6px">
-            ${flores.map(f => `<span class="pill has" style="cursor:default">${f.emoji} ${escHtml(f.pt)}</span>`).join('')}
+            ${flores.map(f => `<span class="pill has" style="cursor:default">${f.emoji} ${escHtml(f.pt)}<span style="display:block;font-size:10px;opacity:.7;line-height:1;margin-top:1px">${escHtml(f.en)}</span></span>`).join('')}
           </div>
         </div>
       </div>`).join('');
 }
 
-// ── Galeria ────────────────────────────────────────────────
 function renderGaleria() {
   const el = document.getElementById('galeria-content');
-  if (!membros.length) { el.innerHTML = '<p class="empty">Nenhuma jogadora cadastrada. Use a aba ✏️ Editar.</p>'; return; }
-
+  if (!membros.length) { el.innerHTML = '<p class="empty">Nenhuma jogadora cadastrada.</p>'; return; }
   el.innerHTML = membros.map(m => {
     const flores = (colecoes[m] || []).slice().sort((a,b) => {
-      const ra = RARITY_ORDER[a.rarity] || 5, rb = RARITY_ORDER[b.rarity] || 5;
-      return ra !== rb ? ra - rb : a.pt.localeCompare(b.pt,'pt-BR');
+      const ra = RARITY_ORDER[a.rarity]||5, rb = RARITY_ORDER[b.rarity]||5;
+      return ra !== rb ? ra - rb : (a.pt||a.en).localeCompare(b.pt||b.en,'pt-BR');
     });
-
     const byRar = {};
-    flores.forEach(f => { const r = f.rarity || 'Comum'; if (!byRar[r]) byRar[r] = []; byRar[r].push(f); });
-
-    const rarColors = { 'Comum':'var(--rar-comum-bg)','Incomum':'var(--rar-incomum-bg)','Raro':'var(--rar-raro-bg)','Lendário':'var(--rar-lendario-bg)' };
-    const rarText   = { 'Comum':'var(--rar-comum-text)','Incomum':'var(--rar-incomum-text)','Raro':'var(--rar-raro-text)','Lendário':'var(--rar-lendario-text)' };
-
-    const sections = Object.entries(byRar).map(([r, fs]) => `
-      <div class="rar-section">
-        <div class="rar-section-title" style="background:${rarColors[r]};color:${rarText[r]}">${r}</div>
-        <div class="flower-grid">
-          ${fs.map(f => `<span class="f-chip">${f.emoji} ${escHtml(f.pt)}</span>`).join('')}
-        </div>
-      </div>`).join('');
-
+    flores.forEach(f => { const r=f.rarity||'N'; if(!byRar[r]) byRar[r]=[]; byRar[r].push(f); });
+    const sections = Object.entries(byRar)
+      .sort((a,b) => (RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5))
+      .map(([r,fs]) => `
+        <div class="rar-section">
+          <div class="rar-section-title" style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}">${r} — ${RAR_LABEL[r]||r}</div>
+          <div class="flower-grid">
+            ${fs.map(f => `<span class="f-chip">${f.emoji} ${escHtml(f.pt)}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(f.en)}</span></span>`).join('')}
+          </div>
+        </div>`).join('');
     return `<div class="member-card">
       <div class="member-card-header">
         <div class="avatar" style="width:32px;height:32px;font-size:14px">${escHtml(m[0].toUpperCase())}</div>
@@ -597,22 +404,37 @@ function renderGaleria() {
         <span class="badge">${flores.length} flor${flores.length!==1?'es':''}</span>
       </div>
       <div class="member-card-body">
-        ${flores.length ? sections : '<span class="empty" style="padding:8px 0">Sem flores cadastradas.</span>'}
+        ${flores.length ? sections : '<span class="empty" style="padding:8px 0">Sem flores.</span>'}
       </div>
     </div>`;
   }).join('');
 }
 
-// ── Editar ─────────────────────────────────────────────────
 function renderEditar() {
   const el = document.getElementById('editar-content');
   if (!membros.length) { el.innerHTML = '<p class="empty">Adicione uma jogadora acima.</p>'; return; }
-
   el.innerHTML = membros.map(m => {
     const flores = colecoes[m] || [];
     const set = new Set(flores.map(f => f.en));
     const open = editOpen[m];
-
+    const byRar = {};
+    catalogo.forEach(f => { if(!byRar[f.rarity]) byRar[f.rarity]=[]; byRar[f.rarity].push(f); });
+    const sections = Object.entries(byRar)
+      .sort((a,b) => (RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5))
+      .map(([r,fs]) => `
+        <div style="margin-bottom:8px">
+          <div class="rar-divider" style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}">${r} — ${RAR_LABEL[r]||r}</div>
+          <div class="pills">
+            ${fs.map(f => {
+              const has = set.has(f.en);
+              return `<span class="flower-pill-edit ${has?'has':''}"
+                onclick="toggleFlor('${escJs(m)}','${escJs(f.en)}',${!has},'${escJs(f.pt)}','${escJs(f.emoji)}','${escJs(f.rarity)}')">
+                ${f.emoji} ${escHtml(f.pt)}
+                <span style="display:block;font-size:10px;opacity:.65;line-height:1;margin-top:1px">${escHtml(f.en)}</span>
+              </span>`;
+            }).join('')}
+          </div>
+        </div>`).join('');
     return `<div style="margin-bottom:10px">
       <div class="acc-header" onclick="toggleEdit('${escJs(m)}')">
         <div class="avatar" style="width:32px;height:32px;font-size:14px">${escHtml(m[0].toUpperCase())}</div>
@@ -621,27 +443,12 @@ function renderEditar() {
         <button class="btn btn-red btn-sm" style="margin-left:4px" onclick="event.stopPropagation();removeMembro('${escJs(m)}')">Remover</button>
         <span class="acc-chevron ${open?'open':''}">⌄</span>
       </div>
-      ${open ? `<div class="acc-body">
-        <div class="label" style="margin-bottom:8px">Toque para marcar/desmarcar:</div>
-        <div class="pills">
-          ${catalogo.map(f => {
-            const has = set.has(f.en);
-           return `<span class="flower-pill-edit ${has?'has':''}"
-           onclick="toggleFlor('${escJs(m)}','${escJs(f.en)}',${!has},'${escJs(f.pt)}','${escJs(f.emoji)}','${escJs(f.rarity)}')">
-  ${f.emoji} ${escHtml(f.en)}
-  <span class="rar rar-${escHtml(f.rarity)}" style="margin-left:2px">${f.rarity[0]}</span>
-  <span style="display:block;font-size:10px;opacity:0.65;line-height:1;margin-top:2px">${escHtml(f.pt)}</span>
-</span>`;
-          }).join('')}
-        </div>
-      </div>` : ''}
+      ${open ? `<div class="acc-body"><div class="label" style="margin-bottom:8px">Toque para marcar/desmarcar:</div>${sections}</div>` : ''}
     </div>`;
   }).join('');
 }
-
 function toggleEdit(m) { editOpen[m] = !editOpen[m]; renderEditar(); }
 
-// ── Ações ──────────────────────────────────────────────────
 async function addMembro() {
   const nome = document.getElementById('new-member').value.trim();
   if (!nome) return;
@@ -651,42 +458,37 @@ async function addMembro() {
     else toast('⚠️ '+r.msg);
   } catch(e) { toast('❌ Erro de conexão'); }
 }
-
 async function removeMembro(nome) {
-  if (!confirm('Remover '+nome+' da guilda?')) return;
+  if (!confirm('Remover '+nome+'?')) return;
   try {
     const r = await api({ action:'removeMembro', nome });
     if (r.ok) { toast('Removida: '+nome); loadAll(); }
     else toast('Erro: '+r.msg);
   } catch(e) { toast('❌ Erro de conexão'); }
 }
-
 async function toggleFlor(membro, florEN, checked, florPT, emoji, rarity) {
   if (!colecoes[membro]) colecoes[membro] = [];
-  if (checked) { colecoes[membro].push({ en:florEN, pt:florPT, emoji, rarity }); }
-  else { colecoes[membro] = colecoes[membro].filter(f => f.en !== florEN); }
+  if (checked) colecoes[membro].push({ en:florEN, pt:florPT, emoji, rarity });
+  else colecoes[membro] = colecoes[membro].filter(f => f.en !== florEN);
   renderEditar();
   try { await api({ action:'toggleFlor', membro, florEN, checked:String(checked) }); }
   catch(e) { toast('❌ Erro ao salvar'); }
 }
-
 async function addFlorCustom() {
   const en  = document.getElementById('new-fl-en').value.trim();
   const pt  = document.getElementById('new-fl-pt').value.trim();
-  const emo = document.getElementById('new-fl-emoji').value.trim() || '🌸';
+  const emo = document.getElementById('new-fl-emoji').value.trim() || '🌿';
   const rar = document.getElementById('new-fl-rar').value;
   if (!en||!pt) { toast('⚠️ Preencha EN e PT'); return; }
   try {
     const r = await api({ action:'addFlorCustom', en, pt, emoji:emo, rarity:rar });
     if (r.ok) {
       ['new-fl-en','new-fl-pt','new-fl-emoji'].forEach(id => document.getElementById(id).value='');
-      toast('🌷 Flor adicionada: '+pt);
-      loadAll();
+      toast('🌷 Adicionada: '+pt); loadAll();
     } else toast('Erro: '+r.msg);
   } catch(e) { toast('❌ Erro de conexão'); }
 }
 
-// ── Toast ──────────────────────────────────────────────────
 let toastTimer;
 function toast(msg) {
   const t = document.getElementById('toast');
@@ -694,10 +496,8 @@ function toast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
-
-// ── Utils ──────────────────────────────────────────────────
-function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escJs(s)   { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escJs(s)   { return String(s||'').replace(/\/g,'\\').replace(/'/g,"\'"); }
 </script>
 </body>
 </html>
