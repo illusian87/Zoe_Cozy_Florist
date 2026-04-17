@@ -46,6 +46,256 @@ img,svg{display:block;max-width:100%} button{cursor:pointer;background:none;bord
 .result-card{background:#fff;border-radius:var(--radius-md);padding:12px;margin-bottom:10px;border:1px solid var(--border);box-shadow:var(--shadow-sm);display:flex;align-items:flex-start;gap:10px}
 .avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .member-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.member-card-header{padding:12px 14px;display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--green-dark),var(--green-mid));cursor:pointer}.member-card-header span{color:#fff}.member-card-header .name{font-weight:700;flex:1;font-size:15px;text-align:left}.badge{background:rgba(255,255,255,.22);color:#fff;border-radius:var(--radius-full);padding:2px 10px;font-size:11px}.member-card-body{padding:12px 14px;background:#fff}
+.acc-header{padding:12px 14px;display:flex;align-items:center;gap:8px;background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s}.acc-header:active{background:var(--green-faint)}.acc-header .acc-name{flex:1;font-weight:700;color:var(--green-dark);font-size:15px;text-align:left}.acc-header .acc-count{font-size:12px;color:var(--text-faint)}.acc-chevron{font-size:18px;color:var(--text-faint);transition:transform .2s}.acc-chevron.open{transform:rotate(180deg)}.acc-body{padding:12px 14px 14px;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);background:#fafffe;margin-top:-4px}
+.btn{padding:10px 18px;border-radius:var(--radius-full);font-size:14px;font-weight:700;transition:opacity .15s,transform .1s;border:1px solid transparent}.btn:active{transform:scale(.97);opacity:.92}.btn-green{background:var(--green);color:#fff}.btn-soft{background:var(--green-faint);color:var(--green-dark);border-color:var(--green-light)}.btn-red-soft{background:#fff5f5;color:#9f1d1d;border-color:#f3c3c3}.btn-sm{padding:7px 14px;font-size:12px}.btn-full{width:100%;text-align:center}
+.form-input{width:100%;padding:11px 14px;border-radius:var(--radius-md);border:2px solid var(--green-light);background:#fafff9;font-size:15px;outline:none;transition:border-color .2s}.form-input:focus{border-color:var(--green)}
+select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235e9470' fill='none' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.row{display:flex;gap:8px;align-items:center}.row-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.label{font-size:12px;color:var(--text-muted);font-style:italic;margin-bottom:8px}
+.empty{color:var(--text-faint);font-style:italic;font-size:13px;text-align:center;padding:24px}.no-result{background:#fff8f0;border-radius:var(--radius-md);padding:20px;text-align:center;border:1px dashed #f4b942;margin-top:8px}.no-result .emoji{font-size:28px}.no-result p{color:#9a6a00;font-size:13px;margin-top:8px}
+.loading{text-align:center;padding:40px 20px;color:var(--text-muted);font-style:italic;font-size:14px}.spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--green-light);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--green-dark);color:#fff;padding:10px 20px;border-radius:var(--radius-full);font-size:13px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;z-index:200;box-shadow:var(--shadow-md)}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.sync-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px 0}.sync-btn{display:flex;align-items:center;gap:5px;background:var(--green-faint);color:var(--green-dark);padding:7px 14px;border-radius:var(--radius-full);font-size:12px;font-weight:700;border:1px solid var(--green-light)}.sync-btn:active{background:var(--green-light)}.spin{display:inline-block;animation:spin .8s linear infinite}
+.flower-grid{display:flex;flex-wrap:wrap;gap:6px}.f-chip{display:flex;align-items:center;gap:4px;border-radius:var(--radius-full);padding:4px 10px;font-size:12px;border:1px solid var(--green-light)}
+.rar-section{margin-bottom:10px}.rar-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;padding:3px 8px;border-radius:var(--radius-sm);display:inline-block}
+.flower-pill-edit{display:flex;align-items:center;gap:4px;border:1px solid var(--green-light);border-radius:var(--radius-full);padding:5px 12px;font-size:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s,border-color .15s;user-select:none}.flower-pill-edit:active{opacity:.8}
+.rar-divider{width:100%;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 8px;border-radius:var(--radius-sm);margin:8px 0 4px;display:inline-block}
+.rules-box{background:#1e1e2e;color:#cdd6f4;border-radius:var(--radius-md);padding:14px;font-family:monospace;font-size:12px;line-height:1.7;overflow-x:auto;margin-top:8px}
+.collapsible-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:10px 12px;background:var(--green-faint);border:1px solid var(--green-light);border-radius:var(--radius-md);font-weight:700;color:var(--green-dark);margin-bottom:10px}
+.suggest-box{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-md);padding:8px;display:none;margin-top:-6px;margin-bottom:10px}.suggest-box.show{display:block}.suggest-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-radius:10px}.suggest-item:active,.suggest-item:hover{background:var(--green-faint)}
+.progress-wrap{margin-top:10px}.progress-meta{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--text-muted);margin-bottom:4px}.progress{height:8px;background:#edf4ee;border-radius:999px;overflow:hidden}.progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green-mid));border-radius:999px}
+.stat-grid{display:grid;grid-template-columns:1fr;gap:8px}.stat-card{background:#fafffe;border:1px solid var(--border);border-radius:12px;padding:12px}.stat-card strong{display:block;color:var(--green-dark);font-size:13px}.stat-card span{display:block;color:var(--text-muted);font-size:12px;margin-top:4px}
+.mission-card{background:#fff;border-radius:var(--radius-md);padding:12px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:10px}.mission-card.current{border-color:#e4b95f;background:#fffaf0}.mission-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.textarea{min-height:110px;resize:vertical}
+.hidden{display:none!important}
+@media (min-width:760px){.stat-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div id="loading-screen"><div class="logo">🌸</div><h2>Zoe Guild · Flores</h2><div class="spinner-ring"></div><p>Conectando ao banco de dados…</p></div>
+<div id="app" style="display:none">
+  <header class="app-header"><h1>🌸 Zoe Guild</h1><p>Galeria da Guilda · Cozy Florist</p></header>
+  <div class="sync-row">
+    <div class="toggle-lang" aria-label="Alternar idioma de exibição">
+      <button id="lang-pt" class="active" onclick="setUiLang('pt')">🇧🇷 PT</button>
+      <button id="lang-en" onclick="setUiLang('en')">🇺🇸 EN</button>
+    </div>
+    <button class="sync-btn" onclick="loadAll()" id="sync-btn"><span id="sync-icon">↻</span> Atualizar</button>
+  </div>
+  <div class="content">
+    <div id="tab-buscar" class="tab-panel active">
+      <div class="search-wrap"><span class="search-icon">🌸</span><input type="text" id="search-input" placeholder="Buscar flor…" oninput="handleSearchInput(this.value)" autocomplete="off"></div>
+      <div id="search-suggestions" class="suggest-box"></div>
+      <div id="search-rarity-filters" class="chip-row" style="margin-bottom:12px;display:none"></div>
+      <div id="search-results"></div>
+      <div id="flower-pills-wrap" class="card" style="display:none">
+        <button class="collapsible-toggle" onclick="toggleCatalogCollapse()"><span>Ver catálogo completo</span><span id="catalog-chevron">⌄</span></button>
+        <div id="catalog-collapse" class="hidden">
+          <div class="label">Catálogo completo:</div>
+          <div class="pills" id="all-pills"></div>
+        </div>
+      </div>
+    </div>
+    <div id="tab-galeria" class="tab-panel">
+      <div class="card">
+        <div class="search-wrap" style="margin-bottom:10px"><span class="search-icon">👤</span><input type="text" id="gallery-search" placeholder="Buscar pessoa…" oninput="gallerySearch=this.value; renderGaleria()"></div>
+        <div class="section-between">
+          <div class="chip-row">
+            <button class="chip" id="sort-count" onclick="setGallerySort('count')">Mais flores</button>
+            <button class="chip" id="sort-alpha" onclick="setGallerySort('alpha')">A→Z</button>
+          </div>
+          <button class="btn btn-soft btn-sm" onclick="toggleAllGallery(false)">Minimizar tudo</button>
+        </div>
+      </div>
+      <div id="galeria-stats"></div>
+      <div id="galeria-content" class="loading"><span class="spinner"></span>Carregando…</div>
+    </div>
+    <div id="tab-editar" class="tab-panel">
+      <div class="card">
+        <div class="label">➕ Adicionar pessoa</div>
+        <div class="row"><input type="text" id="new-member" class="form-input" placeholder="Nome da pessoa…" style="flex:1"><button class="btn btn-green btn-sm" onclick="addMembro()">Adicionar</button></div>
+      </div>
+      <div class="card">
+        <div class="label">🌷 Adicionar flor nova ao catálogo</div>
+        <div class="row-2" style="margin-bottom:8px"><input type="text" id="new-fl-en" class="form-input" placeholder="Nome EN"><input type="text" id="new-fl-pt" class="form-input" placeholder="Nome PT"></div>
+        <div class="row"><input type="text" id="new-fl-emoji" class="form-input" placeholder="🌸" style="width:64px;flex-shrink:0;text-align:center"><select id="new-fl-rar" class="form-input" style="flex:1"><option value="N">🌿 N — Normal</option><option value="R">💙 R — Rare</option><option value="SR">💜 SR — Super Rare</option><option value="SSR">✨ SSR</option><option value="UR">❤️ UR — Ultra Rare</option></select><button class="btn btn-green btn-sm" onclick="addFlorCustom()">Add</button></div>
+      </div>
+      <div class="label">Gerenciar flores por pessoa:</div>
+      <div id="editar-content" class="loading"><span class="spinner"></span>Carregando…</div>
+    </div>
+    <div id="tab-missoes" class="tab-panel">
+      <div class="card">
+        <div class="section-between" style="margin-bottom:10px"><div><strong style="color:var(--green-dark)">📋 Missões da guilda</strong><div style="font-size:12px;color:var(--text-muted);margin-top:4px">Recados independentes das flores.</div></div><button class="btn btn-green btn-sm" onclick="openMissionForm()">Novo recado</button></div>
+        <div id="mission-form" class="hidden">
+          <div class="row-2" style="margin-bottom:8px"><input id="mission-title" class="form-input" placeholder="Título"><input id="mission-date" type="date" class="form-input"></div>
+          <input id="mission-author" class="form-input" placeholder="Autor" style="margin-bottom:8px">
+          <textarea id="mission-text" class="form-input textarea" placeholder="Texto do recado…"></textarea>
+          <div class="mission-actions"><button class="btn btn-soft btn-sm" onclick="closeMissionForm()">Cancelar</button><button class="btn btn-green btn-sm" onclick="saveMission()">Salvar recado</button></div>
+        </div>
+      </div>
+      <div id="missions-content" class="loading"><span class="spinner"></span>Carregando…</div>
+    </div>
+    <div id="tab-config" class="tab-panel">
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8"><strong style="color:var(--green-dark);display:block;margin-bottom:6px">🔥 Firebase Firestore</strong>Dados salvos em tempo real na nuvem. Qualquer jogadora pode editar de qualquer dispositivo!<br><br><strong style="color:var(--green-dark)">Projeto:</strong> zoe-cozy-florist<br><strong style="color:var(--green-dark)">Coleções:</strong> <code>catalogo</code> · <code>membros</code> · <code>colecoes</code> · <code>recados</code></div>
+      <div class="card"><strong style="color:var(--green-dark);font-size:13px">⚠️ Regras do Firestore</strong><p style="font-size:12px;color:var(--text-muted);margin-top:6px;margin-bottom:8px">Se aparecer erro de permissão, configure as regras no console Firebase com:</p><div class="rules-box">rules_version = '2';<br>service cloud.firestore {<br>&nbsp;&nbsp;match /databases/{db}/documents {<br>&nbsp;&nbsp;&nbsp;&nbsp;match /{doc=**} {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if request.auth != null;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div></div>
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8"><strong style="color:var(--green-dark);display:block;margin-bottom:6px">🌸 Legenda de Raridades</strong><span class="chip chip-rar" style="background:var(--rar-N-bg);color:var(--rar-N-text);border-color:var(--rar-N-text)">N</span> <span class="chip chip-rar" style="background:var(--rar-R-bg);color:var(--rar-R-text);border-color:var(--rar-R-text)">R</span> <span class="chip chip-rar" style="background:var(--rar-SR-bg);color:var(--rar-SR-text);border-color:var(--rar-SR-text)">SR</span> <span class="chip chip-rar" style="background:var(--rar-SSR-bg);color:var(--rar-SSR-text);border-color:var(--rar-SSR-text)">SSR</span> <span class="chip chip-rar" style="background:var(--rar-UR-bg);color:var(--rar-UR-text);border-color:var(--rar-UR-text)">UR</span></div>
+    </div>
+  </div>
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('buscar',this)"><span class="nav-icon">🔍</span><span class="nav-label">Buscar</span></button>
+    <button class="nav-btn" onclick="switchTab('galeria',this)"><span class="nav-icon">🌺</span><span class="nav-label">Galeria</span></button>
+    <button class="nav-btn" onclick="switchTab('editar',this)"><span class="nav-icon">✏️</span><span class="nav-label">Editar</span></button>
+    <button class="nav-btn" onclick="switchTab('missoes',this)"><span class="nav-icon">📋</span><span class="nav-label">Missões</span></button>
+    <button class="nav-btn" onclick="switchTab('config',this)"><span class="nav-icon">⚙️</span><span class="nav-label">Config</span></button>
+  </nav>
+</div>
+<div id="toast"></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyBNJ0h4KFw-U_tTq6hZASqBnrhCIuS5sdI",authDomain:"zoe-cozy-florist.firebaseapp.com",projectId:"zoe-cozy-florist",storageBucket:"zoe-cozy-florist.firebasestorage.app",messagingSenderId:"151582355026",appId:"1:151582355026:web:4cd2934f9e8c0b5ca8b98b"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore(); const auth=firebase.auth();
+let catalogo=[]; let colecoes={}; let membros=[]; let recados=[];
+let editOpen={}; let galleryOpen={}; let currentTab='buscar'; let catalogCollapsed=true;
+let searchRarity='ALL'; let gallerySearch=''; let gallerySort='count'; let uiLang='pt';
+let editDrafts={}; let editFilters={}; let currentMissionId=null; let peopleLabel='Pessoa'; let peoplePlural='pessoas';
+const RARITY_ORDER={N:1,R:2,SR:3,SSR:4,UR:5};
+const RAR_LABEL={N:'Normal',R:'Rare',SR:'Super Rare',SSR:'SSR',UR:'Ultra Rare'};
+const RAR_BG={N:'var(--rar-N-bg)',R:'var(--rar-R-bg)',SR:'var(--rar-SR-bg)',SSR:'var(--rar-SSR-bg)',UR:'var(--rar-UR-bg)'};
+const RAR_TEXT={N:'var(--rar-N-text)',R:'var(--rar-R-text)',SR:'var(--rar-SR-text)',SSR:'var(--rar-SSR-text)',UR:'var(--rar-UR-text)'};
+function safeStorageGet(k,d){try{return localStorage.getItem(k) || d}catch(e){return d}}
+function safeStorageSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+document.addEventListener('DOMContentLoaded',async()=>{
+  uiLang=safeStorageGet('zoe-ui-lang','pt');
+  updateLangButtons();
+  try{await auth.signInAnonymously(); await loadAll()}catch(e){console.error(e); document.querySelector('#loading-screen p').textContent='❌ Erro ao conectar. Verifique a conexão.'; return}
+  document.getElementById('loading-screen').style.display='none'; document.getElementById('app').style.display='block';
+});
+async function loadAll(){const icon=document.getElementById('sync-icon'); icon.className='spin';
+  try{
+    const catSnap=await db.collection('catalogo').orderBy('rarity').get();
+    catalogo=catSnap.docs.map(d=>({id:d.id,...d.data()}));
+    const memSnap=await db.collection('membros').orderBy('nome').get();
+    membros=memSnap.docs.map(d=>d.data().nome);
+    colecoes={}; const colSnap=await db.collection('colecoes').get(); colSnap.docs.forEach(d=>{colecoes[d.id]=d.data().flores||[]});
+    try{const recSnap=await db.collection('recados').orderBy('data','desc').get(); recados=recSnap.docs.map(d=>({id:d.id,...d.data()}))}catch(e){recados=[]}
+    membros.forEach(m=>{ if(galleryOpen[m]===undefined) galleryOpen[m]=false; if(editOpen[m]===undefined) editOpen[m]=false; editDrafts[m]=cloneFlores(colecoes[m]||[]) });
+    renderCurrentTab(); buildPills(); renderSearchRarityFilters(); renderMissions(); renderStats();
+  }catch(e){console.error(e); toast('❌ Erro Firebase: '+(e.code||e.message))}
+  icon.className='';
+}
+function switchTab(name,btn){currentTab=name; document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active')); document.getElementById('tab-'+name).classList.add('active'); document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); renderCurrentTab()}
+function renderCurrentTab(){ if(currentTab==='galeria') renderGaleria(); else if(currentTab==='editar') renderEditar(); else if(currentTab==='buscar'){ buildPills(); renderSearchRarityFilters() } else if(currentTab==='missoes') renderMissions(); else if(currentTab==='config') renderStats(); }
+function setUiLang(lang){uiLang=lang; safeStorageSet('zoe-ui-lang',lang); updateLangButtons(); renderCurrentTab(); if(currentTab==='buscar'){ const v=document.getElementById('search-input').value; handleSearchInput(v); }}
+function updateLangButtons(){document.getElementById('lang-pt').classList.toggle('active',uiLang==='pt'); document.getElementById('lang-en').classList.toggle('active',uiLang==='en')}
+function getFlowerName(f){return uiLang==='en' ? (f.en||f.pt||'') : (f.pt||f.en||'')}
+function getFlowerAltName(f){return uiLang==='en' ? (f.pt||'') : (f.en||'')}
+function normalize(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function cloneFlores(arr){return JSON.parse(JSON.stringify(arr||[]))}
+function uniqByEn(arr){const map=new Map(); (arr||[]).forEach(f=>{if(f && f.en) map.set(f.en,f)}); return [...map.values()]}
+function colorFromName(name){let h=0; for(let i=0;i<name.length;i++) h=((h<<5)-h)+name.charCodeAt(i), h|=0; const hue=Math.abs(h)%360; return `hsl(${hue} 55% 48%)`; }
+function buildPills(){const wrap=document.getElementById('flower-pills-wrap'); const el=document.getElementById('all-pills'); const searchTerm=document.getElementById('search-input')?.value.trim(); if(!catalogo.length){wrap.style.display='none';return} if(searchTerm){wrap.style.display='none';return} el.innerHTML=catalogo.map(f=>`<span class="pill" onclick="setSearch(${JSON.stringify(getFlowerName(f))})" style="background:${RAR_BG[f.rarity]||'var(--green-faint)'};color:${RAR_TEXT[f.rarity]||'var(--green-dark)'};border-color:${RAR_TEXT[f.rarity]||'var(--green-light)'}">${f.emoji||'🌸'} <span style="font-size:11px">${escHtml(getFlowerName(f))}</span></span>`).join(''); wrap.style.display=''; document.getElementById('catalog-collapse').classList.toggle('hidden',catalogCollapsed); document.getElementById('catalog-chevron').style.transform=catalogCollapsed?'rotate(0deg)':'rotate(180deg)'}
+function toggleCatalogCollapse(){catalogCollapsed=!catalogCollapsed; buildPills()}
+function setSearch(term){document.getElementById('search-input').value=term; handleSearchInput(term)}
+function renderSearchRarityFilters(){const el=document.getElementById('search-rarity-filters'); const term=document.getElementById('search-input')?.value.trim(); if(!term){el.style.display='none';return} el.style.display='flex'; const opts=['ALL','N','R','SR','SSR','UR']; el.innerHTML=opts.map(r=>{const active=searchRarity===r; const bg=r==='ALL'?'var(--green-faint)':RAR_BG[r]; const color=r==='ALL'?'var(--green-dark)':RAR_TEXT[r]; return `<button class="chip ${active?'active':''} chip-rar" onclick="setSearchRarity('${r}')" style="${active?'':`background:${bg};color:${color};border-color:${color}`}">${r==='ALL'?'Todas':r}</button>`}).join('')}
+function setSearchRarity(r){searchRarity=r; renderSearchRarityFilters(); handleSearchInput(document.getElementById('search-input').value)}
+function handleSearchInput(term){renderSearchRarityFilters(); renderSearchSuggestions(term); doSearch(term); buildPills()}
+function renderSearchSuggestions(term){const box=document.getElementById('search-suggestions'); term=term.trim(); if(!term){box.innerHTML=''; box.classList.remove('show'); return} const n=normalize(term); const matches=catalogo.filter(f=>normalize(f.pt).includes(n)||normalize(f.en).includes(n)).slice(0,8); if(!matches.length){box.innerHTML=''; box.classList.remove('show'); return} box.innerHTML=matches.map(f=>`<button class="suggest-item" onclick="chooseSuggestion(${JSON.stringify(getFlowerName(f))})"><span>${f.emoji||'🌸'} <strong>${escHtml(getFlowerName(f))}</strong><span style="display:block;font-size:11px;color:var(--text-muted)">${escHtml(getFlowerAltName(f)||'')}</span></span><span class="chip chip-rar" style="background:${RAR_BG[f.rarity]};color:${RAR_TEXT[f.rarity]};border-color:${RAR_TEXT[f.rarity]}">${f.rarity}</span></button>`).join(''); box.classList.add('show')}
+function chooseSuggestion(term){document.getElementById('search-input').value=term; document.getElementById('search-suggestions').classList.remove('show'); doSearch(term)}
+function doSearch(term){const res=document.getElementById('search-results'); const wrap=document.getElementById('flower-pills-wrap'); term=term.trim(); if(!term){res.innerHTML=''; wrap.style.display=''; return} wrap.style.display='none'; const n=normalize(term); const found={};
+  for(const [m,flores] of Object.entries(colecoes)){
+    const match=flores.filter(f=>{const okName=normalize(f.pt).includes(n)||normalize(f.en).includes(n); const okRar=searchRarity==='ALL' || (f.rarity||'N')===searchRarity; return okName && okRar});
+    if(match.length) found[m]=match;
+  }
+  if(!Object.keys(found).length){res.innerHTML=`<div class="no-result"><div class="emoji">🌿</div><p>Nenhuma pessoa tem <strong>${escHtml(term)}</strong>.</p></div>`; return}
+  res.innerHTML=`<p style="font-size:12px;color:var(--green);font-style:italic;margin-bottom:8px">✨ ${Object.keys(found).length} ${Object.keys(found).length===1?peopleLabel:peoplePlural}:</p>`+
+    Object.entries(found).sort((a,b)=>a[0].localeCompare(b[0],'pt-BR')).map(([m,flores])=>`<div class="result-card"><div class="avatar" style="background:${colorFromName(m)}">${escHtml(m[0].toUpperCase())}</div><div style="flex:1;min-width:0"><div style="font-weight:700;color:var(--green-dark);font-size:14px">${escHtml(m)}</div><div class="pills" style="margin-top:6px">${flores.map(f=>`<span class="pill has" style="cursor:default;background:${RAR_BG[f.rarity]};color:${RAR_TEXT[f.rarity]};border-color:${RAR_TEXT[f.rarity]}">${f.emoji||'🌸'} ${escHtml(getFlowerName(f))}${getFlowerAltName(f)?`<span style="display:block;font-size:10px;opacity:.72;line-height:1;margin-top:1px">${escHtml(getFlowerAltName(f))}</span>`:''}</span>`).join('')}</div></div></div>`).join('')
+}
+function updateGallerySortButtons(){document.getElementById('sort-count')?.classList.toggle('active',gallerySort==='count'); document.getElementById('sort-alpha')?.classList.toggle('active',gallerySort==='alpha')}
+function setGallerySort(mode){gallerySort=mode; updateGallerySortButtons(); renderGaleria()}
+function toggleAllGallery(state){membros.forEach(m=>galleryOpen[m]=state); renderGaleria()}
+function renderGaleria(){updateGallerySortButtons(); const el=document.getElementById('galeria-content'); if(!membros.length){el.innerHTML='<p class="empty">Nenhuma pessoa cadastrada.</p>'; return} const totalCatalog=catalogo.length||1; const search=normalize(gallerySearch);
+  let lista=membros.filter(m=>!search || normalize(m).includes(search));
+  lista.sort((a,b)=> gallerySort==='alpha' ? a.localeCompare(b,'pt-BR') : ((colecoes[b]||[]).length-(colecoes[a]||[]).length) || a.localeCompare(b,'pt-BR'));
+  if(!lista.length){el.innerHTML='<p class="empty">Nenhuma pessoa encontrada.</p>'; return}
+  el.innerHTML=lista.map(m=>{const flores=(colecoes[m]||[]).slice().sort((a,b)=>{const ra=RARITY_ORDER[a.rarity]||5, rb=RARITY_ORDER[b.rarity]||5; return ra!==rb ? ra-rb : getFlowerName(a).localeCompare(getFlowerName(b),'pt-BR')}); const byRar={}; flores.forEach(f=>{const r=f.rarity||'N'; if(!byRar[r]) byRar[r]=[]; byRar[r].push(f)}); const sections=Object.entries(byRar).sort((a,b)=>(RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5)).map(([r,fs])=>`<div class="rar-section"><div class="rar-section-title" style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}">${r} — ${RAR_LABEL[r]||r}</div><div class="flower-grid">${fs.map(f=>`<span class="f-chip" style="background:${RAR_BG[f.rarity]};color:${RAR_TEXT[f.rarity]};border-color:${RAR_TEXT[f.rarity]}">${f.emoji||'🌸'} ${escHtml(getFlowerName(f))}${getFlowerAltName(f)?`<span style="font-size:10px;opacity:.7;margin-left:3px">${escHtml(getFlowerAltName(f))}</span>`:''}</span>`).join('')}</div></div>`).join(''); const pct=Math.round((flores.length/totalCatalog)*100); const open=galleryOpen[m]; return `<div class="member-card"><button type="button" class="member-card-header" onclick="toggleGalleryCard(${JSON.stringify(m)})"><div class="avatar" style="width:32px;height:32px;font-size:14px;background:${colorFromName(m)}">${escHtml(m[0].toUpperCase())}</div><span class="name">${escHtml(m)}</span><span class="badge">${flores.length} flores</span><span class="acc-chevron ${open?'open':''}" style="color:#fff">⌄</span></button><div class="member-card-body"><div class="progress-wrap"><div class="progress-meta"><span>Completude</span><span>${flores.length}/${totalCatalog} · ${pct}%</span></div><div class="progress"><span style="width:${pct}%"></span></div></div>${open ? `<div style="margin-top:12px">${flores.length?sections:'<span class="empty" style="padding:8px 0">Sem flores.</span>'}<div style="margin-top:12px"><button class="btn btn-soft btn-sm" onclick="event.stopPropagation(); exportMemberCSV(${JSON.stringify(m)})">Exportar CSV</button></div></div>`:''}</div></div>`}).join('')}
+function toggleGalleryCard(m){galleryOpen[m]=!galleryOpen[m]; renderGaleria()}
+function renderEditar(){const el=document.getElementById('editar-content'); if(!membros.length){el.innerHTML='<p class="empty">Adicione uma jogadora acima.</p>'; return}
+  el.innerHTML=membros.map(m=>{const original=colecoes[m]||[]; if(!editDrafts[m]) editDrafts[m]=cloneFlores(original); const draft=editDrafts[m]; const set=new Set(draft.map(f=>f.en)); const open=editOpen[m]; const dirty=JSON.stringify(uniqByEn(draft).sort((a,b)=>a.en.localeCompare(b.en)))!==JSON.stringify(uniqByEn(original).sort((a,b)=>a.en.localeCompare(b.en))); const filter=editFilters[m]||''; const nf=normalize(filter); const byRar={}; catalogo.forEach(f=>{if(nf && !(normalize(f.pt).includes(nf)||normalize(f.en).includes(nf))) return; if(!byRar[f.rarity]) byRar[f.rarity]=[]; byRar[f.rarity].push(f)});
+    const sections=Object.entries(byRar).sort((a,b)=>(RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5)).map(([r,fs])=>`<div style="margin-bottom:8px"><div class="rar-divider" style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}">${r} — ${RAR_LABEL[r]||r}</div><div class="pills">${fs.map(f=>{const has=set.has(f.en); return `<span class="flower-pill-edit" onclick="toggleFlorDraft(${JSON.stringify(m)},${JSON.stringify(f.en)})" style="background:${has ? RAR_BG[f.rarity] : 'var(--green-faint)'};color:${has ? RAR_TEXT[f.rarity] : 'var(--green-dark)'};border-color:${has ? RAR_TEXT[f.rarity] : 'var(--green-light)'}">${f.emoji||'🌸'} ${escHtml(getFlowerName(f))}${getFlowerAltName(f)?`<span style="display:block;font-size:10px;opacity:.65;line-height:1;margin-top:1px">${escHtml(getFlowerAltName(f))}</span>`:''}</span>`}).join('')}</div></div>`).join('') || '<p class="empty" style="padding:12px 0">Nenhuma flor encontrada nesse filtro.</p>';
+    return `<div style="margin-bottom:10px"><button type="button" class="acc-header" onclick="toggleEdit(${JSON.stringify(m)})"><div class="avatar" style="width:32px;height:32px;font-size:14px;background:${colorFromName(m)}">${escHtml(m[0].toUpperCase())}</div><span class="acc-name">${escHtml(m)}</span><span class="acc-count">${draft.length} flores${dirty?' · alterações pendentes':''}</span><span class="acc-chevron ${open?'open':''}">⌄</span></button>${open ? `<div class="acc-body"><div class="label">Busque as flores e marque várias antes de salvar.</div><input class="form-input" placeholder="Filtrar flores…" value="${escHtml(filter)}" oninput="setEditFilter(${JSON.stringify(m)},this.value)"><div style="height:10px"></div>${sections}<div class="section-between" style="margin-top:12px"><div class="section-row"><button class="btn btn-soft btn-sm" onclick="event.stopPropagation(); resetDraft(${JSON.stringify(m)})">Desfazer</button><button class="btn btn-green btn-sm" onclick="event.stopPropagation(); saveDraft(${JSON.stringify(m)})" ${dirty?'':'disabled style="opacity:.45;pointer-events:none"'}>Salvar</button></div><button class="btn btn-red-soft btn-sm" onclick="event.stopPropagation(); removeMembro(${JSON.stringify(m)})">🗑️ Remover pessoa</button></div></div>`:''}</div>`}).join('')}
+function toggleEdit(m){editOpen[m]=!editOpen[m]; renderEditar()}
+function setEditFilter(m,v){editFilters[m]=v; renderEditar()}
+function toggleFlorDraft(membro,florEN){const draft=editDrafts[membro]||[]; const idx=draft.findIndex(f=>f.en===florEN); if(idx>=0) draft.splice(idx,1); else {const flower=catalogo.find(f=>f.en===florEN); if(flower) draft.push({en:flower.en,pt:flower.pt,emoji:flower.emoji||'🌸',rarity:flower.rarity||'N'})} editDrafts[membro]=uniqByEn(draft); renderEditar()}
+function resetDraft(m){editDrafts[m]=cloneFlores(colecoes[m]||[]); renderEditar(); toast('↩️ Alterações descartadas')}
+async function saveDraft(m){try{const batch=db.batch(); const ref=db.collection('colecoes').doc(m); const flores=uniqByEn(editDrafts[m]||[]); batch.set(ref,{flores}); await batch.commit(); colecoes[m]=cloneFlores(flores); toast('✅ Alterações salvas para '+m); renderEditar(); if(currentTab==='galeria') renderGaleria(); renderStats(); const term=document.getElementById('search-input').value; if(term) doSearch(term)}catch(e){console.error(e); toast('❌ Erro ao salvar: '+e.message)}}
+async function addMembro(){const nome=document.getElementById('new-member').value.trim(); if(!nome) return; try{await db.collection('membros').doc(nome).set({nome}); await db.collection('colecoes').doc(nome).set({flores:[]}); document.getElementById('new-member').value=''; toast('✅ '+nome+' adicionada/o!'); await loadAll()}catch(e){toast('❌ Erro: '+e.message)}}
+async function removeMembro(nome){if(!confirm('Remover '+nome+'? Essa ação apaga a coleção dessa pessoa.')) return; try{await db.collection('membros').doc(nome).delete(); await db.collection('colecoes').doc(nome).delete(); delete editDrafts[nome]; toast('Removida: '+nome); await loadAll()}catch(e){toast('❌ Erro: '+e.message)}}
+async function addFlorCustom(){const en=document.getElementById('new-fl-en').value.trim(); const pt=document.getElementById('new-fl-pt').value.trim(); const emo=document.getElementById('new-fl-emoji').value.trim()||'🌿'; const rar=document.getElementById('new-fl-rar').value; if(!en||!pt){toast('⚠️ Preencha EN e PT'); return} try{const rarOrder=RARITY_ORDER[rar]||1; await db.collection('catalogo').doc(en).set({en,pt,emoji:emo,rarity:rar,rarOrder}); ['new-fl-en','new-fl-pt','new-fl-emoji'].forEach(id=>document.getElementById(id).value=''); toast('🌷 Adicionada: '+pt); await loadAll()}catch(e){toast('❌ Erro: '+e.message)}}
+function openMissionForm(mission=null){document.getElementById('mission-form').classList.remove('hidden'); currentMissionId=mission?.id||null; document.getElementById('mission-title').value=mission?.titulo||''; document.getElementById('mission-date').value=mission?.data||''; document.getElementById('mission-author').value=mission?.autor||''; document.getElementById('mission-text').value=mission?.texto||''}
+function closeMissionForm(){document.getElementById('mission-form').classList.add('hidden'); currentMissionId=null; ['mission-title','mission-date','mission-author','mission-text'].forEach(id=>document.getElementById(id).value='')}
+async function saveMission(){const titulo=document.getElementById('mission-title').value.trim(); const data=document.getElementById('mission-date').value; const autor=document.getElementById('mission-author').value.trim(); const texto=document.getElementById('mission-text').value.trim(); if(!titulo||!data||!autor||!texto){toast('⚠️ Preencha todos os campos do recado'); return} try{const payload={titulo,texto,data,autor,updatedAt:new Date().toISOString()}; if(currentMissionId) await db.collection('recados').doc(currentMissionId).set(payload,{merge:true}); else await db.collection('recados').add({...payload,createdAt:new Date().toISOString()}); toast('✅ Recado salvo'); closeMissionForm(); await loadAll()}catch(e){toast('❌ Erro ao salvar recado: '+e.message)}}
+async function deleteMission(id){if(!confirm('Excluir este recado?')) return; try{await db.collection('recados').doc(id).delete(); toast('🗑️ Recado excluído'); await loadAll()}catch(e){toast('❌ Erro: '+e.message)}}
+function isCurrentWeek(dateStr){if(!dateStr) return false; const d=new Date(dateStr+'T12:00:00'); const now=new Date(); const start=new Date(now); start.setDate(now.getDate()-((now.getDay()+6)%7)); start.setHours(0,0,0,0); const end=new Date(start); end.setDate(start.getDate()+7); return d>=start && d<end}
+function renderMissions(){const el=document.getElementById('missions-content'); if(!recados.length){el.innerHTML='<p class="empty">Nenhum recado cadastrado.</p>'; return} el.innerHTML=recados.map(r=>`<div class="mission-card ${isCurrentWeek(r.data)?'current':''}"><div class="section-between"><div><strong style="color:var(--green-dark)">${escHtml(r.titulo||'Sem título')}</strong><div style="font-size:12px;color:var(--text-muted);margin-top:3px">${escHtml(r.autor||'')} · ${escHtml(r.data||'')}</div></div>${isCurrentWeek(r.data)?'<span class="chip chip-rar" style="background:#fff3cd;color:#8a5b00;border-color:#d8b45c">Semana atual</span>':''}</div><p style="font-size:13px;color:var(--text);line-height:1.6;margin-top:8px;white-space:pre-wrap">${escHtml(r.texto||'')}</p><div class="mission-actions"><button class="btn btn-soft btn-sm" onclick='openMissionForm(${toAttrObj(r)})'>Editar</button><button class="btn btn-red-soft btn-sm" onclick="deleteMission(${JSON.stringify(r.id)})">Excluir</button></div></div>`).join('')}
+function renderStats(){const box=document.getElementById('galeria-stats'); if(!box) return; if(!membros.length || !catalogo.length){box.innerHTML=''; return} const freq={}; Object.values(colecoes).flat().forEach(f=>{freq[f.en]=(freq[f.en]||0)+1}); let topFlowerEn=Object.keys(freq).sort((a,b)=>freq[b]-freq[a])[0]; const topFlower=catalogo.find(f=>f.en===topFlowerEn)||{en:'—',pt:'—',emoji:'🌸'}; const topMember=membros.length ? membros.slice().sort((a,b)=>(colecoes[b]||[]).length-(colecoes[a]||[]).length)[0] : '—'; const rarDist={N:0,R:0,SR:0,SSR:0,UR:0}; Object.values(colecoes).flat().forEach(f=>rarDist[f.rarity||'N']=(rarDist[f.rarity||'N']||0)+1); box.innerHTML=`<div class="card"><div class="label">Estatísticas rápidas</div><div class="stat-grid"><div class="stat-card"><strong>Flor mais comum</strong><span>${escHtml(topFlower.emoji||'🌸')} ${escHtml(getFlowerName(topFlower))} · ${freq[topFlowerEn]||0} ocorrência(s)</span></div><div class="stat-card"><strong>Jogadora com mais flores</strong><span>${escHtml(topMember||'—')} · ${(colecoes[topMember]||[]).length} flores</span></div><div class="stat-card"><strong>Distribuição por raridade</strong><span>N ${rarDist.N||0} · R ${rarDist.R||0} · SR ${rarDist.SR||0} · SSR ${rarDist.SSR||0} · UR ${rarDist.UR||0}</span></div></div></div>`}
+function exportMemberCSV(m){const flores=(colecoes[m]||[]); const rows=[['membro','rarity','emoji','pt','en'], ...flores.map(f=>[m,f.rarity||'',f.emoji||'',f.pt||'',f.en||''])]; const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${m.replace(/\s+/g,'_')}_flores.csv`; a.click(); URL.revokeObjectURL(a.href); toast('📄 CSV exportado de '+m)}
+function toAttrObj(obj){return JSON.stringify(obj).replace(/</g,'\\u003c').replace(/>/g,'\\u003e')}
+let toastTimer; function toast(msg){const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#4a7c59">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>🌸 Zoe Guild · Flores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-dark:#2d5a3d; --green:#4a7c59; --green-mid:#5e9470; --green-light:#d4e8d0; --green-faint:#f0f9f1;
+  --cream:#fdf6ee; --text:#2d3a2e; --text-muted:#5e7263; --text-faint:#9aab9e; --border:rgba(74,124,89,.18);
+  --shadow-sm:0 1px 4px rgba(45,90,61,.08); --shadow-md:0 4px 16px rgba(45,90,61,.12);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-full:9999px;
+  --font-display:'Lora', Georgia, serif; --font-body:'DM Sans', system-ui, sans-serif;
+  --rar-N-bg:#e8f5e9; --rar-N-text:#2e7d32;
+  --rar-R-bg:#e3f2fd; --rar-R-text:#1565c0;
+  --rar-SR-bg:#f3e5f5; --rar-SR-text:#7b1fa2;
+  --rar-SSR-bg:#fff8e1; --rar-SSR-text:#e65100;
+  --rar-UR-bg:#ffebee; --rar-UR-text:#c62828;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:var(--cream);color:var(--text);font-size:15px;min-height:100dvh;padding-bottom:84px;overscroll-behavior:none}
+img,svg{display:block;max-width:100%} button{cursor:pointer;background:none;border:none;font:inherit;color:inherit} input,select,textarea{font:inherit;color:inherit}
+#loading-screen{position:fixed;inset:0;z-index:999;background:linear-gradient(135deg,var(--green-dark),var(--green));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff}
+#loading-screen .logo{font-size:52px} #loading-screen h2{font-family:var(--font-display);font-size:22px} #loading-screen p{font-size:13px;color:rgba(255,255,255,.75)}
+@keyframes spin{to{transform:rotate(360deg)}} .spinner-ring{width:32px;height:32px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+.app-header{background:linear-gradient(180deg,var(--green-dark) 0%,var(--green) 100%);padding:20px 16px 16px;position:relative;overflow:hidden}
+.app-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 15% 50%, rgba(255,255,255,.06) 1px, transparent 1px),radial-gradient(circle at 85% 25%, rgba(255,255,255,.06) 1px, transparent 1px);background-size:36px 36px,50px 50px}
+.app-header h1,.app-header p{position:relative}.app-header h1{font-family:var(--font-display);color:#fff;font-size:20px;font-weight:600;letter-spacing:.5px}.app-header p{color:rgba(255,255,255,.74);font-size:12px;font-style:italic;margin-top:2px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:#fff;border-top:1px solid var(--border);display:flex;height:76px;box-shadow:0 -4px 16px rgba(45,90,61,.08);padding-bottom:env(safe-area-inset-bottom,0)}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;color:var(--text-faint);transition:color .15s;min-height:44px;-webkit-tap-highlight-color:transparent}
+.nav-btn.active{color:var(--green)} .nav-btn .nav-icon{font-size:21px;line-height:1}.nav-btn.active .nav-label{font-weight:700;color:var(--green)}
+.content{padding:14px 14px 0}.tab-panel{display:none}.tab-panel.active{display:block}.card{background:#fff;border-radius:var(--radius-lg);padding:14px;box-shadow:var(--shadow-sm);border:1px solid var(--border);margin-bottom:12px}
+.section-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.section-between{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.search-wrap{position:relative;margin-bottom:12px}.search-wrap input{width:100%;padding:11px 14px 11px 40px;border-radius:var(--radius-full);border:2px solid var(--green-light);background:#fff;font-size:15px;box-shadow:var(--shadow-sm);outline:none;transition:border-color .2s}.search-wrap input:focus{border-color:var(--green)}.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none}
+.toggle-lang{display:inline-flex;background:#fff;border:1px solid var(--border);border-radius:var(--radius-full);overflow:hidden;box-shadow:var(--shadow-sm)}
+.toggle-lang button{padding:7px 12px;font-size:12px;font-weight:700}.toggle-lang button.active{background:var(--green);color:#fff}
+.pills,.chip-row{display:flex;flex-wrap:wrap;gap:6px}.pill,.chip{background:var(--green-faint);border:1px solid var(--green-light);border-radius:var(--radius-full);padding:5px 12px;font-size:12px;color:var(--green-dark);-webkit-tap-highlight-color:transparent;transition:background .15s,border-color .15s,color .15s;user-select:none}.pill:active,.chip:active{background:var(--green-light)}.pill.has,.chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+.chip-rar{font-weight:700}
+.result-card{background:#fff;border-radius:var(--radius-md);padding:12px;margin-bottom:10px;border:1px solid var(--border);box-shadow:var(--shadow-sm);display:flex;align-items:flex-start;gap:10px}
+.avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.member-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
 .member-card-header{padding:12px 14px;display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--green-dark),var(--green-mid));cursor:pointer}.member-card-header span{color:#fff}.member-card-header .name{font-weight:700;flex:1;font-size:15px}.badge{background:rgba(255,255,255,.22);color:#fff;border-radius:var(--radius-full);padding:2px 10px;font-size:11px}.member-card-body{padding:12px 14px;background:#fff}
 .acc-header{padding:12px 14px;display:flex;align-items:center;gap:8px;background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s}.acc-header:active{background:var(--green-faint)}.acc-header .acc-name{flex:1;font-weight:700;color:var(--green-dark);font-size:15px}.acc-header .acc-count{font-size:12px;color:var(--text-faint)}.acc-chevron{font-size:18px;color:var(--text-faint);transition:transform .2s}.acc-chevron.open{transform:rotate(180deg)}.acc-body{padding:12px 14px 14px;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);background:#fafffe;margin-top:-4px}
 .btn{padding:10px 18px;border-radius:var(--radius-full);font-size:14px;font-weight:700;transition:opacity .15s,transform .1s;border:1px solid transparent}.btn:active{transform:scale(.97);opacity:.92}.btn-green{background:var(--green);color:#fff}.btn-soft{background:var(--green-faint);color:var(--green-dark);border-color:var(--green-light)}.btn-red-soft{background:#fff5f5;color:#9f1d1d;border-color:#f3c3c3}.btn-sm{padding:7px 14px;font-size:12px}.btn-full{width:100%;text-align:center}
