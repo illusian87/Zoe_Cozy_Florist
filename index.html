@@ -509,11 +509,14 @@ function invalidateFilterCache() { _filterCache = { key: null, result: [] }; }
 // ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
   applyLangUI();
+  const statusEl = document.querySelector('#loading-screen p');
   try {
+    statusEl.textContent = 'Autenticando…';
     await auth.signInAnonymously();
+    statusEl.textContent = 'Carregando dados…';
     await loadAll();
   } catch(e) {
-    document.querySelector('#loading-screen p').textContent = '❌ Erro ao conectar. Verifique a conexão.';
+    statusEl.textContent = '❌ ' + (e.code || e.message || JSON.stringify(e));
     return;
   }
   document.getElementById('loading-screen').style.display = 'none';
