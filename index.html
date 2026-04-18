@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ── TOKENS ─────────────────────────────────────────────────── */
 :root {
   --green-dark:  #2d5a3d;
   --green:       #4a7c59;
@@ -30,20 +31,22 @@
   --radius-full: 9999px;
   --font-display: 'Lora', Georgia, serif;
   --font-body:    'DM Sans', system-ui, sans-serif;
+  /* raridade */
   --rar-N-bg:   #e8f5e9; --rar-N-text:   #2e7d32;
   --rar-R-bg:   #e3f2fd; --rar-R-text:   #1565c0;
   --rar-SR-bg:  #f3e5f5; --rar-SR-text:  #7b1fa2;
   --rar-SSR-bg: #fff8e1; --rar-SSR-text: #e65100;
   --rar-UR-bg:  #ffebee; --rar-UR-text:  #c62828;
 }
+
+/* ── RESET ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: none; text-size-adjust: none; -webkit-font-smoothing: antialiased; }
 body { font-family: var(--font-body); background: var(--cream); color: var(--text); font-size: 15px; min-height: 100dvh; padding-bottom: 80px; overscroll-behavior: none; }
-img, svg { display: block; max-width: 100%; }
 button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
 input, select, textarea { font: inherit; color: inherit; }
 
-/* LOADING */
+/* ── LOADING ────────────────────────────────────────────────── */
 #loading-screen {
   position: fixed; inset: 0; z-index: 999;
   background: linear-gradient(135deg, var(--green-dark), var(--green));
@@ -52,180 +55,217 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 #loading-screen .logo { font-size: 52px; }
 #loading-screen h2 { font-family: var(--font-display); font-size: 22px; }
-#loading-screen p { font-size: 13px; color: rgba(255,255,255,0.7); }
+#loading-screen p  { font-size: 13px; color: rgba(255,255,255,0.7); }
 @keyframes spin { to { transform: rotate(360deg); } }
-.spinner-ring { width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+.spinner-ring { width:32px; height:32px; border:3px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite; }
 
-/* HEADER */
+/* ── HEADER ─────────────────────────────────────────────────── */
 .app-header { background: linear-gradient(180deg, var(--green-dark) 0%, var(--green) 100%); padding: 20px 16px 16px; position: relative; overflow: hidden; }
-.app-header::before { content:''; position: absolute; inset: 0; background: radial-gradient(circle at 15% 50%, rgba(255,255,255,0.06) 1px, transparent 1px), radial-gradient(circle at 85% 25%, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 36px 36px, 50px 50px; }
-.app-header h1 { font-family: var(--font-display); color: #fff; font-size: 20px; font-weight: 600; letter-spacing: .5px; position: relative; }
-.app-header p { color: rgba(255,255,255,0.7); font-size: 12px; font-style: italic; margin-top: 2px; position: relative; }
+.app-header::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 15% 50%, rgba(255,255,255,.06) 1px, transparent 1px), radial-gradient(circle at 85% 25%, rgba(255,255,255,.06) 1px, transparent 1px); background-size:36px 36px,50px 50px; }
+.app-header h1 { font-family:var(--font-display); color:#fff; font-size:20px; font-weight:600; letter-spacing:.5px; position:relative; }
+.app-header p  { color:rgba(255,255,255,.7); font-size:12px; font-style:italic; margin-top:2px; position:relative; }
 
-/* LANG TOGGLE */
-.lang-toggle-wrap { display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 8px 14px 0; }
-.lang-toggle { display: flex; align-items: center; gap: 0; background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-full); overflow: hidden; font-size: 13px; }
-.lang-toggle button { padding: 5px 12px; font-size: 13px; transition: background .15s, color .15s; }
-.lang-toggle button.active { background: var(--green); color: #fff; }
+/* ── TOP BAR ────────────────────────────────────────────────── */
+.top-bar { display:flex; justify-content:flex-end; align-items:center; gap:8px; padding:8px 14px 0; }
+.lang-toggle { display:flex; background:var(--green-faint); border:1px solid var(--green-light); border-radius:var(--radius-full); overflow:hidden; font-size:13px; }
+.lang-toggle button { padding:5px 12px; transition:background .15s,color .15s; }
+.lang-toggle button.active { background:var(--green); color:#fff; }
+.sync-btn { display:flex; align-items:center; gap:5px; background:var(--green-faint); color:var(--green-dark); padding:7px 14px; border-radius:var(--radius-full); font-size:12px; font-weight:600; border:1px solid var(--green-light); }
+.sync-btn:active { background:var(--green-light); }
+.spin { display:inline-block; animation:spin .8s linear infinite; }
 
-/* NAV */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: #fff; border-top: 1px solid var(--border); display: flex; height: 72px; box-shadow: 0 -4px 16px rgba(45,90,61,0.08); padding-bottom: env(safe-area-inset-bottom, 0); }
-.nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 10px; color: var(--text-faint); transition: color .15s; min-height: 44px; -webkit-tap-highlight-color: transparent; }
-.nav-btn.active { color: var(--green); }
-.nav-btn .nav-icon { font-size: 20px; line-height: 1; }
-.nav-btn.active .nav-label { font-weight: 600; color: var(--green); }
+/* ── NAV ────────────────────────────────────────────────────── */
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; z-index:100; background:#fff; border-top:1px solid var(--border); display:flex; height:72px; box-shadow:0 -4px 16px rgba(45,90,61,.08); padding-bottom:env(safe-area-inset-bottom,0); }
+.nav-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; font-size:10px; color:var(--text-faint); transition:color .15s; -webkit-tap-highlight-color:transparent; }
+.nav-btn.active { color:var(--green); }
+.nav-btn .nav-icon { font-size:20px; line-height:1; }
+.nav-btn.active .nav-label { font-weight:600; }
 
-/* LAYOUT */
-.content { padding: 10px 14px 0; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-.card { background: #fff; border-radius: var(--radius-lg); padding: 14px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); margin-bottom: 12px; }
+/* ── LAYOUT ─────────────────────────────────────────────────── */
+.content { padding:10px 14px 0; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+.card { background:#fff; border-radius:var(--radius-lg); padding:14px; box-shadow:var(--shadow-sm); border:1px solid var(--border); margin-bottom:12px; }
 
-/* SEARCH */
-.search-wrap { position: relative; margin-bottom: 10px; }
-.search-wrap input { width: 100%; padding: 11px 14px 11px 40px; border-radius: var(--radius-full); border: 2px solid var(--green-light); background: #fff; font-size: 15px; box-shadow: var(--shadow-sm); outline: none; transition: border-color .2s; }
-.search-wrap input:focus { border-color: var(--green); }
-.search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 18px; pointer-events: none; }
+/* ── SEARCH ─────────────────────────────────────────────────── */
+.search-wrap { position:relative; margin-bottom:10px; }
+.search-wrap input { width:100%; padding:11px 14px 11px 40px; border-radius:var(--radius-full); border:2px solid var(--green-light); background:#fff; font-size:15px; box-shadow:var(--shadow-sm); outline:none; transition:border-color .2s; }
+.search-wrap input:focus { border-color:var(--green); }
+.search-icon { position:absolute; left:13px; top:50%; transform:translateY(-50%); font-size:18px; pointer-events:none; }
 
-/* AUTOCOMPLETE */
-.autocomplete-list { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 50; background: #fff; border: 1px solid var(--green-light); border-radius: var(--radius-md); box-shadow: var(--shadow-md); max-height: 220px; overflow-y: auto; }
-.autocomplete-item { padding: 9px 14px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); transition: background .1s; }
-.autocomplete-item:last-child { border-bottom: none; }
-.autocomplete-item:active, .autocomplete-item.focused { background: var(--green-faint); }
-.autocomplete-item .ac-rar { font-size: 10px; border-radius: 4px; padding: 1px 6px; font-weight: 700; }
+/* ── AUTOCOMPLETE ───────────────────────────────────────────── */
+.ac-list { position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:50; background:#fff; border:1px solid var(--green-light); border-radius:var(--radius-md); box-shadow:var(--shadow-md); max-height:220px; overflow-y:auto; display:none; }
+.ac-item { padding:9px 14px; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); transition:background .1s; }
+.ac-item:last-child { border-bottom:none; }
+.ac-item:active { background:var(--green-faint); }
+.ac-name-sub { font-size:10px; color:var(--text-faint); margin-left:4px; }
 
-/* RARIDADE CHIPS FILTRO */
-.rar-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.rar-chip { padding: 4px 12px; border-radius: var(--radius-full); font-size: 12px; font-weight: 700; border: 2px solid transparent; cursor: pointer; transition: all .15s; opacity: .55; }
-.rar-chip.active { opacity: 1; border-color: currentColor; }
+/* ── RARIDADE ───────────────────────────────────────────────── */
+.rar { font-size:10px; border-radius:4px; padding:2px 6px; font-weight:700; }
+.rar-N   { background:var(--rar-N-bg);   color:var(--rar-N-text); }
+.rar-R   { background:var(--rar-R-bg);   color:var(--rar-R-text); }
+.rar-SR  { background:var(--rar-SR-bg);  color:var(--rar-SR-text); }
+.rar-SSR { background:var(--rar-SSR-bg); color:var(--rar-SSR-text); }
+.rar-UR  { background:var(--rar-UR-bg);  color:var(--rar-UR-text); }
 
-/* CATÁLOGO COLAPSÁVEL */
-.catalog-collapse { background: #fff; border: 1px solid var(--green-light); border-radius: var(--radius-lg); margin-bottom: 10px; overflow: hidden; }
-.catalog-collapse-header { display: flex; align-items: center; gap: 8px; padding: 11px 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; color: var(--green-dark); font-size: 13px; font-weight: 600; }
-.catalog-collapse-header:active { background: var(--green-faint); }
-.catalog-collapse-body { padding: 0 14px 12px; display: none; }
-.catalog-collapse-body.open { display: block; }
+/* chips de filtro rápido */
+.rar-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+.rar-chip { padding:4px 14px; border-radius:var(--radius-full); font-size:12px; font-weight:700; border:2px solid transparent; cursor:pointer; transition:opacity .15s,border-color .15s; opacity:.5; -webkit-tap-highlight-color:transparent; }
+.rar-chip.active { opacity:1; }
+.rar-chip.rar-N   { background:var(--rar-N-bg);   color:var(--rar-N-text); }
+.rar-chip.rar-R   { background:var(--rar-R-bg);   color:var(--rar-R-text); }
+.rar-chip.rar-SR  { background:var(--rar-SR-bg);  color:var(--rar-SR-text); }
+.rar-chip.rar-SSR { background:var(--rar-SSR-bg); color:var(--rar-SSR-text); }
+.rar-chip.rar-UR  { background:var(--rar-UR-bg);  color:var(--rar-UR-text); }
+/* quando chip está ativo, mostra borda da cor */
+.rar-chip.active.rar-N   { border-color:var(--rar-N-text); }
+.rar-chip.active.rar-R   { border-color:var(--rar-R-text); }
+.rar-chip.active.rar-SR  { border-color:var(--rar-SR-text); }
+.rar-chip.active.rar-SSR { border-color:var(--rar-SSR-text); }
+.rar-chip.active.rar-UR  { border-color:var(--rar-UR-text); }
 
-/* PILLS */
-.pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.pill { background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-full); padding: 4px 12px; font-size: 12px; color: var(--green-dark); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s; user-select: none; }
-.pill:active { background: var(--green-light); }
-.pill.has { background: var(--green); color: #fff; border-color: var(--green); }
+/* ── CATÁLOGO COLAPSÁVEL ────────────────────────────────────── */
+.catalog-collapse { background:#fff; border:1px solid var(--green-light); border-radius:var(--radius-lg); margin-bottom:10px; overflow:hidden; }
+.catalog-collapse-header { display:flex; align-items:center; gap:8px; padding:11px 14px; cursor:pointer; -webkit-tap-highlight-color:transparent; color:var(--green-dark); font-size:13px; font-weight:600; }
+.catalog-collapse-header:active { background:var(--green-faint); }
+.catalog-chevron { font-size:18px; color:var(--text-faint); transition:transform .25s; margin-left:auto; }
+.catalog-chevron.open { transform:rotate(180deg); }
+.catalog-collapse-body { display:none; padding:0 14px 12px; }
+.catalog-collapse-body.open { display:block; }
 
-/* RESULTS */
-.result-card { background: #fff; border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 10px; }
+/* ── PILLS ──────────────────────────────────────────────────── */
+.pills { display:flex; flex-wrap:wrap; gap:6px; }
+.pill { border-radius:var(--radius-full); padding:4px 12px; font-size:12px; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:opacity .15s; user-select:none; border:1px solid transparent; }
+.pill:active { opacity:.75; }
+/* pill por raridade — classes geradas em JS: pill-N, pill-R, etc. */
+.pill-N   { background:var(--rar-N-bg);   color:var(--rar-N-text);   border-color:rgba(46,125,50,.2); }
+.pill-R   { background:var(--rar-R-bg);   color:var(--rar-R-text);   border-color:rgba(21,101,192,.2); }
+.pill-SR  { background:var(--rar-SR-bg);  color:var(--rar-SR-text);  border-color:rgba(123,31,162,.2); }
+.pill-SSR { background:var(--rar-SSR-bg); color:var(--rar-SSR-text); border-color:rgba(230,81,0,.2); }
+.pill-UR  { background:var(--rar-UR-bg);  color:var(--rar-UR-text);  border-color:rgba(198,40,40,.2); }
+.pill.has { background:var(--green); color:#fff; border-color:var(--green); }
 
-/* AVATAR COLORIDO */
-.avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; color: #fff; }
-.avatar-sm { width: 32px; height: 32px; font-size: 14px; }
+/* ── RESULT CARD ────────────────────────────────────────────── */
+.result-card { background:#fff; border-radius:var(--radius-md); padding:12px; margin-bottom:10px; border:1px solid var(--border); box-shadow:var(--shadow-sm); display:flex; align-items:flex-start; gap:10px; }
 
-/* GALERIA */
-.member-card { background: #fff; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
-.member-card-header { padding: 11px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.member-card-header span.mname { color: var(--green-dark); font-weight: 600; flex: 1; font-size: 15px; }
-.badge { background: rgba(255,255,255,0.22); color: #fff; border-radius: var(--radius-full); padding: 2px 10px; font-size: 11px; }
-.badge-dark { background: var(--green-faint); color: var(--green-dark); border-radius: var(--radius-full); padding: 2px 10px; font-size: 11px; border: 1px solid var(--green-light); }
-.member-card-body { padding: 12px 14px; border-top: 1px solid var(--border); }
+/* ── AVATAR ─────────────────────────────────────────────────── */
+.avatar    { width:40px; height:40px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:17px; font-weight:700; color:#fff; }
+.avatar-sm { width:32px; height:32px; font-size:14px; }
 
-/* BARRA DE PROGRESSO */
-.progress-wrap { margin-top: 8px; }
-.progress-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 11px; }
-.progress-label { width: 30px; font-weight: 700; }
-.progress-bar-bg { flex: 1; height: 7px; border-radius: 4px; background: #eee; overflow: hidden; }
-.progress-bar-fill { height: 100%; border-radius: 4px; transition: width .4s; }
-.progress-count { width: 44px; text-align: right; color: var(--text-faint); }
+/* ── GALERIA ────────────────────────────────────────────────── */
+.member-card { background:#fff; border-radius:var(--radius-lg); overflow:hidden; margin-bottom:12px; box-shadow:var(--shadow-sm); border:1px solid var(--border); }
+.member-card-header { padding:11px 14px; display:flex; align-items:center; gap:10px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.mname { font-weight:600; flex:1; font-size:15px; }
+.badge      { background:rgba(255,255,255,.22); color:#fff; border-radius:var(--radius-full); padding:2px 10px; font-size:11px; }
+.badge-dark { background:var(--green-faint); color:var(--green-dark); border-radius:var(--radius-full); padding:2px 10px; font-size:11px; border:1px solid var(--green-light); }
+.member-card-body { padding:12px 14px; border-top:1px solid var(--border); }
 
-/* RARIDADE LABEL */
-.rar { font-size: 10px; border-radius: 4px; padding: 2px 6px; font-weight: 700; }
-.rar-N   { background: var(--rar-N-bg);   color: var(--rar-N-text); }
-.rar-R   { background: var(--rar-R-bg);   color: var(--rar-R-text); }
-.rar-SR  { background: var(--rar-SR-bg);  color: var(--rar-SR-text); }
-.rar-SSR { background: var(--rar-SSR-bg); color: var(--rar-SSR-text); }
-.rar-UR  { background: var(--rar-UR-bg);  color: var(--rar-UR-text); }
+/* barras de progresso */
+.progress-wrap { margin-bottom:10px; }
+.progress-row   { display:flex; align-items:center; gap:6px; margin-bottom:4px; font-size:11px; }
+.progress-label { width:30px; font-weight:700; }
+.progress-bar-bg   { flex:1; height:7px; border-radius:4px; background:#eee; overflow:hidden; }
+.progress-bar-fill { height:100%; border-radius:4px; transition:width .4s; }
+.progress-count { width:44px; text-align:right; color:var(--text-faint); }
 
-/* ACCORDION (editar e galeria) */
-.acc-header { padding: 12px 14px; display: flex; align-items: center; gap: 8px; background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s; }
-.acc-header:active { background: var(--green-faint); }
-.acc-header .acc-name { flex: 1; font-weight: 600; color: var(--green-dark); font-size: 15px; }
-.acc-header .acc-count { font-size: 12px; color: var(--text-faint); }
-.acc-chevron { font-size: 18px; color: var(--text-faint); transition: transform .2s; }
-.acc-chevron.open { transform: rotate(180deg); }
-.acc-body { padding: 12px 14px 14px; border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg); background: #fafffe; margin-top: -4px; }
+/* flores na galeria */
+.rar-section { margin-bottom:10px; }
+.rar-section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; padding:3px 8px; border-radius:var(--radius-sm); display:inline-block; }
+.flower-grid { display:flex; flex-wrap:wrap; gap:6px; }
+.f-chip { display:flex; align-items:center; gap:4px; border-radius:var(--radius-full); padding:4px 10px; font-size:12px; }
+/* f-chip por raridade */
+.f-chip-N   { background:rgba(232,245,233,.9); color:var(--rar-N-text);   border:1px solid rgba(46,125,50,.15); }
+.f-chip-R   { background:rgba(227,242,253,.9); color:var(--rar-R-text);   border:1px solid rgba(21,101,192,.15); }
+.f-chip-SR  { background:rgba(243,229,245,.9); color:var(--rar-SR-text);  border:1px solid rgba(123,31,162,.15); }
+.f-chip-SSR { background:rgba(255,248,225,.9); color:var(--rar-SSR-text); border:1px solid rgba(230,81,0,.15); }
+.f-chip-UR  { background:rgba(255,235,238,.9); color:var(--rar-UR-text);  border:1px solid rgba(198,40,40,.15); }
 
-/* EDITAR — lote */
-.batch-bar { display: flex; gap: 8px; align-items: center; padding: 10px 14px; background: var(--green-faint); border-bottom: 1px solid var(--green-light); flex-wrap: wrap; }
-.batch-count { font-size: 12px; color: var(--green-dark); flex: 1; font-style: italic; }
+/* ── ACCORDION (editar) ──────────────────────────────────────── */
+.acc-header { padding:12px 14px; display:flex; align-items:center; gap:8px; background:#fff; border-radius:var(--radius-lg); border:1px solid var(--border); cursor:pointer; -webkit-tap-highlight-color:transparent; transition:background .15s; }
+.acc-header:active { background:var(--green-faint); }
+.acc-name  { flex:1; font-weight:600; color:var(--green-dark); font-size:15px; }
+.acc-count { font-size:12px; color:var(--text-faint); }
+.acc-chevron { font-size:18px; color:var(--text-faint); transition:transform .2s; }
+.acc-chevron.open { transform:rotate(180deg); }
+.acc-body { padding:0; border:1px solid var(--border); border-top:none; border-radius:0 0 var(--radius-lg) var(--radius-lg); background:#fafffe; margin-top:-4px; }
 
-/* FLOWER PILL EDIT */
-.flower-pill-edit { display: inline-flex; align-items: center; gap: 4px; border-radius: var(--radius-full); padding: 5px 12px; font-size: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s, color .15s, border-color .15s, opacity .15s; user-select: none; border: 1px solid transparent; }
-.flower-pill-edit:active { opacity: .75; }
+/* batch bar */
+.batch-bar { display:flex; gap:8px; align-items:center; padding:10px 14px; background:var(--green-faint); border-bottom:1px solid var(--green-light); flex-wrap:wrap; }
+.batch-count { font-size:12px; color:var(--green-dark); flex:1; font-style:italic; }
 
-.rar-divider { width: 100%; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 8px; border-radius: var(--radius-sm); margin: 8px 0 4px; display: inline-block; }
-.rar-section { margin-bottom: 10px; }
-.rar-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; padding: 3px 8px; border-radius: var(--radius-sm); display: inline-block; }
+/* flower pill edit — sem inline styles, usa classes de raridade */
+.flower-pill-edit { display:inline-flex; align-items:center; gap:4px; border-radius:var(--radius-full); padding:5px 12px; font-size:12px; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:opacity .15s,outline .1s; user-select:none; border:1px solid transparent; }
+.flower-pill-edit:active { opacity:.75; }
+/* estado: sem a flor */
+.fpe-off { background:var(--green-faint); color:var(--green-dark); border-color:var(--green-light); }
+/* estado: tem a flor — cores por raridade */
+.fpe-N   { background:var(--rar-N-bg);   color:var(--rar-N-text);   border-color:var(--rar-N-text); }
+.fpe-R   { background:var(--rar-R-bg);   color:var(--rar-R-text);   border-color:var(--rar-R-text); }
+.fpe-SR  { background:var(--rar-SR-bg);  color:var(--rar-SR-text);  border-color:var(--rar-SR-text); }
+.fpe-SSR { background:var(--rar-SSR-bg); color:var(--rar-SSR-text); border-color:var(--rar-SSR-text); }
+.fpe-UR  { background:var(--rar-UR-bg);  color:var(--rar-UR-text);  border-color:var(--rar-UR-text); }
+/* pendente (alterado mas não salvo) */
+.fpe-pending { outline:2px solid #f4b942; outline-offset:1px; }
 
-/* BOTÕES */
-.btn { padding: 10px 18px; border-radius: var(--radius-full); font-size: 14px; font-weight: 600; transition: opacity .15s, transform .1s; -webkit-tap-highlight-color: transparent; }
-.btn:active { transform: scale(.97); opacity: .9; }
-.btn-green  { background: var(--green); color: #fff; }
-.btn-red    { background: #c62828; color: #fff; }
-.btn-ghost  { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
-.btn-sm     { padding: 7px 14px; font-size: 12px; }
-.btn-xs     { padding: 5px 10px; font-size: 11px; }
-.btn-full   { width: 100%; text-align: center; }
+.rar-divider { width:100%; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; padding:4px 8px; border-radius:var(--radius-sm); margin:8px 0 4px; display:inline-block; }
 
-.form-input { width: 100%; padding: 11px 14px; border-radius: var(--radius-md); border: 2px solid var(--green-light); background: #fafff9; font-size: 15px; outline: none; transition: border-color .2s; }
-.form-input:focus { border-color: var(--green); }
-select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235e9470' fill='none' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+/* ── BOTÕES ──────────────────────────────────────────────────── */
+.btn { padding:10px 18px; border-radius:var(--radius-full); font-size:14px; font-weight:600; transition:opacity .15s,transform .1s; -webkit-tap-highlight-color:transparent; }
+.btn:active { transform:scale(.97); opacity:.9; }
+.btn-green { background:var(--green); color:#fff; }
+.btn-red   { background:#c62828; color:#fff; }
+.btn-ghost { background:transparent; color:var(--text-muted); border:1px solid var(--border); }
+.btn-danger-soft { background:#fff3f3; color:#c62828; border:1px solid #f4c2c2; }
+.btn-sm { padding:7px 14px; font-size:12px; }
+.btn-xs { padding:5px 10px; font-size:11px; }
+.btn-full { width:100%; text-align:center; }
 
-.row   { display: flex; gap: 8px; align-items: center; }
-.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.label { font-size: 12px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; }
+/* ── FORM ────────────────────────────────────────────────────── */
+.form-input { width:100%; padding:11px 14px; border-radius:var(--radius-md); border:2px solid var(--green-light); background:#fafff9; font-size:15px; outline:none; transition:border-color .2s; }
+.form-input:focus { border-color:var(--green); }
+select.form-input { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235e9470' fill='none' stroke-width='2'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
+textarea.form-input { min-height:90px; resize:vertical; }
 
-.empty     { color: var(--text-faint); font-style: italic; font-size: 13px; text-align: center; padding: 24px; }
-.no-result { background: #fff8f0; border-radius: var(--radius-md); padding: 20px; text-align: center; border: 1px dashed #f4b942; margin-top: 8px; }
-.no-result .emoji { font-size: 28px; }
-.no-result p { color: #9a6a00; font-size: 13px; margin-top: 8px; }
+.row   { display:flex; gap:8px; align-items:center; }
+.row-2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.label { font-size:12px; color:var(--text-muted); font-style:italic; margin-bottom:8px; }
 
-.loading { text-align: center; padding: 40px 20px; color: var(--text-muted); font-style: italic; font-size: 14px; }
-.spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--green-light); border-top-color: var(--green); border-radius: 50%; animation: spin .8s linear infinite; margin-right: 8px; vertical-align: middle; }
+/* ── ESTADOS VAZIOS / ERROS ─────────────────────────────────── */
+.empty     { color:var(--text-faint); font-style:italic; font-size:13px; text-align:center; padding:24px; }
+.no-result { background:#fff8f0; border-radius:var(--radius-md); padding:20px; text-align:center; border:1px dashed #f4b942; margin-top:8px; }
+.no-result .emoji { font-size:28px; }
+.no-result p { color:#9a6a00; font-size:13px; margin-top:8px; }
+.loading { text-align:center; padding:40px 20px; color:var(--text-muted); font-style:italic; font-size:14px; }
+.spinner { display:inline-block; width:20px; height:20px; border:2px solid var(--green-light); border-top-color:var(--green); border-radius:50%; animation:spin .8s linear infinite; margin-right:8px; vertical-align:middle; }
 
-#toast { position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%) translateY(8px); background: var(--green-dark); color: #fff; padding: 10px 20px; border-radius: var(--radius-full); font-size: 13px; opacity: 0; transition: opacity .3s, transform .3s; pointer-events: none; white-space: nowrap; z-index: 200; box-shadow: var(--shadow-md); }
-#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* ── TOAST ───────────────────────────────────────────────────── */
+#toast { position:fixed; bottom:88px; left:50%; transform:translateX(-50%) translateY(8px); background:var(--green-dark); color:#fff; padding:10px 20px; border-radius:var(--radius-full); font-size:13px; opacity:0; transition:opacity .3s,transform .3s; pointer-events:none; white-space:nowrap; z-index:200; box-shadow:var(--shadow-md); }
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-.sync-row { display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 8px 14px 0; }
-.sync-btn { display: flex; align-items: center; gap: 5px; background: var(--green-faint); color: var(--green-dark); padding: 7px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; border: 1px solid var(--green-light); }
-.sync-btn:active { background: var(--green-light); }
-.spin { display: inline-block; animation: spin .8s linear infinite; }
+/* ── MISSÕES ─────────────────────────────────────────────────── */
+.mission-card { background:#fff; border-radius:var(--radius-lg); padding:14px; border:1px solid var(--border); box-shadow:var(--shadow-sm); margin-bottom:10px; }
+.mission-card.current-week { border-left:4px solid var(--green); background:#f6fff7; }
+.mission-week-badge { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:var(--radius-full); background:var(--green); color:#fff; margin-bottom:6px; }
+.mission-title  { font-weight:700; color:var(--green-dark); font-size:15px; margin-bottom:4px; }
+.mission-meta   { font-size:11px; color:var(--text-faint); margin-top:6px; }
+.mission-text   { font-size:13px; color:var(--text-muted); margin-top:6px; line-height:1.6; white-space:pre-wrap; }
+.mission-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:10px; }
 
-.flower-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-.f-chip { display: flex; align-items: center; gap: 4px; background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-full); padding: 4px 10px; font-size: 12px; color: var(--green-dark); }
+/* ── STATS ───────────────────────────────────────────────────── */
+.stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+.stat-box  { background:var(--green-faint); border:1px solid var(--green-light); border-radius:var(--radius-md); padding:12px; text-align:center; }
+.stat-num  { font-size:24px; font-weight:700; color:var(--green-dark); font-family:var(--font-display); }
+.stat-label { font-size:11px; color:var(--text-muted); margin-top:2px; }
 
-/* MISSÕES */
-.mission-card { background: #fff; border-radius: var(--radius-lg); padding: 14px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 10px; }
-.mission-card.current-week { border-left: 4px solid var(--green); background: #f6fff7; }
-.mission-week-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: var(--radius-full); background: var(--green); color: #fff; margin-bottom: 6px; }
-.mission-title { font-weight: 700; color: var(--green-dark); font-size: 15px; margin-bottom: 4px; }
-.mission-meta { font-size: 11px; color: var(--text-faint); }
-.mission-text { font-size: 13px; color: var(--text-muted); margin-top: 6px; line-height: 1.6; white-space: pre-wrap; }
-.mission-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; }
-textarea.form-input { min-height: 90px; resize: vertical; }
+/* ── MODAL ───────────────────────────────────────────────────── */
+.modal-overlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; padding:20px; }
+.modal-box { background:#fff; border-radius:var(--radius-lg); padding:22px; max-width:320px; width:100%; box-shadow:var(--shadow-md); }
+.modal-box h3 { font-family:var(--font-display); color:var(--green-dark); margin-bottom:8px; font-size:17px; }
+.modal-box p  { font-size:13px; color:var(--text-muted); margin-bottom:16px; line-height:1.5; }
+.modal-actions { display:flex; gap:8px; justify-content:flex-end; }
 
-/* STATS */
-.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-.stat-box { background: var(--green-faint); border: 1px solid var(--green-light); border-radius: var(--radius-md); padding: 12px; text-align: center; }
-.stat-num { font-size: 24px; font-weight: 700; color: var(--green-dark); font-family: var(--font-display); }
-.stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-/* REGRAS */
-.rules-box { background: #1e1e2e; color: #cdd6f4; border-radius: var(--radius-md); padding: 14px; font-family: monospace; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-top: 8px; }
-
-/* MODAL CONFIRM */
-.modal-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; padding: 20px; }
-.modal-box { background: #fff; border-radius: var(--radius-lg); padding: 22px; max-width: 320px; width: 100%; box-shadow: var(--shadow-md); }
-.modal-box h3 { font-family: var(--font-display); color: var(--green-dark); margin-bottom: 8px; font-size: 17px; }
-.modal-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+/* ── REGRAS ──────────────────────────────────────────────────── */
+.rules-box { background:#1e1e2e; color:#cdd6f4; border-radius:var(--radius-md); padding:14px; font-family:monospace; font-size:12px; line-height:1.7; overflow-x:auto; margin-top:8px; }
 </style>
 </head>
 <body>
@@ -243,8 +283,7 @@ textarea.form-input { min-height: 90px; resize: vertical; }
     <p>Galeria da Guilda · Cozy Florist</p>
   </header>
 
-  <div class="sync-row">
-    <!-- Toggle PT/EN -->
+  <div class="top-bar">
     <div class="lang-toggle">
       <button id="lang-pt" class="active" onclick="setLang('pt')">🇧🇷 PT</button>
       <button id="lang-en" onclick="setLang('en')">🇺🇸 EN</button>
@@ -256,27 +295,21 @@ textarea.form-input { min-height: 90px; resize: vertical; }
 
   <div class="content">
 
-    <!-- ── BUSCAR ── -->
+    <!-- ── ABA BUSCAR ── -->
     <div id="tab-buscar" class="tab-panel active">
-
-      <!-- Filtros de raridade -->
       <div class="rar-chips" id="rar-filter-chips"></div>
-
-      <!-- Campo de busca com autocomplete -->
-      <div class="search-wrap" style="position:relative">
+      <div class="search-wrap">
         <span class="search-icon">🌸</span>
-        <input type="text" id="search-input" placeholder="Buscar flor…" oninput="onSearchInput(this.value)" autocomplete="off">
-        <div class="autocomplete-list" id="autocomplete-list" style="display:none"></div>
+        <input type="text" id="search-input" placeholder="Buscar flor…"
+          oninput="onSearchInput(this.value)" autocomplete="off">
+        <div class="ac-list" id="ac-list"></div>
       </div>
-
       <div id="search-results"></div>
-
-      <!-- Catálogo colapsável — só quando sem termo -->
       <div class="catalog-collapse" id="catalog-collapse">
         <div class="catalog-collapse-header" onclick="toggleCatalog()">
           <span>📖</span>
-          <span style="flex:1">Ver catálogo completo</span>
-          <span id="catalog-chevron" style="font-size:18px;color:var(--text-faint);transition:transform .2s">⌄</span>
+          <span>Ver catálogo completo</span>
+          <span class="catalog-chevron" id="catalog-chevron">⌄</span>
         </div>
         <div class="catalog-collapse-body" id="catalog-body">
           <div class="pills" id="all-pills"></div>
@@ -284,21 +317,23 @@ textarea.form-input { min-height: 90px; resize: vertical; }
       </div>
     </div>
 
-    <!-- ── GALERIA ── -->
+    <!-- ── ABA GALERIA ── -->
     <div id="tab-galeria" class="tab-panel">
       <div class="card" style="padding:10px 14px;margin-bottom:8px">
-        <div class="row" style="gap:8px;margin-bottom:8px">
-          <div class="search-wrap" style="flex:1;margin-bottom:0;position:relative">
+        <div class="row" style="gap:8px">
+          <div class="search-wrap" style="flex:1;margin-bottom:0">
             <span class="search-icon" style="font-size:15px">🔍</span>
-            <input type="text" id="galeria-search" placeholder="Filtrar jogadora…" oninput="renderGaleria()" style="font-size:13px;padding:8px 12px 8px 34px">
+            <input type="text" id="galeria-search" placeholder="Filtrar jogadora…"
+              oninput="renderGaleria()" style="font-size:13px;padding:8px 12px 8px 34px">
           </div>
-          <button class="btn btn-sm btn-ghost" onclick="toggleGaleriaSort()" id="sort-btn" style="white-space:nowrap;font-size:12px">⬇ Qtd</button>
+          <button class="btn btn-sm btn-ghost" id="sort-btn"
+            onclick="toggleGaleriaSort()" style="white-space:nowrap;font-size:12px">⬇ Qtd</button>
         </div>
       </div>
       <div id="galeria-content" class="loading"><span class="spinner"></span>Carregando…</div>
     </div>
 
-    <!-- ── EDITAR ── -->
+    <!-- ── ABA EDITAR ── -->
     <div id="tab-editar" class="tab-panel">
       <div class="card">
         <div class="label">➕ Adicionar jogadora</div>
@@ -314,7 +349,8 @@ textarea.form-input { min-height: 90px; resize: vertical; }
           <input type="text" id="new-fl-pt" class="form-input" placeholder="Nome PT">
         </div>
         <div class="row">
-          <input type="text" id="new-fl-emoji" class="form-input" placeholder="🌸" style="width:64px;flex-shrink:0;text-align:center">
+          <input type="text" id="new-fl-emoji" class="form-input"
+            placeholder="🌸" style="width:64px;flex-shrink:0;text-align:center">
           <select id="new-fl-rar" class="form-input" style="flex:1">
             <option value="N">🌿 N — Normal</option>
             <option value="R">💙 R — Rare</option>
@@ -329,17 +365,17 @@ textarea.form-input { min-height: 90px; resize: vertical; }
       <div id="editar-content" class="loading"><span class="spinner"></span>Carregando…</div>
     </div>
 
-    <!-- ── MISSÕES ── -->
+    <!-- ── ABA MISSÕES ── -->
     <div id="tab-missoes" class="tab-panel">
       <div class="card" style="margin-bottom:10px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="row" style="justify-content:space-between;margin-bottom:10px">
           <strong style="color:var(--green-dark)">📋 Recados da Guilda</strong>
           <button class="btn btn-green btn-sm" onclick="openMissionForm()">+ Novo</button>
         </div>
-        <!-- Formulário inline (oculto por padrão) -->
         <div id="mission-form" style="display:none">
           <input type="hidden" id="mission-edit-id">
-          <input type="text" id="mission-titulo" class="form-input" placeholder="Título da missão…" style="margin-bottom:8px">
+          <input type="text" id="mission-titulo" class="form-input"
+            placeholder="Título da missão…" style="margin-bottom:8px">
           <textarea id="mission-texto" class="form-input" placeholder="Detalhes, instruções…"></textarea>
           <div class="row" style="margin-top:8px;justify-content:flex-end;gap:8px">
             <button class="btn btn-ghost btn-sm" onclick="closeMissionForm()">Cancelar</button>
@@ -350,32 +386,30 @@ textarea.form-input { min-height: 90px; resize: vertical; }
       <div id="missoes-content" class="loading"><span class="spinner"></span>Carregando…</div>
     </div>
 
-    <!-- ── CONFIG ── -->
+    <!-- ── ABA CONFIG ── -->
     <div id="tab-config" class="tab-panel">
-
-      <!-- Estatísticas -->
-      <div class="card" id="stats-card">
+      <div class="card">
         <strong style="color:var(--green-dark);display:block;margin-bottom:10px">📊 Estatísticas da Guilda</strong>
         <div id="stats-content"><span class="empty">Carregando…</span></div>
       </div>
-
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
         <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🔥 Firebase Firestore</strong>
         Dados salvos em tempo real na nuvem. Qualquer jogadora pode editar de qualquer dispositivo!
         <br><br>
         <strong style="color:var(--green-dark)">Projeto:</strong> zoe-cozy-florist<br>
-        <strong style="color:var(--green-dark)">Coleções:</strong> <code>catalogo</code> · <code>membros</code> · <code>colecoes</code> · <code>recados</code>
+        <strong style="color:var(--green-dark)">Coleções:</strong>
+        <code>catalogo</code> · <code>membros</code> · <code>colecoes</code> · <code>recados</code>
       </div>
       <div class="card">
         <strong style="color:var(--green-dark);font-size:13px">⚠️ Regras do Firestore</strong>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;margin-bottom:8px">Se aparecer erro de permissão:</p>
+        <p style="font-size:12px;color:var(--text-muted);margin:6px 0 8px">Se aparecer erro de permissão:</p>
         <div class="rules-box">rules_version = '2';<br>service cloud.firestore {<br>&nbsp;&nbsp;match /databases/{db}/documents {<br>&nbsp;&nbsp;&nbsp;&nbsp;match /{doc=**} {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if true;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
         <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🌸 Legenda de Raridades</strong>
         <span class="rar rar-N">N</span> Normal &nbsp;
         <span class="rar rar-R">R</span> Rare &nbsp;
-        <span class="rar rar-SR">SR</span> Super Rare<br><br>
+        <span class="rar rar-SR">SR</span> Super Rare &nbsp;
         <span class="rar rar-SSR">SSR</span> &nbsp;
         <span class="rar rar-UR">UR</span> Ultra Rare
       </div>
@@ -400,68 +434,86 @@ textarea.form-input { min-height: 90px; resize: vertical; }
       <span class="nav-icon">⚙️</span><span class="nav-label">Config</span>
     </button>
   </nav>
-</div><!-- /app -->
+</div>
 
 <div id="toast"></div>
 <div id="modal-root"></div>
 
-<!-- Firebase SDK -->
+<!-- Firebase SDK (compat) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <script>
-// ── Firebase ──────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  FIREBASE
+// ══════════════════════════════════════════════════════════════════
 const firebaseConfig = {
-  apiKey: "AIzaSyBNJ0h4KFw-U_tTq6hZASqBnrhCIuS5sdI",
-  authDomain: "zoe-cozy-florist.firebaseapp.com",
-  projectId: "zoe-cozy-florist",
-  storageBucket: "zoe-cozy-florist.firebasestorage.app",
+  apiKey:            "AIzaSyBNJ0h4KFw-U_tTq6hZASqBnrhCIuS5sdI",
+  authDomain:        "zoe-cozy-florist.firebaseapp.com",
+  projectId:         "zoe-cozy-florist",
+  storageBucket:     "zoe-cozy-florist.firebasestorage.app",
   messagingSenderId: "151582355026",
-  appId: "1:151582355026:web:4cd2934f9e8c0b5ca8b98b"
+  appId:             "1:151582355026:web:4cd2934f9e8c0b5ca8b98b"
 };
 firebase.initializeApp(firebaseConfig);
 const db   = firebase.firestore();
 const auth = firebase.auth();
 
-// ── Constantes ────────────────────────────────────────────────────
+// Cache offline nativo do Firestore — zero código adicional,
+// usa IndexedDB internamente; queries offline ficam indexadas automaticamente.
+db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
+
+// ══════════════════════════════════════════════════════════════════
+//  CONSTANTES (imutáveis — declaradas uma vez, reutilizadas sempre)
+// ══════════════════════════════════════════════════════════════════
 const RARITY_ORDER = { N:1, R:2, SR:3, SSR:4, UR:5 };
 const RAR_LABEL    = { N:'Normal', R:'Rare', SR:'Super Rare', SSR:'SSR', UR:'Ultra Rare' };
-const RAR_BG       = { N:'var(--rar-N-bg)', R:'var(--rar-R-bg)', SR:'var(--rar-SR-bg)', SSR:'var(--rar-SSR-bg)', UR:'var(--rar-UR-bg)' };
-const RAR_TEXT     = { N:'var(--rar-N-text)', R:'var(--rar-R-text)', SR:'var(--rar-SR-text)', SSR:'var(--rar-SSR-text)', UR:'var(--rar-UR-text)' };
 const RARITIES     = ['N','R','SR','SSR','UR'];
 
-// ── Estado ────────────────────────────────────────────────────────
-let catalogo    = [];
-let colecoes    = {};
-let membros     = [];
-let editOpen    = {};
-let batchPending = {}; // { membro: { florEN: bool } }
-let currentTab  = 'buscar';
-let galeriaOpen = {};
-let galeriaSortMode = 'qty'; // 'qty' | 'alpha'
-let activeRarFilter = new Set(); // raridades ativas no filtro buscar
-let catalogOpen = false;
-let langMode    = localStorage.getItem('lang') || 'pt'; // 'pt' | 'en'
-let missoes     = [];
+// ══════════════════════════════════════════════════════════════════
+//  ESTADO DA APLICAÇÃO
+// ══════════════════════════════════════════════════════════════════
+let catalogo     = [];   // array de flores com _ptLc/_enLc pré-calculados
+let colecoes     = {};   // { membro: [ {en,pt,emoji,rarity} ] }
+let membros      = [];
+let editOpen     = {};   // { membro: bool }
+let batchPending = {};   // { membro: { florEN: bool } }
+let galeriaOpen  = {};
+let currentTab   = 'buscar';
+let galeriaSortMode = 'qty';   // 'qty' | 'alpha'
+let activeRarFilter = new Set();
+let catalogOpen  = false;
+let langMode     = localStorage.getItem('lang') || 'pt';
+let missoes      = [];
 
-// ── Hash de cor por nome (avatar colorido) ────────────────────────
-function nameToColor(name) {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xffffffff;
-  const hue = Math.abs(h) % 360;
-  return `hsl(${hue},50%,42%)`;
+// ── Memoização do filtro de catálogo ─────────────────────────────
+// Evita re-filtrar quando termo + raridades não mudaram.
+let _filterCache = { key: null, result: [] };
+
+function getFilteredCatalog(lc) {
+  const key = lc + '|' + [...activeRarFilter].sort().join(',');
+  if (key === _filterCache.key) return _filterCache.result;
+  const result = catalogo.filter(f =>
+    (!activeRarFilter.size || activeRarFilter.has(f.rarity)) &&
+    (!lc || f._ptLc.includes(lc) || f._enLc.includes(lc))
+  );
+  _filterCache = { key, result };
+  return result;
 }
 
-// ── Init ──────────────────────────────────────────────────────────
+function invalidateFilterCache() { _filterCache = { key: null, result: [] }; }
+
+// ══════════════════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
-  updateLangUI();
+  applyLangUI();
   try {
     await auth.signInAnonymously();
     await loadAll();
   } catch(e) {
-    console.error(e);
-    document.querySelector('#loading-screen p').textContent = '❌ Erro ao conectar.';
+    document.querySelector('#loading-screen p').textContent = '❌ Erro ao conectar. Verifique a conexão.';
     return;
   }
   document.getElementById('loading-screen').style.display = 'none';
@@ -469,7 +521,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   buildRarChips();
 });
 
-// ── Carregar dados ────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  CARREGAR DADOS
+//  Paralelo com Promise.all — uma única ida ao Firestore
+// ══════════════════════════════════════════════════════════════════
 async function loadAll() {
   const icon = document.getElementById('sync-icon');
   icon.className = 'spin';
@@ -478,25 +533,37 @@ async function loadAll() {
       db.collection('catalogo').orderBy('rarOrder').get(),
       db.collection('membros').orderBy('nome').get(),
       db.collection('colecoes').get(),
-      db.collection('recados').orderBy('data','desc').get()
+      db.collection('recados').orderBy('data', 'desc').get()
     ]);
-    catalogo = catSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    // Pré-calcular campos normalizados UMA VEZ aqui.
+    // Dentro dos filtros: zero chamadas a toLowerCase().
+    catalogo = catSnap.docs.map(d => {
+      const data  = { id: d.id, ...d.data() };
+      data._ptLc  = (data.pt  || '').toLowerCase();
+      data._enLc  = (data.en  || '').toLowerCase();
+      return data;
+    });
+
     membros  = memSnap.docs.map(d => d.data().nome);
     colecoes = {};
     colSnap.docs.forEach(d => { colecoes[d.id] = d.data().flores || []; });
     missoes  = missSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    invalidateFilterCache();
     renderCurrentTab();
     buildPills();
     buildRarChips();
     renderStats();
   } catch(e) {
-    console.error(e);
     toast('❌ Erro Firebase: ' + (e.code || e.message));
   }
   icon.className = '';
 }
 
-// ── Navegação ─────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  NAVEGAÇÃO
+// ══════════════════════════════════════════════════════════════════
 function switchTab(name, btn) {
   currentTab = name;
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -505,365 +572,391 @@ function switchTab(name, btn) {
   if (btn) btn.classList.add('active');
   renderCurrentTab();
 }
+
 function renderCurrentTab() {
-  if (currentTab === 'galeria')  renderGaleria();
-  else if (currentTab === 'editar')   renderEditar();
-  else if (currentTab === 'buscar')   buildPills();
-  else if (currentTab === 'missoes')  renderMissoes();
-  else if (currentTab === 'config')   renderStats();
+  if      (currentTab === 'galeria') renderGaleria();
+  else if (currentTab === 'editar')  renderEditar();
+  else if (currentTab === 'buscar')  buildPills();
+  else if (currentTab === 'missoes') renderMissoes();
+  else if (currentTab === 'config')  renderStats();
 }
 
-// ── Toggle língua ─────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  IDIOMA
+// ══════════════════════════════════════════════════════════════════
 function setLang(l) {
   langMode = l;
   localStorage.setItem('lang', l);
-  updateLangUI();
+  applyLangUI();
+  invalidateFilterCache();
   renderCurrentTab();
   buildPills();
 }
-function updateLangUI() {
+
+function applyLangUI() {
   document.getElementById('lang-pt').classList.toggle('active', langMode === 'pt');
   document.getElementById('lang-en').classList.toggle('active', langMode === 'en');
 }
-function florName(f) {
-  return langMode === 'en' ? (f.en || f.pt) : (f.pt || f.en);
-}
-function florSub(f) {
-  return langMode === 'en' ? (f.pt || '') : (f.en || '');
-}
 
-// ── Aba Buscar ────────────────────────────────────────────────────
+// Nome principal e secundário conforme idioma
+function florName(f) { return langMode === 'en' ? (f.en || f.pt) : (f.pt || f.en); }
+function florSub(f)  { return langMode === 'en' ? (f.pt || '')   : (f.en || ''); }
+
+// ══════════════════════════════════════════════════════════════════
+//  ABA BUSCAR
+// ══════════════════════════════════════════════════════════════════
+
+// ── Chips de raridade ─────────────────────────────────────────────
 function buildRarChips() {
   const el = document.getElementById('rar-filter-chips');
   if (!el) return;
   el.innerHTML = RARITIES.map(r =>
-    `<button class="rar-chip ${activeRarFilter.has(r)?'active':''}"
-      style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}"
-      onclick="toggleRarFilter('${r}')">${r}</button>`
+    `<button class="rar-chip rar-${r} ${activeRarFilter.has(r) ? 'active' : ''}"
+       onclick="toggleRarFilter('${r}')">${r}</button>`
   ).join('');
 }
+
 function toggleRarFilter(r) {
   activeRarFilter.has(r) ? activeRarFilter.delete(r) : activeRarFilter.add(r);
   buildRarChips();
+  invalidateFilterCache();
   const term = document.getElementById('search-input').value;
-  if (term.trim()) doSearch(term);
-  else buildPills();
+  term.trim() ? doSearch(term.trim().toLowerCase()) : buildPills();
 }
 
-// Catálogo colapsável
+// ── Catálogo colapsável ───────────────────────────────────────────
 function buildPills() {
   const el = document.getElementById('all-pills');
   if (!el) return;
-  let list = catalogo;
-  if (activeRarFilter.size) list = list.filter(f => activeRarFilter.has(f.rarity));
+  const list = getFilteredCatalog('');
   el.innerHTML = list.map(f =>
-    `<span class="pill" style="background:${RAR_BG[f.rarity]};color:${RAR_TEXT[f.rarity]};border-color:${RAR_TEXT[f.rarity]}22"
-      onclick="setSearch('${escJs(f.en)}')">${f.emoji||'🌸'} ${escHtml(florName(f))}</span>`
+    `<span class="pill pill-${f.rarity}" onclick="setSearch('${escJs(f.en)}')">${f.emoji||'🌸'} ${escHtml(florName(f))}</span>`
   ).join('');
 }
+
 function toggleCatalog() {
   catalogOpen = !catalogOpen;
   document.getElementById('catalog-body').classList.toggle('open', catalogOpen);
-  const chev = document.getElementById('catalog-chevron');
-  chev.style.transform = catalogOpen ? 'rotate(180deg)' : '';
-}
-function setSearch(termEN) {
-  const f = catalogo.find(x => x.en === termEN);
-  document.getElementById('search-input').value = f ? florName(f) : termEN;
-  document.getElementById('autocomplete-list').style.display = 'none';
-  doSearch(termEN, true);
+  document.getElementById('catalog-chevron').classList.toggle('open', catalogOpen);
 }
 
-// Autocomplete
-let acTimer;
+function setSearch(florEN) {
+  const f = catalogo.find(x => x.en === florEN);
+  document.getElementById('search-input').value = f ? florName(f) : florEN;
+  document.getElementById('ac-list').style.display = 'none';
+  doSearch(florEN.toLowerCase());
+}
+
+// ── Debounce único para autocomplete + busca ──────────────────────
+let _inputTimer;
 function onSearchInput(val) {
-  clearTimeout(acTimer);
   const term = val.trim().toLowerCase();
-  const ac = document.getElementById('autocomplete-list');
-  const catalog = document.getElementById('catalog-collapse');
+  const acEl = document.getElementById('ac-list');
+  const catEl = document.getElementById('catalog-collapse');
+
   if (!term) {
-    ac.style.display = 'none';
+    acEl.style.display = 'none';
     document.getElementById('search-results').innerHTML = '';
-    catalog.style.display = '';
+    catEl.style.display = '';
     return;
   }
-  catalog.style.display = 'none';
+  catEl.style.display = 'none';
 
-  // Sugestões imediatas
-  let suggestions = catalogo.filter(f =>
-    florName(f).toLowerCase().includes(term) ||
-    florSub(f).toLowerCase().includes(term) ||
-    (f.pt||'').toLowerCase().includes(term) ||
-    (f.en||'').toLowerCase().includes(term)
-  );
-  if (activeRarFilter.size) suggestions = suggestions.filter(f => activeRarFilter.has(f.rarity));
+  // Autocomplete: imediato, sem esperar debounce
+  const suggestions = getFilteredCatalog(term).slice(0, 8);
   if (suggestions.length) {
-    ac.innerHTML = suggestions.slice(0,8).map(f =>
-      `<div class="autocomplete-item" onclick="setSearch('${escJs(f.en)}')">
+    acEl.innerHTML = suggestions.map(f =>
+      `<div class="ac-item" onclick="setSearch('${escJs(f.en)}')">
         <span>${f.emoji||'🌸'}</span>
-        <span style="flex:1">${escHtml(florName(f))}<span style="font-size:10px;color:var(--text-faint);margin-left:6px">${escHtml(florSub(f))}</span></span>
-        <span class="ac-rar rar-${f.rarity}">${f.rarity}</span>
+        <span style="flex:1">${escHtml(florName(f))}<span class="ac-name-sub">${escHtml(florSub(f))}</span></span>
+        <span class="rar rar-${f.rarity}">${f.rarity}</span>
       </div>`
     ).join('');
-    ac.style.display = '';
+    acEl.style.display = '';
   } else {
-    ac.style.display = 'none';
+    acEl.style.display = 'none';
   }
 
-  acTimer = setTimeout(() => doSearch(term, false), 350);
+  // Busca completa: debounce 280ms — evita processar a cada tecla
+  clearTimeout(_inputTimer);
+  _inputTimer = setTimeout(() => doSearch(term), 280);
 }
 
-// Fechar autocomplete ao clicar fora
 document.addEventListener('click', e => {
   if (!e.target.closest('.search-wrap')) {
-    const ac = document.getElementById('autocomplete-list');
+    const ac = document.getElementById('ac-list');
     if (ac) ac.style.display = 'none';
   }
 });
 
-function doSearch(term, isExact = false) {
+// ── Busca principal ───────────────────────────────────────────────
+// Um único loop por membros — sem filter encadeado
+function doSearch(lc) {
   const res = document.getElementById('search-results');
-  const lc  = term.trim().toLowerCase();
+  document.getElementById('ac-list').style.display = 'none';
   if (!lc) { res.innerHTML = ''; return; }
 
-  // Flores que batem
-  const matchFlores = flist => flist.filter(f => {
-    const nameMatch = (f.pt||'').toLowerCase().includes(lc) || (f.en||'').toLowerCase().includes(lc);
-    const rarMatch  = !activeRarFilter.size || activeRarFilter.has(f.rarity);
-    return nameMatch && rarMatch;
-  });
+  const useRarFilter = activeRarFilter.size > 0;
+  const found = [];
 
-  const found = {};
-  for (const [m, flores] of Object.entries(colecoes)) {
-    const match = matchFlores(flores);
-    if (match.length) found[m] = match;
+  for (const m of membros) {
+    const flores = colecoes[m];
+    if (!flores) continue;
+    const match = [];
+    for (const f of flores) {
+      if (useRarFilter && !activeRarFilter.has(f.rarity)) continue;
+      if ((f.pt||'').toLowerCase().includes(lc) || (f.en||'').toLowerCase().includes(lc)) {
+        match.push(f);
+      }
+    }
+    if (match.length) found.push({ m, match });
   }
 
-  document.getElementById('autocomplete-list').style.display = 'none';
-
-  if (!Object.keys(found).length) {
+  if (!found.length) {
     res.innerHTML = `<div class="no-result"><div class="emoji">🌿</div><p>Nenhuma jogadora tem "<strong>${escHtml(lc)}</strong>".</p></div>`;
     return;
   }
-  res.innerHTML = `<p style="font-size:12px;color:var(--green);font-style:italic;margin-bottom:8px">✨ ${Object.keys(found).length} jogadora(s):</p>` +
-    Object.entries(found).map(([m, flores]) =>
-      `<div class="result-card">
-        <div class="avatar" style="background:${nameToColor(m)}">${escHtml(m[0].toUpperCase())}</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
-          <div class="pills" style="margin-top:6px">
-            ${flores.map(f =>
-              `<span class="pill has" style="cursor:default;background:${RAR_BG[f.rarity]};color:${RAR_TEXT[f.rarity]};border-color:${RAR_TEXT[f.rarity]}66">
-                ${f.emoji||'🌸'} ${escHtml(florName(f))}
-                <span style="display:block;font-size:10px;opacity:.7;line-height:1;margin-top:1px">${escHtml(florSub(f))}</span>
-              </span>`
-            ).join('')}
-          </div>
+
+  const rows = found.map(({ m, match }) =>
+    `<div class="result-card">
+      <div class="avatar" style="background:${nameToColor(m)}">${escHtml(m[0].toUpperCase())}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
+        <div class="pills" style="margin-top:6px">
+          ${match.map(f =>
+            `<span class="pill pill-${f.rarity}" style="cursor:default">
+              ${f.emoji||'🌸'} ${escHtml(florName(f))}
+              <span style="display:block;font-size:10px;opacity:.7;line-height:1;margin-top:1px">${escHtml(florSub(f))}</span>
+            </span>`
+          ).join('')}
         </div>
-      </div>`
-    ).join('');
+      </div>
+    </div>`
+  ).join('');
+
+  res.innerHTML = `<p style="font-size:12px;color:var(--green);font-style:italic;margin-bottom:8px">✨ ${found.length} jogadora(s):</p>${rows}`;
 }
 
-// ── Galeria ───────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  ABA GALERIA
+// ══════════════════════════════════════════════════════════════════
 function toggleGaleriaSort() {
   galeriaSortMode = galeriaSortMode === 'qty' ? 'alpha' : 'qty';
   document.getElementById('sort-btn').textContent = galeriaSortMode === 'qty' ? '⬇ Qtd' : '🔤 A-Z';
   renderGaleria();
 }
 
-// Contagem por raridade no catálogo
-function catalogCountByRar() {
-  const c = {};
-  catalogo.forEach(f => { c[f.rarity] = (c[f.rarity]||0)+1; });
-  return c;
+// Pré-calcula contagem por raridade no catálogo (invariante até próximo loadAll)
+let _catByRar = null;
+function getCatByRar() {
+  if (_catByRar) return _catByRar;
+  _catByRar = {};
+  catalogo.forEach(f => { _catByRar[f.rarity] = (_catByRar[f.rarity] || 0) + 1; });
+  return _catByRar;
 }
 
 function renderGaleria() {
   const el = document.getElementById('galeria-content');
   if (!membros.length) { el.innerHTML = '<p class="empty">Nenhuma jogadora cadastrada.</p>'; return; }
 
-  const filterTerm = (document.getElementById('galeria-search')?.value||'').trim().toLowerCase();
-  const catByRar = catalogCountByRar();
+  const filterTerm = (document.getElementById('galeria-search')?.value || '').trim().toLowerCase();
+  const catByRar   = getCatByRar();
 
-  let list = membros.filter(m => !filterTerm || m.toLowerCase().includes(filterTerm));
+  let list = filterTerm ? membros.filter(m => m.toLowerCase().includes(filterTerm)) : membros.slice();
   if (galeriaSortMode === 'qty') {
-    list = list.slice().sort((a,b) => (colecoes[b]||[]).length - (colecoes[a]||[]).length);
+    list.sort((a, b) => (colecoes[b] || []).length - (colecoes[a] || []).length);
   }
   if (!list.length) { el.innerHTML = '<p class="empty">Nenhuma jogadora encontrada.</p>'; return; }
 
-  el.innerHTML = list.map(m => {
-    const flores = (colecoes[m]||[]).slice().sort((a,b) => {
-      const ra = RARITY_ORDER[a.rarity]||5, rb = RARITY_ORDER[b.rarity]||5;
-      return ra !== rb ? ra - rb : florName(a).localeCompare(florName(b),'pt-BR');
+  // Constrói HTML com array e join — evita concatenação em loop
+  const parts = [];
+  for (const m of list) {
+    const flores  = (colecoes[m] || []).slice().sort((a, b) => {
+      const diff = (RARITY_ORDER[a.rarity]||5) - (RARITY_ORDER[b.rarity]||5);
+      return diff !== 0 ? diff : florName(a).localeCompare(florName(b), 'pt-BR');
     });
-    const byRar = {};
-    flores.forEach(f => { const r = f.rarity||'N'; if (!byRar[r]) byRar[r]=[]; byRar[r].push(f); });
     const isOpen = !!galeriaOpen[m];
     const color  = nameToColor(m);
 
-    // Barras de progresso
-    const progressBars = RARITIES.filter(r => catByRar[r]).map(r => {
-      const has   = (byRar[r]||[]).length;
-      const total = catByRar[r] || 1;
-      const pct   = Math.round((has/total)*100);
-      return `<div class="progress-row">
-        <span class="progress-label" style="color:${RAR_TEXT[r]}">${r}</span>
-        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${pct}%;background:${RAR_TEXT[r]}"></div></div>
-        <span class="progress-count">${has}/${total}</span>
-      </div>`;
-    }).join('');
+    // Barras de progresso agrupadas por raridade
+    const byRar = {};
+    flores.forEach(f => { const r = f.rarity || 'N'; (byRar[r] = byRar[r] || []).push(f); });
+
+    const progressBars = RARITIES
+      .filter(r => catByRar[r])
+      .map(r => {
+        const has   = (byRar[r] || []).length;
+        const total = catByRar[r];
+        const pct   = Math.round((has / total) * 100);
+        return `<div class="progress-row">
+          <span class="progress-label rar-${r}" style="background:none;padding:0">${r}</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill rar-${r}" style="width:${pct}%;background:var(--rar-${r}-text)"></div>
+          </div>
+          <span class="progress-count">${has}/${total}</span>
+        </div>`;
+      }).join('');
 
     const sections = Object.entries(byRar)
-      .sort((a,b) => (RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5))
-      .map(([r,fs]) => `
-        <div class="rar-section">
-          <div class="rar-section-title" style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}">${r} — ${RAR_LABEL[r]||r}</div>
+      .sort((a, b) => (RARITY_ORDER[a[0]] || 5) - (RARITY_ORDER[b[0]] || 5))
+      .map(([r, fs]) =>
+        `<div class="rar-section">
+          <div class="rar-section-title rar-${r}">${r} — ${RAR_LABEL[r] || r}</div>
           <div class="flower-grid">
-            ${fs.map(f => `<span class="f-chip" style="background:${RAR_BG[r]}22;border-color:${RAR_TEXT[r]}33">${f.emoji||'🌸'} ${escHtml(florName(f))}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(florSub(f))}</span></span>`).join('')}
+            ${fs.map(f =>
+              `<span class="f-chip f-chip-${f.rarity}">${f.emoji||'🌸'} ${escHtml(florName(f))}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(florSub(f))}</span></span>`
+            ).join('')}
           </div>
-        </div>`).join('');
+        </div>`
+      ).join('');
 
-    // Botão exportar CSV
-    const csvBtn = `<button class="btn btn-ghost btn-xs" style="margin-left:auto" onclick="event.stopPropagation();exportCSV('${escJs(m)}')">⬇ CSV</button>`;
-
-    return `<div class="member-card">
-      <div class="member-card-header" onclick="toggleGaleriaCard('${escJs(m)}')" style="background:linear-gradient(90deg,${color}cc,${color}88)">
+    parts.push(`<div class="member-card">
+      <div class="member-card-header" onclick="toggleGaleriaCard('${escJs(m)}')"
+        style="background:linear-gradient(90deg,${color}cc,${color}77)">
         <div class="avatar avatar-sm" style="background:${color}">${escHtml(m[0].toUpperCase())}</div>
         <span class="mname" style="color:#fff">${escHtml(m)}</span>
-        <span class="badge">${flores.length} flor${flores.length!==1?'es':''}</span>
-        ${csvBtn}
-        <span class="acc-chevron ${isOpen?'open':''}" style="color:rgba(255,255,255,.8)">⌄</span>
+        <span class="badge">${flores.length} flor${flores.length !== 1 ? 'es' : ''}</span>
+        <button class="btn btn-xs" style="background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.3);margin-left:4px"
+          onclick="event.stopPropagation();exportCSV('${escJs(m)}')">⬇ CSV</button>
+        <span class="acc-chevron ${isOpen ? 'open' : ''}" style="color:rgba(255,255,255,.8)">⌄</span>
       </div>
       ${isOpen ? `<div class="member-card-body">
-        <div class="progress-wrap" style="margin-bottom:10px">${progressBars}</div>
+        <div class="progress-wrap">${progressBars}</div>
         ${flores.length ? sections : '<span class="empty" style="padding:8px 0">Sem flores.</span>'}
       </div>` : ''}
-    </div>`;
-  }).join('');
+    </div>`);
+  }
+
+  el.innerHTML = parts.join('');
 }
 
 function toggleGaleriaCard(m) { galeriaOpen[m] = !galeriaOpen[m]; renderGaleria(); }
 
-// Exportar CSV
+// ══════════════════════════════════════════════════════════════════
+//  EXPORTAR CSV
+// ══════════════════════════════════════════════════════════════════
 function exportCSV(membro) {
   const flores = colecoes[membro] || [];
   if (!flores.length) { toast('⚠️ Sem flores para exportar'); return; }
   const header = 'Nome PT,Nome EN,Emoji,Raridade
 ';
-  const rows = flores.map(f => `"${(f.pt||'').replace(/"/g,'""')}","${(f.en||'').replace(/"/g,'""')}","${f.emoji||''}","${f.rarity||''}"`).join('
+  const rows   = flores
+    .map(f => `"${(f.pt||'').replace(/"/g,'""')}","${(f.en||'').replace(/"/g,'""')}","${f.emoji||''}","${f.rarity||''}"`)
+    .join('
 ');
-  const blob = new Blob(['﻿'+header+rows], { type: 'text/csv;charset=utf-8;' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `flores_${membro.replace(/s+/g,'_')}.csv`;
+  const blob = new Blob(['﻿' + header + rows], { type: 'text/csv;charset=utf-8;' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = `flores_${membro.replace(/s+/g, '_')}.csv`;
   a.click();
+  URL.revokeObjectURL(a.href); // libera memória
   toast('✅ CSV exportado!');
 }
 
-// ── Editar ────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  ABA EDITAR
+// ══════════════════════════════════════════════════════════════════
 function renderEditar() {
   const el = document.getElementById('editar-content');
   if (!membros.length) { el.innerHTML = '<p class="empty">Adicione uma jogadora acima.</p>'; return; }
 
-  el.innerHTML = membros.map(m => {
-    const flores = colecoes[m] || [];
-    const set    = new Set(flores.map(f => f.en));
-    const open   = !!editOpen[m];
-    const color  = nameToColor(m);
-    // Pendentes deste membro
+  const parts = [];
+  for (const m of membros) {
+    const flores  = colecoes[m] || [];
+    const savedSet = new Set(flores.map(f => f.en));
+    const open    = !!editOpen[m];
+    const color   = nameToColor(m);
     const pending = batchPending[m] || {};
+    const pendCount = Object.keys(pending).length;
+    const safeKey = m.replace(/W/g, '_');
+    const searchId = `edit-search-${safeKey}`;
 
     if (!open) {
-      return `<div style="margin-bottom:8px">
+      parts.push(`<div style="margin-bottom:8px">
         <div class="acc-header" onclick="toggleEdit('${escJs(m)}')">
           <div class="avatar avatar-sm" style="background:${color}">${escHtml(m[0].toUpperCase())}</div>
           <span class="acc-name">${escHtml(m)}</span>
           <span class="acc-count">${flores.length} flores</span>
           <span class="acc-chevron">⌄</span>
         </div>
-      </div>`;
+      </div>`);
+      continue;
     }
 
-    // Busca inline
-    const searchId = `edit-search-${m.replace(/W/g,'_')}`;
-
-    // Renderiza flores filtradas
+    // Agrupa catálogo por raridade (uma passagem)
     const byRar = {};
-    catalogo.forEach(f => { if (!byRar[f.rarity]) byRar[f.rarity]=[]; byRar[f.rarity].push(f); });
+    for (const f of catalogo) {
+      (byRar[f.rarity] = byRar[f.rarity] || []).push(f);
+    }
+
     const sections = Object.entries(byRar)
-      .sort((a,b) => (RARITY_ORDER[a[0]]||5)-(RARITY_ORDER[b[0]]||5))
-      .map(([r,fs]) => {
+      .sort((a, b) => (RARITY_ORDER[a[0]] || 5) - (RARITY_ORDER[b[0]] || 5))
+      .map(([r, fs]) => {
         const pills = fs.map(f => {
-          const hasSaved   = set.has(f.en);
-          // pending: true=adicionando, false=removendo, undefined=sem alteração
+          const hasSaved   = savedSet.has(f.en);
           const hasPending = pending[f.en] !== undefined ? pending[f.en] : hasSaved;
           const changed    = pending[f.en] !== undefined;
-          const bg    = hasPending ? RAR_BG[f.rarity]  : 'var(--green-faint)';
-          const cl    = hasPending ? RAR_TEXT[f.rarity] : 'var(--green-dark)';
-          const brd   = hasPending ? RAR_TEXT[f.rarity] : 'var(--green-light)';
-          const ring  = changed ? '2px solid #f4b942' : '';
-          return `<span class="flower-pill-edit"
-            style="background:${bg};color:${cl};border-color:${brd};${ring?'outline:'+ring:''}"
-            data-member="${escHtml(m)}" data-en="${escHtml(f.en)}"
+          const stateClass = hasPending ? `fpe-${f.rarity}` : 'fpe-off';
+          return `<span class="flower-pill-edit ${stateClass} ${changed ? 'fpe-pending' : ''}"
+            data-en="${escHtml(f.en)}"
             onclick="pendingToggle('${escJs(m)}','${escJs(f.en)}',${!hasPending},'${escJs(f.pt)}','${escJs(f.emoji||'🌸')}','${escJs(f.rarity)}')">
             ${f.emoji||'🌸'} ${escHtml(florName(f))}
           </span>`;
         }).join('');
-        return `<div style="margin-bottom:8px" class="edit-rar-group-${m.replace(/W/g,'_')}" data-rar="${r}">
-          <div class="rar-divider" style="background:${RAR_BG[r]};color:${RAR_TEXT[r]}">${r} — ${RAR_LABEL[r]||r}</div>
+        return `<div class="edit-rar-group edit-rar-group-${safeKey}" data-rar="${r}" style="margin-bottom:8px">
+          <div class="rar-divider rar-${r}">${r} — ${RAR_LABEL[r] || r}</div>
           <div class="pills">${pills}</div>
         </div>`;
       }).join('');
 
-    const pendCount = Object.keys(pending).length;
-
-    return `<div style="margin-bottom:8px">
+    parts.push(`<div style="margin-bottom:8px">
       <div class="acc-header" onclick="toggleEdit('${escJs(m)}')">
         <div class="avatar avatar-sm" style="background:${color}">${escHtml(m[0].toUpperCase())}</div>
         <span class="acc-name">${escHtml(m)}</span>
         <span class="acc-count">${flores.length} flores</span>
         <span class="acc-chevron open">⌄</span>
       </div>
-      <div class="acc-body" style="padding-top:0">
-        <!-- Barra de ações em lote -->
+      <div class="acc-body">
         <div class="batch-bar">
-          <div class="search-wrap" style="flex:1;margin-bottom:0;position:relative">
+          <div class="search-wrap" style="flex:1;margin-bottom:0">
             <span class="search-icon" style="font-size:14px">🌸</span>
-            <input id="${searchId}" type="text" class="form-input" placeholder="Filtrar flores…"
+            <input id="${searchId}" type="text" class="form-input"
+              placeholder="Filtrar flores…"
               style="padding:7px 12px 7px 32px;font-size:12px;border-radius:var(--radius-full)"
-              oninput="filterEditFlores('${escJs(m)}','${searchId}')">
+              oninput="filterEditFlores('${escJs(m)}','${safeKey}',this.value)">
           </div>
-          ${pendCount > 0
-            ? `<span class="batch-count">${pendCount} alteração(ões)</span>
-               <button class="btn btn-ghost btn-sm" onclick="cancelBatch('${escJs(m)}')">✕ Cancelar</button>
-               <button class="btn btn-green btn-sm" onclick="saveBatch('${escJs(m)}')">💾 Salvar</button>`
-            : ''}
-          <button class="btn btn-sm" style="background:#fff3f3;color:#c62828;border:1px solid #f4c2c2" onclick="confirmRemoveMembro('${escJs(m)}')">🗑️</button>
+          ${pendCount > 0 ? `
+            <span class="batch-count">${pendCount} alteração(ões)</span>
+            <button class="btn btn-ghost btn-sm" onclick="cancelBatch('${escJs(m)}')">✕</button>
+            <button class="btn btn-green btn-sm" onclick="saveBatch('${escJs(m)}')">💾 Salvar</button>
+          ` : ''}
+          <button class="btn btn-xs btn-danger-soft"
+            onclick="confirmRemoveMembro('${escJs(m)}')">🗑️</button>
         </div>
-        <div id="edit-body-${m.replace(/W/g,'_')}" style="padding:8px 0 0">
+        <div id="edit-body-${safeKey}" style="padding:10px 14px 4px">
           ${sections}
         </div>
       </div>
-    </div>`;
-  }).join('');
+    </div>`);
+  }
+
+  el.innerHTML = parts.join('');
 }
 
-// Filtrar flores no editar
-function filterEditFlores(membro, inputId) {
-  const term = document.getElementById(inputId)?.value.trim().toLowerCase() || '';
-  const key  = membro.replace(/W/g,'_');
-  const groups = document.querySelectorAll(`.edit-rar-group-${key}`);
-  groups.forEach(g => {
-    let visibleInGroup = 0;
-    g.querySelectorAll('.flower-pill-edit').forEach(pill => {
+// Filtro inline do editar — opera diretamente no DOM, zero re-render
+function filterEditFlores(membro, safeKey, term) {
+  const lc = term.trim().toLowerCase();
+  document.querySelectorAll(`.edit-rar-group-${safeKey}`).forEach(group => {
+    let visible = 0;
+    group.querySelectorAll('.flower-pill-edit').forEach(pill => {
       const en   = pill.dataset.en || '';
       const f    = catalogo.find(x => x.en === en);
-      const name = f ? (f.pt + ' ' + f.en).toLowerCase() : en.toLowerCase();
-      const show = !term || name.includes(term);
+      const name = f ? (f._ptLc + ' ' + f._enLc) : en.toLowerCase();
+      const show = !lc || name.includes(lc);
       pill.style.display = show ? '' : 'none';
-      if (show) visibleInGroup++;
+      if (show) visible++;
     });
-    g.style.display = visibleInGroup === 0 ? 'none' : '';
+    group.style.display = visible === 0 ? 'none' : '';
   });
 }
 
@@ -873,10 +966,10 @@ function toggleEdit(m) {
   renderEditar();
 }
 
-// Modo edição em lote
-function pendingToggle(membro, florEN, nowChecked, florPT, emoji, rarity) {
+// ── Edição em lote ────────────────────────────────────────────────
+function pendingToggle(membro, florEN, nowChecked) {
   if (!batchPending[membro]) batchPending[membro] = {};
-  const flores  = colecoes[membro] || [];
+  const flores   = colecoes[membro] || [];
   const hasSaved = flores.some(f => f.en === florEN);
   if (nowChecked === hasSaved) {
     delete batchPending[membro][florEN];
@@ -891,17 +984,20 @@ async function saveBatch(membro) {
   const pending = batchPending[membro] || {};
   if (!Object.keys(pending).length) return;
   if (!colecoes[membro]) colecoes[membro] = [];
+
   for (const [en, add] of Object.entries(pending)) {
     if (add) {
       if (!colecoes[membro].some(f => f.en === en)) {
         const cat = catalogo.find(f => f.en === en);
-        if (cat) colecoes[membro].push({ en: cat.en, pt: cat.pt, emoji: cat.emoji||'🌸', rarity: cat.rarity });
+        if (cat) colecoes[membro].push({ en: cat.en, pt: cat.pt, emoji: cat.emoji || '🌸', rarity: cat.rarity });
       }
     } else {
       colecoes[membro] = colecoes[membro].filter(f => f.en !== en);
     }
   }
+
   try {
+    // Um único write no Firestore para todas as alterações
     await db.collection('colecoes').doc(membro).set({ flores: colecoes[membro] });
     delete batchPending[membro];
     toast(`✅ Salvo para ${membro}!`);
@@ -914,52 +1010,58 @@ function cancelBatch(membro) {
   renderEditar();
 }
 
-// Remover membro com modal de confirmação
 function confirmRemoveMembro(nome) {
   showModal(
     `Remover ${nome}?`,
-    `Todos os dados de flores de <strong>${escHtml(nome)}</strong> serão apagados permanentemente.`,
-    'Remover',
-    () => removeMembro(nome)
+    `Todos os dados de <strong>${escHtml(nome)}</strong> serão apagados permanentemente.`,
+    'Remover', () => removeMembro(nome)
   );
 }
+
 async function removeMembro(nome) {
   try {
-    await db.collection('membros').doc(nome).delete();
-    await db.collection('colecoes').doc(nome).delete();
+    await Promise.all([
+      db.collection('membros').doc(nome).delete(),
+      db.collection('colecoes').doc(nome).delete()
+    ]);
     delete editOpen[nome];
     delete batchPending[nome];
+    delete galeriaOpen[nome];
     toast('Removida: ' + nome);
     await loadAll();
   } catch(e) { toast('❌ Erro: ' + e.message); }
 }
 
-// ── MISSÕES ───────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  ABA MISSÕES
+// ══════════════════════════════════════════════════════════════════
 function getWeekKey(date) {
   const d = new Date(date);
   const day = d.getDay() || 7;
   d.setDate(d.getDate() + 4 - day);
   const y = d.getFullYear();
-  const w = Math.ceil((((d - new Date(y,0,1))/86400000)+1)/7);
-  return `${y}-W${String(w).padStart(2,'0')}`;
+  const w = Math.ceil((((d - new Date(y, 0, 1)) / 86400000) + 1) / 7);
+  return `${y}-W${String(w).padStart(2, '0')}`;
 }
+
 function currentWeekKey() { return getWeekKey(new Date()); }
 
 function renderMissoes() {
-  const el = document.getElementById('missoes-content');
+  const el  = document.getElementById('missoes-content');
   if (!missoes.length) { el.innerHTML = '<p class="empty">Sem recados ainda. Adicione o primeiro!</p>'; return; }
   const cwk = currentWeekKey();
   el.innerHTML = missoes.map(m => {
     const isCurrent = getWeekKey(m.data?.toDate?.() || m.data) === cwk;
     const dateStr   = m.data ? new Date(m.data?.toDate?.() || m.data).toLocaleDateString('pt-BR') : '';
-    return `<div class="mission-card ${isCurrent?'current-week':''}">
+    return `<div class="mission-card ${isCurrent ? 'current-week' : ''}">
       ${isCurrent ? '<span class="mission-week-badge">📌 Esta semana</span>' : ''}
       <div class="mission-title">${escHtml(m.titulo)}</div>
       <div class="mission-text">${escHtml(m.texto)}</div>
-      <div class="mission-meta">📅 ${dateStr} ${m.autor?'· '+escHtml(m.autor):''}</div>
+      <div class="mission-meta">📅 ${dateStr}${m.autor ? ' · ' + escHtml(m.autor) : ''}</div>
       <div class="mission-actions">
         <button class="btn btn-ghost btn-xs" onclick="editMission('${escJs(m.id)}')">✏️ Editar</button>
-        <button class="btn btn-xs" style="background:#fff3f3;color:#c62828;border:1px solid #f4c2c2" onclick="confirmDeleteMission('${escJs(m.id)}','${escJs(m.titulo)}')">🗑️</button>
+        <button class="btn btn-xs btn-danger-soft"
+          onclick="confirmDeleteMission('${escJs(m.id)}','${escJs(m.titulo)}')">🗑️</button>
       </div>
     </div>`;
   }).join('');
@@ -974,6 +1076,7 @@ function openMissionForm(id) {
   }
   document.getElementById('mission-titulo').focus();
 }
+
 function closeMissionForm() { document.getElementById('mission-form').style.display = 'none'; }
 
 function editMission(id) {
@@ -989,12 +1092,11 @@ async function saveMission() {
   const titulo = document.getElementById('mission-titulo').value.trim();
   const texto  = document.getElementById('mission-texto').value.trim();
   if (!titulo) { toast('⚠️ Título obrigatório'); return; }
-  const payload = { titulo, texto, data: new Date(), autor: '' };
   try {
     if (id) {
       await db.collection('recados').doc(id).update({ titulo, texto });
     } else {
-      await db.collection('recados').add(payload);
+      await db.collection('recados').add({ titulo, texto, data: new Date(), autor: '' });
     }
     closeMissionForm();
     toast(id ? '✅ Recado atualizado!' : '✅ Recado adicionado!');
@@ -1005,6 +1107,7 @@ async function saveMission() {
 function confirmDeleteMission(id, titulo) {
   showModal('Excluir recado?', `"${escHtml(titulo)}" será removido permanentemente.`, 'Excluir', () => deleteMission(id));
 }
+
 async function deleteMission(id) {
   try {
     await db.collection('recados').doc(id).delete();
@@ -1013,67 +1116,63 @@ async function deleteMission(id) {
   } catch(e) { toast('❌ Erro: ' + e.message); }
 }
 
-// ── Estatísticas ──────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  ESTATÍSTICAS (calculadas no cliente, zero reads extras)
+// ══════════════════════════════════════════════════════════════════
 function renderStats() {
   const el = document.getElementById('stats-content');
+  if (!el) return;
   if (!catalogo.length || !membros.length) { el.innerHTML = '<span class="empty">Sem dados suficientes.</span>'; return; }
 
-  // Flor mais comum
-  const freqMap = {};
-  Object.values(colecoes).forEach(flores => flores.forEach(f => { freqMap[f.en] = (freqMap[f.en]||0)+1; }));
-  const topEN  = Object.entries(freqMap).sort((a,b)=>b[1]-a[1])[0];
-  const topFlor = topEN ? catalogo.find(f=>f.en===topEN[0]) : null;
-
-  // Jogadora com mais flores
-  const topMem = membros.slice().sort((a,b)=>(colecoes[b]||[]).length-(colecoes[a]||[]).length)[0];
-  const topMemCount = topMem ? (colecoes[topMem]||[]).length : 0;
-
-  // Total flores distintas coletadas
-  const allDistinct = new Set(Object.values(colecoes).flatMap(f=>f.map(x=>x.en))).size;
-
-  // Distribuição por raridade
+  const freqMap  = {};
   const rarCount = {};
-  Object.values(colecoes).forEach(flores=>flores.forEach(f=>{ rarCount[f.rarity]=(rarCount[f.rarity]||0)+1; }));
+  for (const flores of Object.values(colecoes)) {
+    for (const f of flores) {
+      freqMap[f.en]     = (freqMap[f.en]     || 0) + 1;
+      rarCount[f.rarity] = (rarCount[f.rarity] || 0) + 1;
+    }
+  }
 
-  const distBars = RARITIES.filter(r=>rarCount[r]).map(r=>
-    `<div class="progress-row">
-      <span class="progress-label" style="color:${RAR_TEXT[r]}">${r}</span>
-      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:${RAR_TEXT[r]}"></div></div>
+  const topEntry = Object.entries(freqMap).sort((a, b) => b[1] - a[1])[0];
+  const topFlor  = topEntry ? catalogo.find(f => f.en === topEntry[0]) : null;
+  const topMem   = membros.slice().sort((a, b) => (colecoes[b]||[]).length - (colecoes[a]||[]).length)[0];
+  const distinct = Object.keys(freqMap).length;
+
+  const catByRar = getCatByRar();
+  const distBars = RARITIES.filter(r => rarCount[r]).map(r => {
+    const pct = Math.round((rarCount[r] / (catByRar[r] * membros.length || 1)) * 100);
+    return `<div class="progress-row">
+      <span class="progress-label" style="color:var(--rar-${r}-text)">${r}</span>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width:${pct}%;background:var(--rar-${r}-text)"></div>
+      </div>
       <span class="progress-count">${rarCount[r]}</span>
-    </div>`
-  ).join('');
+    </div>`;
+  }).join('');
 
   el.innerHTML = `
     <div class="stat-grid">
-      <div class="stat-box">
-        <div class="stat-num">${membros.length}</div>
-        <div class="stat-label">Jogadoras</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">${catalogo.length}</div>
-        <div class="stat-label">Flores no catálogo</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">${allDistinct}</div>
-        <div class="stat-label">Flores distintas coletadas</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">${topMemCount}</div>
-        <div class="stat-label">Mais flores: ${escHtml(topMem||'—')}</div>
-      </div>
+      <div class="stat-box"><div class="stat-num">${membros.length}</div><div class="stat-label">Jogadoras</div></div>
+      <div class="stat-box"><div class="stat-num">${catalogo.length}</div><div class="stat-label">No catálogo</div></div>
+      <div class="stat-box"><div class="stat-num">${distinct}</div><div class="stat-label">Flores distintas</div></div>
+      <div class="stat-box"><div class="stat-num">${(colecoes[topMem]||[]).length}</div><div class="stat-label">Líder: ${escHtml(topMem||'—')}</div></div>
     </div>
-    ${topFlor ? `<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">🏆 Flor mais comum: <strong>${topFlor.emoji||'🌸'} ${escHtml(topFlor.pt)}</strong> (${topEN[1]} jogadoras)</div>` : ''}
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Distribuição por raridade:</div>
+    ${topFlor ? `<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px">🏆 Mais comum: <strong>${topFlor.emoji||'🌸'} ${escHtml(topFlor.pt)}</strong> (${topEntry[1]} jogadoras)</p>` : ''}
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Distribuição por raridade (total colhido):</div>
     ${distBars}`;
 }
 
-// ── CRUD Membros ──────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  CRUD — MEMBROS E CATÁLOGO
+// ══════════════════════════════════════════════════════════════════
 async function addMembro() {
   const nome = document.getElementById('new-member').value.trim();
   if (!nome) return;
   try {
-    await db.collection('membros').doc(nome).set({ nome });
-    await db.collection('colecoes').doc(nome).set({ flores: [] });
+    await Promise.all([
+      db.collection('membros').doc(nome).set({ nome }),
+      db.collection('colecoes').doc(nome).set({ flores: [] })
+    ]);
     document.getElementById('new-member').value = '';
     toast('✅ ' + nome + ' adicionada!');
     await loadAll();
@@ -1087,14 +1186,17 @@ async function addFlorCustom() {
   const rar = document.getElementById('new-fl-rar').value;
   if (!en || !pt) { toast('⚠️ Preencha EN e PT'); return; }
   try {
-    await db.collection('catalogo').doc(en).set({ en, pt, emoji: emo, rarity: rar, rarOrder: RARITY_ORDER[rar]||1 });
-    ['new-fl-en','new-fl-pt','new-fl-emoji'].forEach(id => document.getElementById(id).value = '');
+    await db.collection('catalogo').doc(en).set({ en, pt, emoji: emo, rarity: rar, rarOrder: RARITY_ORDER[rar] || 1 });
+    ['new-fl-en', 'new-fl-pt', 'new-fl-emoji'].forEach(id => document.getElementById(id).value = '');
+    _catByRar = null; // invalida cache de contagem por raridade
     toast('🌷 Adicionada: ' + pt);
     await loadAll();
   } catch(e) { toast('❌ Erro: ' + e.message); }
 }
 
-// ── Modal genérico ────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  MODAL GENÉRICO
+// ══════════════════════════════════════════════════════════════════
 function showModal(title, body, confirmLabel, onConfirm) {
   const root = document.getElementById('modal-root');
   root.innerHTML = `<div class="modal-overlay" onclick="closeModal(event)">
@@ -1119,16 +1221,32 @@ function modalConfirm() {
   if (cb) cb();
 }
 
-// ── Utils ─────────────────────────────────────────────────────────
-let toastTimer;
+// ══════════════════════════════════════════════════════════════════
+//  UTILITÁRIOS
+// ══════════════════════════════════════════════════════════════════
+
+// Hash de cor por nome (O(n) no nome, chamado poucas vezes)
+function nameToColor(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) | 0;
+  return `hsl(${Math.abs(h) % 360},48%,40%)`;
+}
+
+let _toastTimer;
 function toast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
-function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escJs(s)   { return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function escJs(s) {
+  return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
 </script>
 </body>
 </html>
