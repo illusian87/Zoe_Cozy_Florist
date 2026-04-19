@@ -530,28 +530,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ══════════════════════════════════════════════════════════════════
 async function loadAll() {
   const icon = document.getElementById('sync-icon');
-  icon.className = 'spin';
+  if (icon) icon.className = 'spin';
   try {
-    const [catSnap, memSnap, colSnap, missSnap] = await Promise.all([
+    const [catSnap, memSnap, colSnap] = await Promise.all([
       db.collection('catalogo').orderBy('rarOrder').get(),
       db.collection('membros').orderBy('nome').get(),
-      db.collection('colecoes').get(),
-      db.collection('recados').orderBy('data', 'desc').get()
+      db.collection('colecoes').get()
     ]);
-
-    // Pré-calcular campos normalizados UMA VEZ aqui.
-    // Dentro dos filtros: zero chamadas a toLowerCase().
     catalogo = catSnap.docs.map(d => {
-      const data  = { id: d.id, ...d.data() };
-      data._ptLc  = (data.pt  || '').toLowerCase();
-      data._enLc  = (data.en  || '').toLowerCase();
+      const data = { id: d.id, ...d.data() };
+      data._ptLc = (data.pt || '').toLowerCase();
+      data._enLc = (data.en || '').toLowerCase();
       return data;
     });
-
     membros  = memSnap.docs.map(d => d.data().nome);
     colecoes = {};
     colSnap.docs.forEach(d => { colecoes[d.id] = d.data().flores || []; });
-    missoes  = missSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    // recados SEPARADO — se a coleção não existir ainda, não trava tudo
+    try {
+      const missSnap = await db.collection('recados').orderBy('data', 'desc').get();
+      missoes = missSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch(e) {
+      missoes = [];
+    }
 
     invalidateFilterCache();
     renderCurrentTab();
@@ -561,7 +563,7 @@ async function loadAll() {
   } catch(e) {
     toast('❌ Erro Firebase: ' + (e.code || e.message));
   }
-  icon.className = '';
+  if (icon) icon.className = '';
 }
 
 // ══════════════════════════════════════════════════════════════════
