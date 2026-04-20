@@ -571,6 +571,139 @@ body { background-color: var(--cream); color: var(--text); }
 .f-chip-text { display:flex; flex-direction:column; gap:1px; }
 .f-chip-sub  { font-size: 14px !important; opacity: 0.7; }
 
+
+/* ══ DESIGN: CARDS DE FLOR ESTILO INVENTÁRIO STARDEW ══════════ */
+
+/* Grid de flores na galeria e busca */
+.flower-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 8px;
+  padding: 4px 0;
+}
+
+/* Card quadrado — estilo slot de inventário */
+.flor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px 6px;
+  background: var(--wood-faint);
+  border: 2px solid var(--wood);
+  box-shadow: 3px 3px 0 var(--wood-dark);
+  cursor: default;
+  text-align: center;
+  transition: transform .1s, box-shadow .1s;
+  min-width: 80px;
+}
+.flor-card:active {
+  transform: translate(2px,2px);
+  box-shadow: 1px 1px 0 var(--wood-dark);
+}
+
+/* Imagem dentro do card — centralizada, grande */
+.flor-card .flor-icon-wrap {
+  width: 56px !important;
+  height: 56px !important;
+  border: 2px solid var(--wood-dark) !important;
+  background: #fffbf0;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.flor-card .flor-icon-wrap img {
+  width: 52px !important;
+  height: 52px !important;
+}
+
+/* Raridade do card — borda colorida na borda superior */
+.flor-card-N   { border-color: var(--rar-N-text);   box-shadow: 3px 3px 0 #1a4a1a; }
+.flor-card-R   { border-color: var(--rar-R-text);   box-shadow: 3px 3px 0 #0a2a5a; }
+.flor-card-SR  { border-color: var(--rar-SR-text);  box-shadow: 3px 3px 0 #3a0a50; }
+.flor-card-SSR { border-color: var(--rar-SSR-text); box-shadow: 3px 3px 0 #5a2a00; }
+.flor-card-UR  { border-color: var(--rar-UR-text);  box-shadow: 3px 3px 0 #5a0808; }
+
+/* Nome da flor dentro do card */
+.flor-card-name {
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--text);
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Nome secundário (sub) */
+.flor-card-sub {
+  font-family: 'VT323', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.8;
+  word-break: break-word;
+}
+
+/* Wrapper de ícone genérico */
+.flor-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+  overflow: hidden;
+}
+.flor-icon-wrap img {
+  display: block;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+/* Pills do catálogo — chip com imagem e nome */
+.pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 4px 10px 4px 4px !important;
+  min-height: 48px;
+}
+.pill .flor-icon-wrap {
+  border-radius: 0;
+}
+.pill-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.pill-name { font-size: 16px; line-height: 1.2; }
+.pill-sub  { font-size: 13px; opacity: 0.7; }
+
+/* Autocomplete com imagem */
+.ac-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 8px 12px !important;
+  min-height: 56px;
+}
+.ac-item .flor-icon-wrap {
+  flex-shrink: 0;
+}
+
+/* Editar pill com imagem */
+.flower-pill-edit {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 4px 10px 4px 4px !important;
+  min-height: 48px;
+}
+.fpe-name { font-size: 16px; }
+
+/* Placeholder quando não tem imagem — caixinha colorida com estrela */
+.flor-icon-wrap:not(:has(img[src]:not([style*="none"]))) {
+  /* fallback via CSS quando JS não roda ainda */
+}
+
 </style>
 </head>
 <body>
@@ -928,11 +1061,14 @@ function florImgPath(enName) {
 
 // Renderiza o ícone da flor: imagem se existir, emoji como fallback
 function florIcon(f, size = 36) {
-  const path  = florImgPath(f.en);
-  const fb    = encodeURIComponent(f.emoji || '🌸');
-  const fs    = Math.round(size * 0.65);
-  // onerror usa data-* para evitar conflito de aspas no template string
-  return `<img src="${path}" alt="${escHtml(f.en)}" width="${size}" height="${size}" data-fb="${fb}" data-fs="${fs}" style="image-rendering:pixelated;object-fit:contain;flex-shrink:0;vertical-align:middle;" onerror="var s=document.createElement('span');s.textContent=decodeURIComponent(this.dataset.fb);s.style.fontSize=this.dataset.fs+'px';s.style.lineHeight='1';this.replaceWith(s)">`;
+  const path = florImgPath(f.en);
+  const rarBg = {N:'#dff0d8',R:'#d0e8f8',SR:'#ead5f5',SSR:'#fdf0c0',UR:'#fad5d5'};
+  const rarBd = {N:'#2a6e2a',R:'#1a4a8a',SR:'#6a1a90',SSR:'#8a4a00',UR:'#8a1010'};
+  const bg = rarBg[f.rarity] || '#e8d5a8';
+  const bd = rarBd[f.rarity] || '#5b3a14';
+  const s  = size + 'px';
+  // Wrapper sempre presente; img dentro — se falhar, esconde img e mostra div de fundo
+  return `<span class="flor-icon-wrap" style="width:${s};height:${s};flex-shrink:0;display:inline-block;position:relative;border:2px solid ${bd};background:${bg};image-rendering:pixelated;"><img src="${path}" alt="" width="${size}" height="${size}" style="display:block;image-rendering:pixelated;object-fit:contain;" onerror="this.style.display='none'"></span>`;
 }
 
 function florName(f) { return langMode === 'en' ? (f.en || f.pt) : (f.pt || f.en); }
@@ -966,7 +1102,7 @@ function buildPills() {
   if (!el) return;
   const list = getFilteredCatalog('');
   el.innerHTML = list.map(f =>
-    `<span class="pill pill-${f.rarity}" onclick="setSearch('${escJs(f.en)}')">${florIcon(f,24)} ${escHtml(florName(f))}</span>`
+    `<span class="pill pill-${f.rarity}" onclick="setSearch('${escJs(f.en)}')">${florIcon(f,36)} <span class='pill-text'><span class='pill-name'>${escHtml(florName(f))}</span><span class='pill-sub'>${escHtml(florSub(f))}</span></span></span>`
   ).join('');
 }
 
@@ -1003,7 +1139,7 @@ function onSearchInput(val) {
   if (suggestions.length) {
     acEl.innerHTML = suggestions.map(f =>
       `<div class="ac-item" onclick="setSearch('${escJs(f.en)}')">
-        ${florIcon(f,28)}
+        ${florIcon(f,40)}
         <span style="flex:1">${escHtml(florName(f))}<span class="ac-name-sub">${escHtml(florSub(f))}</span></span>
         <span class="rar rar-${f.rarity}">${f.rarity}</span>
       </div>`
@@ -1060,10 +1196,11 @@ function doSearch(lc) {
         <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
         <div class="pills" style="margin-top:6px">
           ${match.map(f =>
-            `<span class="pill pill-${f.rarity}" style="cursor:default;display:inline-flex;align-items:center;gap:6px">
-              ${florIcon(f,28)} ${escHtml(florName(f))}
-              <span style="display:block;font-size:10px;opacity:.7;line-height:1;margin-top:1px">${escHtml(florSub(f))}</span>
-            </span>`
+            `<div class="flor-card flor-card-${f.rarity}">
+                ${florIcon(f, 56)}
+                <div class="flor-card-name">${escHtml(florName(f))}</div>
+                <div class="flor-card-sub">${escHtml(florSub(f))}</div>
+              </div>`
           ).join('')}
         </div>
       </div>
@@ -1140,7 +1277,11 @@ function renderGaleria() {
           <div class="rar-section-title rar-${r}">${r} — ${RAR_LABEL[r] || r}</div>
           <div class="flower-grid">
             ${fs.map(f =>
-              `<span class="f-chip f-chip-${f.rarity}">${florIcon(f,32)} <span style="display:inline-flex;flex-direction:column;line-height:1.2;gap:1px"><span>${escHtml(florName(f))}</span><span style="font-size:14px;opacity:.7">${escHtml(florSub(f))}</span></span></span>`
+              `<div class="flor-card flor-card-${f.rarity}">
+                ${florIcon(f, 56)}
+                <div class="flor-card-name">${escHtml(florName(f))}</div>
+                <div class="flor-card-sub">${escHtml(florSub(f))}</div>
+              </div>`
             ).join('')}
           </div>
         </div>`
@@ -1234,7 +1375,7 @@ function renderEditar() {
           return `<span class="flower-pill-edit ${stateClass} ${changed ? 'fpe-pending' : ''}"
             data-en="${escHtml(f.en)}"
             onclick="pendingToggle('${escJs(m)}','${escJs(f.en)}',${!hasPending},'${escJs(f.pt)}','${escJs(f.emoji||'🌸')}','${escJs(f.rarity)}')">
-            ${florIcon(f,28)} ${escHtml(florName(f))}
+            ${florIcon(f,36)} <span class="fpe-name">${escHtml(florName(f))}</span>
           </span>`;
         }).join('');
         return `<div class="edit-rar-group edit-rar-group-${safeKey}" data-rar="${r}" style="margin-bottom:8px">
