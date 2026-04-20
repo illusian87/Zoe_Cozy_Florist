@@ -536,6 +536,41 @@ body { background-color: var(--cream); color: var(--text); }
 ::-webkit-scrollbar-track { background: var(--wood-faint); }
 ::-webkit-scrollbar-thumb { background: var(--wood); }
 
+
+/* ══ FIX CHIPS COM IMAGEM ══════════════════════════════════════ */
+.f-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 6px 12px !important;
+  min-height: 48px;
+  vertical-align: middle;
+}
+.f-chip img, .flower-pill-edit img {
+  image-rendering: pixelated;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+.flower-pill-edit {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-height: 44px;
+}
+.pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  vertical-align: middle;
+}
+.ac-item img {
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+/* Texto secundário da flor no chip da galeria */
+.f-chip-text { display:flex; flex-direction:column; gap:1px; }
+.f-chip-sub  { font-size: 14px !important; opacity: 0.7; }
+
 </style>
 </head>
 <body>
@@ -893,14 +928,11 @@ function florImgPath(enName) {
 
 // Renderiza o ícone da flor: imagem se existir, emoji como fallback
 function florIcon(f, size = 36) {
-  const path = florImgPath(f.en);
-  return `<img
-    src="${path}"
-    alt="${escHtml(f.en)}"
-    width="${size}" height="${size}"
-    style="image-rendering:pixelated;object-fit:contain;flex-shrink:0;"
-    onerror="this.outerHTML='<span style=\"font-size:${Math.round(size*0.65)}px;line-height:1;flex-shrink:0;\">${f.emoji||'🌸'}</span>'"
-  >`;
+  const path  = florImgPath(f.en);
+  const fb    = encodeURIComponent(f.emoji || '🌸');
+  const fs    = Math.round(size * 0.65);
+  // onerror usa data-* para evitar conflito de aspas no template string
+  return `<img src="${path}" alt="${escHtml(f.en)}" width="${size}" height="${size}" data-fb="${fb}" data-fs="${fs}" style="image-rendering:pixelated;object-fit:contain;flex-shrink:0;vertical-align:middle;" onerror="var s=document.createElement('span');s.textContent=decodeURIComponent(this.dataset.fb);s.style.fontSize=this.dataset.fs+'px';s.style.lineHeight='1';this.replaceWith(s)">`;
 }
 
 function florName(f) { return langMode === 'en' ? (f.en || f.pt) : (f.pt || f.en); }
@@ -1108,7 +1140,7 @@ function renderGaleria() {
           <div class="rar-section-title rar-${r}">${r} — ${RAR_LABEL[r] || r}</div>
           <div class="flower-grid">
             ${fs.map(f =>
-              `<span class="f-chip f-chip-${f.rarity}">${florIcon(f,32)} <span style="display:inline-flex;flex-direction:column;line-height:1.2"><span>${escHtml(florName(f))}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(florSub(f))}</span></span>`
+              `<span class="f-chip f-chip-${f.rarity}">${florIcon(f,32)} <span style="display:inline-flex;flex-direction:column;line-height:1.2;gap:1px"><span>${escHtml(florName(f))}</span><span style="font-size:14px;opacity:.7">${escHtml(florSub(f))}</span></span></span>`
             ).join('')}
           </div>
         </div>`
@@ -1202,7 +1234,7 @@ function renderEditar() {
           return `<span class="flower-pill-edit ${stateClass} ${changed ? 'fpe-pending' : ''}"
             data-en="${escHtml(f.en)}"
             onclick="pendingToggle('${escJs(m)}','${escJs(f.en)}',${!hasPending},'${escJs(f.pt)}','${escJs(f.emoji||'🌸')}','${escJs(f.rarity)}')">
-            ${f.emoji||'🌸'} ${escHtml(florName(f))}
+            ${florIcon(f,28)} ${escHtml(florName(f))}
           </span>`;
         }).join('');
         return `<div class="edit-rar-group edit-rar-group-${safeKey}" data-rar="${r}" style="margin-bottom:8px">
