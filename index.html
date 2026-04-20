@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
 /* ── TOKENS ─────────────────────────────────────────────────── */
 :root {
@@ -540,21 +541,21 @@ body { background-color: var(--cream); color: var(--text); }
 /* ══ TIPOGRAFIA FINAL — LEGÍVEL PARA USUÁRIO ══════════════════ */
 
 /* BASE — VT323 confortável em mobile */
-body { font-size: 22px !important; line-height: 1.45 !important; }
+body { font-size: 26px !important; line-height: 1.5 !important; }
 
 /* INPUTS — grandes o suficiente para digitar confortavelmente */
 input, select, textarea,
 .search-wrap input,
-.form-input { font-size: 22px !important; }
+.form-input { font-size: 26px !important; }
 
 /* BOTÕES */
-.btn        { font-size: 18px !important; padding: 10px 16px !important; }
-.btn-sm     { font-size: 17px !important; padding: 8px 14px !important; }
-.btn-xs     { font-size: 15px !important; padding: 6px 11px !important; }
+.btn        { font-size: 20px !important; padding: 12px 18px !important; }
+.btn-sm     { font-size: 19px !important; padding: 10px 16px !important; }
+.btn-xs     { font-size: 17px !important; padding: 8px 13px !important; }
 
 /* NAVEGAÇÃO */
-.nav-btn .nav-icon  { font-size: 22px !important; }
-.nav-btn .nav-label { font-size: 9px !important; }  /* Press Start 2P — esse tamanho é OK */
+.nav-btn .nav-icon  { font-size: 26px !important; }
+.nav-btn .nav-label { font-size: 10px !important; }  /* Press Start 2P — esse tamanho é OK */
 
 /* HEADER — títulos grandes e dignos */
 .app-header h1 { font-size: 16px !important; }
@@ -622,7 +623,7 @@ input, select, textarea,
 <body>
 
 <div id="loading-screen">
-  <div class="logo">🌸</div>
+  <div class="logo"><i class="fas fa-flower"></i></div>
   <h2>Zoe Guild · Flores</h2>
   <div class="spinner-ring"></div>
   <p>Conectando ao banco de dados…</p>
@@ -630,7 +631,7 @@ input, select, textarea,
 
 <div id="app" style="display:none">
   <header class="app-header">
-    <h1>🌸 Zoe Guild</h1>
+    <h1><i class="fas fa-flower"></i> Zoe Guild</h1>
     <p>Galeria da Guilda · Cozy Florist</p>
   </header>
 
@@ -650,7 +651,7 @@ input, select, textarea,
     <div id="tab-buscar" class="tab-panel active">
       <div class="rar-chips" id="rar-filter-chips"></div>
       <div class="search-wrap">
-        <span class="search-icon">🌸</span>
+        <span class="search-icon"><i class="fas fa-search"></i></span>
         <input type="text" id="search-input" placeholder="Buscar flor…"
           oninput="onSearchInput(this.value)" autocomplete="off">
         <div class="ac-list" id="ac-list"></div>
@@ -658,7 +659,7 @@ input, select, textarea,
       <div id="search-results"></div>
       <div class="catalog-collapse" id="catalog-collapse">
         <div class="catalog-collapse-header" onclick="toggleCatalog()">
-          <span>📖</span>
+          <span><i class="fas fa-book"></i></span>
           <span>Ver catálogo completo</span>
           <span class="catalog-chevron" id="catalog-chevron">⌄</span>
         </div>
@@ -673,7 +674,7 @@ input, select, textarea,
       <div class="card" style="padding:10px 14px;margin-bottom:8px">
         <div class="row" style="gap:8px">
           <div class="search-wrap" style="flex:1;margin-bottom:0">
-            <span class="search-icon" style="font-size:15px">🔍</span>
+            <span class="search-icon" style="font-size:15px"><i class="fas fa-search"></i></span>
             <input type="text" id="galeria-search" placeholder="Filtrar jogadora…"
               oninput="renderGaleria()" style="font-size:13px;padding:8px 12px 8px 34px">
           </div>
@@ -687,14 +688,14 @@ input, select, textarea,
     <!-- ── ABA EDITAR ── -->
     <div id="tab-editar" class="tab-panel">
       <div class="card">
-        <div class="label">➕ Adicionar jogadora</div>
+        <div class="label"><i class="fas fa-plus"></i> Adicionar jogadora</div>
         <div class="row">
           <input type="text" id="new-member" class="form-input" placeholder="Nome da jogadora…" style="flex:1">
           <button class="btn btn-green btn-sm" onclick="addMembro()">Adicionar</button>
         </div>
       </div>
       <div class="card">
-        <div class="label">🌷 Adicionar flor nova ao catálogo</div>
+        <div class="label"><i class="fas fa-seedling"></i> Adicionar flor nova ao catálogo</div>
         <div class="row-2" style="margin-bottom:8px">
           <input type="text" id="new-fl-en" class="form-input" placeholder="Nome EN">
           <input type="text" id="new-fl-pt" class="form-input" placeholder="Nome PT">
@@ -720,7 +721,7 @@ input, select, textarea,
     <div id="tab-missoes" class="tab-panel">
       <div class="card" style="margin-bottom:10px">
         <div class="row" style="justify-content:space-between;margin-bottom:10px">
-          <strong style="color:var(--green-dark)">📋 Recados da Guilda</strong>
+          <strong style="color:var(--green-dark)"><i class="fas fa-clipboard-list"></i> Recados da Guilda</strong>
           <button class="btn btn-green btn-sm" onclick="openMissionForm()">+ Novo</button>
         </div>
         <div id="mission-form" style="display:none">
@@ -740,11 +741,11 @@ input, select, textarea,
     <!-- ── ABA CONFIG ── -->
     <div id="tab-config" class="tab-panel">
       <div class="card">
-        <strong style="color:var(--green-dark);display:block;margin-bottom:10px">📊 Estatísticas da Guilda</strong>
+        <strong style="color:var(--green-dark);display:block;margin-bottom:10px"><i class="fas fa-chart-bar"></i> Estatísticas da Guilda</strong>
         <div id="stats-content"><span class="empty">Carregando…</span></div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
-        <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🔥 Firebase Firestore</strong>
+        <strong style="color:var(--green-dark);display:block;margin-bottom:6px"><i class="fas fa-fire"></i> Firebase Firestore</strong>
         Dados salvos em tempo real na nuvem. Qualquer jogadora pode editar de qualquer dispositivo!
         <br><br>
         <strong style="color:var(--green-dark)">Projeto:</strong> zoe-cozy-florist<br>
@@ -752,12 +753,12 @@ input, select, textarea,
         <code>catalogo</code> · <code>membros</code> · <code>colecoes</code> · <code>recados</code>
       </div>
       <div class="card">
-        <strong style="color:var(--green-dark);font-size:13px">⚠️ Regras do Firestore</strong>
+        <strong style="color:var(--green-dark);font-size:13px"><i class="fas fa-exclamation-triangle"></i> Regras do Firestore</strong>
         <p style="font-size:12px;color:var(--text-muted);margin:6px 0 8px">Se aparecer erro de permissão:</p>
         <div class="rules-box">rules_version = '2';<br>service cloud.firestore {<br>&nbsp;&nbsp;match /databases/{db}/documents {<br>&nbsp;&nbsp;&nbsp;&nbsp;match /{doc=**} {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if true;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
-        <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🌸 Legenda de Raridades</strong>
+        <strong style="color:var(--green-dark);display:block;margin-bottom:6px"><i class="fas fa-list"></i> Legenda de Raridades</strong>
         <span class="rar rar-N">N</span> Normal &nbsp;
         <span class="rar rar-R">R</span> Rare &nbsp;
         <span class="rar rar-SR">SR</span> Super Rare &nbsp;
@@ -769,20 +770,20 @@ input, select, textarea,
   </div><!-- /content -->
 
   <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="switchTab('buscar',this)">
-      <span class="nav-icon">🔍</span><span class="nav-label">Buscar</span>
+    <button class="nav-btn active" onclick="switchTab('buscar',this)" aria-label="Buscar flores">
+      <span class="nav-icon icon-search"><i class="fas fa-search"></i></span><span class="nav-label">Buscar</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('galeria',this)">
-      <span class="nav-icon">🌺</span><span class="nav-label">Galeria</span>
+    <button class="nav-btn" onclick="switchTab('galeria',this)" aria-label="Ver galeria de jogadoras">
+      <span class="nav-icon icon-gallery"><i class="fas fa-images"></i></span><span class="nav-label">Galeria</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('editar',this)">
-      <span class="nav-icon">✏️</span><span class="nav-label">Editar</span>
+    <button class="nav-btn" onclick="switchTab('editar',this)" aria-label="Editar coleções">
+      <span class="nav-icon icon-edit"><i class="fas fa-edit"></i></span><span class="nav-label">Editar</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('missoes',this)">
-      <span class="nav-icon">📋</span><span class="nav-label">Missões</span>
+    <button class="nav-btn" onclick="switchTab('missoes',this)" aria-label="Ver missões da guilda">
+      <span class="nav-icon icon-missions"><i class="fas fa-clipboard-list"></i></span><span class="nav-label">Missões</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('config',this)">
-      <span class="nav-icon">⚙️</span><span class="nav-label">Config</span>
+    <button class="nav-btn" onclick="switchTab('config',this)" aria-label="Configurações e estatísticas">
+      <span class="nav-icon icon-config"><i class="fas fa-cog"></i></span><span class="nav-label">Config</span>
     </button>
   </nav>
 </div>
