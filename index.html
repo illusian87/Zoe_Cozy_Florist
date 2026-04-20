@@ -577,7 +577,7 @@ body { background-color: var(--cream); color: var(--text); }
 /* Grid de flores na galeria e busca */
 .flower-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
   gap: 8px;
   padding: 4px 0;
 }
@@ -604,17 +604,22 @@ body { background-color: var(--cream); color: var(--text); }
 
 /* Imagem dentro do card — centralizada, grande */
 .flor-card .flor-icon-wrap {
-  width: 56px !important;
-  height: 56px !important;
+  width: 64px !important;
+  height: 64px !important;
   border: 2px solid var(--wood-dark) !important;
   background: #fffbf0;
   display: flex !important;
   align-items: center;
   justify-content: center;
+  overflow: hidden !important;
 }
+/* Zoom: aproveita o espaço transparente ao redor da flor */
 .flor-card .flor-icon-wrap img {
-  width: 52px !important;
-  height: 52px !important;
+  width: 64px !important;
+  height: 64px !important;
+  transform: scale(1.75);
+  transform-origin: center center;
+  image-rendering: pixelated;
 }
 
 /* Raridade do card — borda colorida na borda superior */
@@ -668,6 +673,11 @@ body { background-color: var(--cream); color: var(--text); }
 }
 .pill .flor-icon-wrap {
   border-radius: 0;
+  overflow: hidden !important;
+}
+.pill .flor-icon-wrap img {
+  transform: scale(1.6);
+  transform-origin: center center;
 }
 .pill-text {
   display: flex;
@@ -687,6 +697,11 @@ body { background-color: var(--cream); color: var(--text); }
 }
 .ac-item .flor-icon-wrap {
   flex-shrink: 0;
+  overflow: hidden !important;
+}
+.ac-item .flor-icon-wrap img {
+  transform: scale(1.6);
+  transform-origin: center center;
 }
 
 /* Editar pill com imagem */
@@ -697,6 +712,8 @@ body { background-color: var(--cream); color: var(--text); }
   padding: 4px 10px 4px 4px !important;
   min-height: 48px;
 }
+.flower-pill-edit .flor-icon-wrap { overflow: hidden !important; }
+.flower-pill-edit .flor-icon-wrap img { transform: scale(1.6); transform-origin: center center; }
 .fpe-name { font-size: 16px; }
 
 /* Placeholder quando não tem imagem — caixinha colorida com estrela */
