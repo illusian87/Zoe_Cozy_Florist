@@ -843,16 +843,14 @@ function toggleGaleriaCard(m) { galeriaOpen[m] = !galeriaOpen[m]; renderGaleria(
 function exportCSV(membro) {
   const flores = colecoes[membro] || [];
   if (!flores.length) { toast('⚠️ Sem flores para exportar'); return; }
-  const header = 'Nome PT,Nome EN,Emoji,Raridade
-';
+  const header = 'Nome PT,Nome EN,Emoji,Raridade\r\n';
   const rows   = flores
     .map(f => `"${(f.pt||'').replace(/"/g,'""')}","${(f.en||'').replace(/"/g,'""')}","${f.emoji||''}","${f.rarity||''}"`)
-    .join('
-');
+    .join('\r\n');
   const blob = new Blob(['﻿' + header + rows], { type: 'text/csv;charset=utf-8;' });
   const a    = document.createElement('a');
   a.href     = URL.createObjectURL(blob);
-  a.download = `flores_${membro.replace(/s+/g, '_')}.csv`;
+  a.download = `flores_${membro.replace(/\s+/g, '_')}.csv`;
   a.click();
   URL.revokeObjectURL(a.href); // libera memória
   toast('✅ CSV exportado!');
@@ -873,7 +871,7 @@ function renderEditar() {
     const color   = nameToColor(m);
     const pending = batchPending[m] || {};
     const pendCount = Object.keys(pending).length;
-    const safeKey = m.replace(/W/g, '_');
+    const safeKey = m.replace(/\W/g, '_');
     const searchId = `edit-search-${safeKey}`;
 
     if (!open) {
