@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
 /* ── TOKENS ─────────────────────────────────────────────────── */
 :root {
@@ -176,7 +175,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .rar-section { margin-bottom:10px; }
 .rar-section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; padding:3px 8px; border-radius:var(--radius-sm); display:inline-block; }
 .flower-grid { display:flex; flex-wrap:wrap; gap:6px; }
-.f-chip { display:flex; align-items:center; gap:4px; border-radius:var(--radius-full); padding:4px 10px; font-size:12px; }
+.f-chip { display:inline-flex; align-items:center; gap:6px; border-radius:var(--radius-full); padding:6px 10px; font-size:12px; }
 /* f-chip por raridade */
 .f-chip-N   { background:rgba(232,245,233,.9); color:var(--rar-N-text);   border:1px solid rgba(46,125,50,.15); }
 .f-chip-R   { background:rgba(227,242,253,.9); color:var(--rar-R-text);   border:1px solid rgba(21,101,192,.15); }
@@ -537,93 +536,12 @@ body { background-color: var(--cream); color: var(--text); }
 ::-webkit-scrollbar-track { background: var(--wood-faint); }
 ::-webkit-scrollbar-thumb { background: var(--wood); }
 
-
-/* ══ TIPOGRAFIA FINAL — LEGÍVEL PARA USUÁRIO ══════════════════ */
-
-/* BASE — VT323 confortável em mobile */
-body { font-size: 26px !important; line-height: 1.5 !important; }
-
-/* INPUTS — grandes o suficiente para digitar confortavelmente */
-input, select, textarea,
-.search-wrap input,
-.form-input { font-size: 26px !important; }
-
-/* BOTÕES */
-.btn        { font-size: 20px !important; padding: 12px 18px !important; }
-.btn-sm     { font-size: 19px !important; padding: 10px 16px !important; }
-.btn-xs     { font-size: 17px !important; padding: 8px 13px !important; }
-
-/* NAVEGAÇÃO */
-.nav-btn .nav-icon  { font-size: 26px !important; }
-.nav-btn .nav-label { font-size: 10px !important; }  /* Press Start 2P — esse tamanho é OK */
-
-/* HEADER — títulos grandes e dignos */
-.app-header h1 { font-size: 16px !important; }
-.app-header p  { font-size: 18px !important; }
-
-/* CARDS E LISTAS */
-.ac-item          { font-size: 20px !important; }
-.pill             { font-size: 18px !important; padding: 5px 12px !important; }
-.rar-chip         { font-size: 16px !important; padding: 5px 12px !important; }
-.f-chip           { font-size: 18px !important; padding: 5px 10px !important; }
-.flower-pill-edit { font-size: 18px !important; padding: 6px 12px !important; }
-.badge            { font-size: 16px !important; }
-.badge-dark       { font-size: 16px !important; }
-.rar              { font-size: 15px !important; }
-
-/* RESULTADOS E CONTEÚDO */
-.result-card      { font-size: 20px !important; }
-.mname            { font-size: 11px !important; }   /* Press Start 2P */
-.acc-name         { font-size: 10px !important; }   /* Press Start 2P */
-.acc-count        { font-size: 17px !important; }
-.mission-title    { font-size: 11px !important; line-height: 2 !important; } /* Press Start 2P */
-.mission-text     { font-size: 20px !important; line-height: 1.5 !important; }
-.mission-meta     { font-size: 17px !important; }
-.mission-week-badge { font-size: 8px !important; }  /* Press Start 2P */
-.catalog-collapse-header { font-size: 18px !important; }
-
-/* PROGRESSO */
-.progress-label   { font-size: 18px !important; }
-.progress-count   { font-size: 17px !important; }
-.progress-bar-bg  { height: 12px !important; }
-
-/* STATS */
-.stat-num         { font-size: 26px !important; }
-.stat-label       { font-size: 15px !important; }
-
-/* EMPTY / LOADING */
-.empty            { font-size: 20px !important; }
-.loading          { font-size: 20px !important; }
-.no-result p      { font-size: 20px !important; }
-
-/* LABELS */
-.label            { font-size: 14px !important; letter-spacing: 1px; }
-.rar-section-title { font-size: 9px !important; }  /* Press Start 2P */
-.batch-count      { font-size: 18px !important; }
-
-/* TOAST */
-#toast            { font-size: 18px !important; }
-
-/* RULES BOX */
-.rules-box        { font-size: 20px !important; }
-
-/* SYNC E LANG */
-.sync-btn         { font-size: 17px !important; }
-.lang-toggle button { font-size: 17px !important; }
-
-/* MODAL */
-.modal-box h3     { font-size: 12px !important; }  /* Press Start 2P */
-.modal-box p      { font-size: 20px !important; }
-
-/* AC autocomplete sub */
-.ac-name-sub      { font-size: 17px !important; }
-
 </style>
 </head>
 <body>
 
 <div id="loading-screen">
-  <div class="logo"><i class="fas fa-flower"></i></div>
+  <div class="logo">🌸</div>
   <h2>Zoe Guild · Flores</h2>
   <div class="spinner-ring"></div>
   <p>Conectando ao banco de dados…</p>
@@ -631,7 +549,7 @@ input, select, textarea,
 
 <div id="app" style="display:none">
   <header class="app-header">
-    <h1><i class="fas fa-flower"></i> Zoe Guild</h1>
+    <h1>🌸 Zoe Guild</h1>
     <p>Galeria da Guilda · Cozy Florist</p>
   </header>
 
@@ -651,7 +569,7 @@ input, select, textarea,
     <div id="tab-buscar" class="tab-panel active">
       <div class="rar-chips" id="rar-filter-chips"></div>
       <div class="search-wrap">
-        <span class="search-icon"><i class="fas fa-search"></i></span>
+        <span class="search-icon">🌸</span>
         <input type="text" id="search-input" placeholder="Buscar flor…"
           oninput="onSearchInput(this.value)" autocomplete="off">
         <div class="ac-list" id="ac-list"></div>
@@ -659,7 +577,7 @@ input, select, textarea,
       <div id="search-results"></div>
       <div class="catalog-collapse" id="catalog-collapse">
         <div class="catalog-collapse-header" onclick="toggleCatalog()">
-          <span><i class="fas fa-book"></i></span>
+          <span>📖</span>
           <span>Ver catálogo completo</span>
           <span class="catalog-chevron" id="catalog-chevron">⌄</span>
         </div>
@@ -674,7 +592,7 @@ input, select, textarea,
       <div class="card" style="padding:10px 14px;margin-bottom:8px">
         <div class="row" style="gap:8px">
           <div class="search-wrap" style="flex:1;margin-bottom:0">
-            <span class="search-icon" style="font-size:15px"><i class="fas fa-search"></i></span>
+            <span class="search-icon" style="font-size:15px">🔍</span>
             <input type="text" id="galeria-search" placeholder="Filtrar jogadora…"
               oninput="renderGaleria()" style="font-size:13px;padding:8px 12px 8px 34px">
           </div>
@@ -688,14 +606,14 @@ input, select, textarea,
     <!-- ── ABA EDITAR ── -->
     <div id="tab-editar" class="tab-panel">
       <div class="card">
-        <div class="label"><i class="fas fa-plus"></i> Adicionar jogadora</div>
+        <div class="label">➕ Adicionar jogadora</div>
         <div class="row">
           <input type="text" id="new-member" class="form-input" placeholder="Nome da jogadora…" style="flex:1">
           <button class="btn btn-green btn-sm" onclick="addMembro()">Adicionar</button>
         </div>
       </div>
       <div class="card">
-        <div class="label"><i class="fas fa-seedling"></i> Adicionar flor nova ao catálogo</div>
+        <div class="label">🌷 Adicionar flor nova ao catálogo</div>
         <div class="row-2" style="margin-bottom:8px">
           <input type="text" id="new-fl-en" class="form-input" placeholder="Nome EN">
           <input type="text" id="new-fl-pt" class="form-input" placeholder="Nome PT">
@@ -721,7 +639,7 @@ input, select, textarea,
     <div id="tab-missoes" class="tab-panel">
       <div class="card" style="margin-bottom:10px">
         <div class="row" style="justify-content:space-between;margin-bottom:10px">
-          <strong style="color:var(--green-dark)"><i class="fas fa-clipboard-list"></i> Recados da Guilda</strong>
+          <strong style="color:var(--green-dark)">📋 Recados da Guilda</strong>
           <button class="btn btn-green btn-sm" onclick="openMissionForm()">+ Novo</button>
         </div>
         <div id="mission-form" style="display:none">
@@ -741,11 +659,11 @@ input, select, textarea,
     <!-- ── ABA CONFIG ── -->
     <div id="tab-config" class="tab-panel">
       <div class="card">
-        <strong style="color:var(--green-dark);display:block;margin-bottom:10px"><i class="fas fa-chart-bar"></i> Estatísticas da Guilda</strong>
+        <strong style="color:var(--green-dark);display:block;margin-bottom:10px">📊 Estatísticas da Guilda</strong>
         <div id="stats-content"><span class="empty">Carregando…</span></div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
-        <strong style="color:var(--green-dark);display:block;margin-bottom:6px"><i class="fas fa-fire"></i> Firebase Firestore</strong>
+        <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🔥 Firebase Firestore</strong>
         Dados salvos em tempo real na nuvem. Qualquer jogadora pode editar de qualquer dispositivo!
         <br><br>
         <strong style="color:var(--green-dark)">Projeto:</strong> zoe-cozy-florist<br>
@@ -753,12 +671,12 @@ input, select, textarea,
         <code>catalogo</code> · <code>membros</code> · <code>colecoes</code> · <code>recados</code>
       </div>
       <div class="card">
-        <strong style="color:var(--green-dark);font-size:13px"><i class="fas fa-exclamation-triangle"></i> Regras do Firestore</strong>
+        <strong style="color:var(--green-dark);font-size:13px">⚠️ Regras do Firestore</strong>
         <p style="font-size:12px;color:var(--text-muted);margin:6px 0 8px">Se aparecer erro de permissão:</p>
         <div class="rules-box">rules_version = '2';<br>service cloud.firestore {<br>&nbsp;&nbsp;match /databases/{db}/documents {<br>&nbsp;&nbsp;&nbsp;&nbsp;match /{doc=**} {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if true;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
-        <strong style="color:var(--green-dark);display:block;margin-bottom:6px"><i class="fas fa-list"></i> Legenda de Raridades</strong>
+        <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🌸 Legenda de Raridades</strong>
         <span class="rar rar-N">N</span> Normal &nbsp;
         <span class="rar rar-R">R</span> Rare &nbsp;
         <span class="rar rar-SR">SR</span> Super Rare &nbsp;
@@ -770,20 +688,20 @@ input, select, textarea,
   </div><!-- /content -->
 
   <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="switchTab('buscar',this)" aria-label="Buscar flores">
-      <span class="nav-icon icon-search"><i class="fas fa-search"></i></span><span class="nav-label">Buscar</span>
+    <button class="nav-btn active" onclick="switchTab('buscar',this)">
+      <span class="nav-icon">🔍</span><span class="nav-label">Buscar</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('galeria',this)" aria-label="Ver galeria de jogadoras">
-      <span class="nav-icon icon-gallery"><i class="fas fa-images"></i></span><span class="nav-label">Galeria</span>
+    <button class="nav-btn" onclick="switchTab('galeria',this)">
+      <span class="nav-icon">🌺</span><span class="nav-label">Galeria</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('editar',this)" aria-label="Editar coleções">
-      <span class="nav-icon icon-edit"><i class="fas fa-edit"></i></span><span class="nav-label">Editar</span>
+    <button class="nav-btn" onclick="switchTab('editar',this)">
+      <span class="nav-icon">✏️</span><span class="nav-label">Editar</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('missoes',this)" aria-label="Ver missões da guilda">
-      <span class="nav-icon icon-missions"><i class="fas fa-clipboard-list"></i></span><span class="nav-label">Missões</span>
+    <button class="nav-btn" onclick="switchTab('missoes',this)">
+      <span class="nav-icon">📋</span><span class="nav-label">Missões</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('config',this)" aria-label="Configurações e estatísticas">
-      <span class="nav-icon icon-config"><i class="fas fa-cog"></i></span><span class="nav-label">Config</span>
+    <button class="nav-btn" onclick="switchTab('config',this)">
+      <span class="nav-icon">⚙️</span><span class="nav-label">Config</span>
     </button>
   </nav>
 </div>
@@ -862,33 +780,15 @@ function invalidateFilterCache() { _filterCache = { key: null, result: [] }; }
 document.addEventListener('DOMContentLoaded', async () => {
   applyLangUI();
   const statusEl = document.querySelector('#loading-screen p');
-
-  // Timeout de segurança — se travar mais de 12s, mostra o app mesmo assim
-  const safetyTimer = setTimeout(() => {
-    document.getElementById('loading-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    buildRarChips();
-    toast('⚠️ Carregado sem conexão (modo offline)');
-  }, 12000);
-
   try {
     statusEl.textContent = 'Autenticando…';
-    await Promise.race([
-      auth.signInAnonymously(),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
-    ]);
+    await auth.signInAnonymously();
     statusEl.textContent = 'Carregando dados…';
     await loadAll();
   } catch(e) {
-    // Se for timeout ou erro de rede, tenta mostrar dados do cache offline
-    if (e.message === 'timeout' || e.code === 'auth/network-request-failed') {
-      statusEl.textContent = 'Carregando cache…';
-      try { await loadAll(); } catch(_) {}
-    } else {
-      statusEl.textContent = '❌ ' + (e.code || e.message || JSON.stringify(e));
-    }
+    statusEl.textContent = '❌ ' + (e.code || e.message || JSON.stringify(e));
+    return;
   }
-  clearTimeout(safetyTimer);
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   buildRarChips();
@@ -974,6 +874,35 @@ function applyLangUI() {
 }
 
 // Nome principal e secundário conforme idioma
+
+// ══════════════════════════════════════════════════════════════════
+//  HELPER: nome da flor → caminho da imagem
+// ══════════════════════════════════════════════════════════════════
+function florImgPath(enName) {
+  // Remove acentos
+  const normalized = enName.normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+  // Minúsculo, espaço/hífen/apóstrofo → underline, remove chars inválidos
+  const filename = normalized
+    .toLowerCase()
+    .replace(/[\s\-'.]+/g, '_')
+    .replace(/[^a-z0-9_]/g, '')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '');
+  return `img/flores/${filename}.png`;
+}
+
+// Renderiza o ícone da flor: imagem se existir, emoji como fallback
+function florIcon(f, size = 36) {
+  const path = florImgPath(f.en);
+  return `<img
+    src="${path}"
+    alt="${escHtml(f.en)}"
+    width="${size}" height="${size}"
+    style="image-rendering:pixelated;object-fit:contain;flex-shrink:0;"
+    onerror="this.outerHTML='<span style=\"font-size:${Math.round(size*0.65)}px;line-height:1;flex-shrink:0;\">${f.emoji||'🌸'}</span>'"
+  >`;
+}
+
 function florName(f) { return langMode === 'en' ? (f.en || f.pt) : (f.pt || f.en); }
 function florSub(f)  { return langMode === 'en' ? (f.pt || '')   : (f.en || ''); }
 
@@ -1005,7 +934,7 @@ function buildPills() {
   if (!el) return;
   const list = getFilteredCatalog('');
   el.innerHTML = list.map(f =>
-    `<span class="pill pill-${f.rarity}" onclick="setSearch('${escJs(f.en)}')">${f.emoji||'🌸'} ${escHtml(florName(f))}</span>`
+    `<span class="pill pill-${f.rarity}" onclick="setSearch('${escJs(f.en)}')">${florIcon(f,24)} ${escHtml(florName(f))}</span>`
   ).join('');
 }
 
@@ -1042,7 +971,7 @@ function onSearchInput(val) {
   if (suggestions.length) {
     acEl.innerHTML = suggestions.map(f =>
       `<div class="ac-item" onclick="setSearch('${escJs(f.en)}')">
-        <span>${f.emoji||'🌸'}</span>
+        ${florIcon(f,28)}
         <span style="flex:1">${escHtml(florName(f))}<span class="ac-name-sub">${escHtml(florSub(f))}</span></span>
         <span class="rar rar-${f.rarity}">${f.rarity}</span>
       </div>`
@@ -1099,8 +1028,8 @@ function doSearch(lc) {
         <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
         <div class="pills" style="margin-top:6px">
           ${match.map(f =>
-            `<span class="pill pill-${f.rarity}" style="cursor:default">
-              ${f.emoji||'🌸'} ${escHtml(florName(f))}
+            `<span class="pill pill-${f.rarity}" style="cursor:default;display:inline-flex;align-items:center;gap:6px">
+              ${florIcon(f,28)} ${escHtml(florName(f))}
               <span style="display:block;font-size:10px;opacity:.7;line-height:1;margin-top:1px">${escHtml(florSub(f))}</span>
             </span>`
           ).join('')}
@@ -1179,7 +1108,7 @@ function renderGaleria() {
           <div class="rar-section-title rar-${r}">${r} — ${RAR_LABEL[r] || r}</div>
           <div class="flower-grid">
             ${fs.map(f =>
-              `<span class="f-chip f-chip-${f.rarity}">${f.emoji||'🌸'} ${escHtml(florName(f))}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(florSub(f))}</span></span>`
+              `<span class="f-chip f-chip-${f.rarity}">${florIcon(f,32)} <span style="display:inline-flex;flex-direction:column;line-height:1.2"><span>${escHtml(florName(f))}<span style="font-size:10px;opacity:.6;margin-left:3px">${escHtml(florSub(f))}</span></span>`
             ).join('')}
           </div>
         </div>`
