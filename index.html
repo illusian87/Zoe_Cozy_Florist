@@ -1193,6 +1193,7 @@ function doSearch(lc) {
   }
 
   const rows = found.map(({ m, match }) =>
+    `<div class="result-card">
       <div class="avatar" style="background:${nameToColor(m)}">${escHtml(m[0].toUpperCase())}</div>
       <div style="flex:1;min-width:0">
         <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
