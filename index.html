@@ -85,10 +85,67 @@ input, select, textarea { font: inherit; color: inherit; }
 .nav-btn.active .nav-label { font-weight:600; }
 
 /* ── LAYOUT ─────────────────────────────────────────────────── */
-.content { padding:10px 14px 0; }
+.content { max-width:1200px; margin:0 auto; padding:10px 14px 0; }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 .card { background:var(--wood-faint); border-radius:0; padding:14px; box-shadow:4px 4px 0 var(--wood-dark); border:3px solid var(--wood-dark); margin-bottom:12px; }
+
+/* Responsive layout */
+@media (max-width: 1024px) {
+  .content { padding:10px 12px 0; }
+  .top-bar { flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+  .lang-toggle button, .sync-btn { font-size: 11px; }
+  .sync-btn { padding: 8px 12px; }
+  .search-wrap input, .form-input { font-size: 17px; }
+  .btn, .btn-sm, .btn-xs { font-size: 13px; }
+  .nav-btn .nav-label { font-size: 10px; }
+  .result-card { flex-direction: column; align-items: stretch; }
+  .result-card .avatar { margin-bottom: 10px; }
+  .member-card-header { flex-wrap: wrap; gap: 10px; }
+  .member-card-header button { width: auto; }
+  .batch-bar { flex-wrap: wrap; gap: 8px; }
+  .batch-bar > * { flex: 1 1 auto; min-width: 120px; }
+  .row, .row-2 { gap: 8px; }
+}
+
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+  .content { padding:10px 10px 0; }
+  .app-header { padding: 16px 12px 12px; }
+  .app-header h1 { font-size: 16px; }
+  .app-header p { font-size: 13px; }
+  .search-wrap input, .form-input { padding: 10px 12px; font-size: 16px; }
+  .btn, .btn-sm, .btn-xs { width: 100%; padding: 10px 12px; }
+  .card { padding: 12px; }
+  .row, .batch-bar, .member-card-header, .top-bar { flex-direction: column; align-items: stretch; }
+  .row > *, .batch-bar > *, .member-card-header > *, .top-bar > * { width: 100%; }
+  .catalog-collapse-header, .no-result p, .mname, .acc-name { font-size: 14px; }
+  .ac-item { font-size: 16px; }
+  .ac-list { max-height: 200px; }
+  .pill, .rar-chip, .f-chip, .flower-pill-edit { font-size: 13px; padding: 4px 10px; }
+  .bottom-nav { height: 64px; }
+  .nav-btn .nav-icon { font-size: 18px; }
+}
+
+@media (max-width: 560px) {
+  .search-wrap input, .form-input { padding: 10px 10px 10px 36px; }
+  .search-icon { left: 10px; }
+  .nav-btn { font-size: 10px; }
+  .nav-btn .nav-icon { font-size: 16px; }
+  .bottom-nav { height: 60px; }
+  .app-header { padding: 14px 10px 10px; }
+  .app-header h1 { font-size: 15px; }
+  .app-header p { font-size: 12px; }
+  .card { padding: 10px; }
+  .catalog-collapse-header { padding: 10px 12px; }
+  .ac-list { top: calc(100% + 2px); }
+  .batch-bar, .member-card-header, .top-bar { gap: 6px; }
+  .btn, .btn-sm, .btn-xs { min-width: 0; }
+  .row, .row-2 { display: block; }
+  .row > *, .row-2 > * { width: 100%; }
+  .modal-box { margin: 0 10px; width: auto; }
+  #toast { left: 10px; right: 10px; transform: none; }
+}
 
 /* ── SEARCH ─────────────────────────────────────────────────── */
 .search-wrap { position:relative; margin-bottom:10px; }
@@ -1124,6 +1181,8 @@ function setSearch(florEN) {
   doSearch(florEN.toLowerCase(), true);
 }
 
+let _inputTimer;
+
 function getAutocompleteSuggestions(term) {
   if (!term) return [];
   const lc = term.toLowerCase();
@@ -1180,18 +1239,27 @@ function onSearchInput(val) {
   } else {
     acEl.style.display = 'none';
   }
+
+  clearTimeout(_inputTimer);
+  _inputTimer = setTimeout(() => doSearch(term.toLowerCase()), 220);
 }
 
 function onSearchKey(event) {
   const acEl = document.getElementById('ac-list');
-  if (!acEl || acEl.style.display === 'none') return;
   if (event.key === 'Enter') {
     event.preventDefault();
-    const first = acEl.querySelector('.ac-item');
-    if (first) first.click();
+    const first = acEl?.querySelector('.ac-item');
+    if (first) {
+      first.click();
+      return;
+    }
+    const term = document.getElementById('search-input').value.trim();
+    if (term) {
+      doSearch(term.toLowerCase());
+    }
   }
   if (event.key === 'Escape') {
-    acEl.style.display = 'none';
+    if (acEl) acEl.style.display = 'none';
   }
 }
 
@@ -1395,6 +1463,7 @@ function renderEditar() {
           <div class="avatar avatar-sm" style="background:${color}">${escHtml(m[0].toUpperCase())}</div>
           <span class="acc-name">${escHtml(m)}</span>
           <span class="acc-count">${flores.length} flores</span>
+          <button class="btn btn-xs btn-danger-soft" onclick="event.stopPropagation(); confirmRemoveMembro('${escJs(m)}')">🗑️</button>
           <span class="acc-chevron">⌄</span>
         </div>
       </div>`);
@@ -1432,6 +1501,7 @@ function renderEditar() {
         <div class="avatar avatar-sm" style="background:${color}">${escHtml(m[0].toUpperCase())}</div>
         <span class="acc-name">${escHtml(m)}</span>
         <span class="acc-count">${flores.length} flores</span>
+        <button class="btn btn-xs btn-danger-soft" onclick="event.stopPropagation(); confirmRemoveMembro('${escJs(m)}')">🗑️</button>
         <span class="acc-chevron open">⌄</span>
       </div>
       <div class="acc-body">
