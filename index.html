@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#4a7c59">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>🌸 Zoe Guild · Flores</title>
+<title>🌸 Cozy Florist · Flowers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -727,24 +727,20 @@ body { background-color: var(--cream); color: var(--text); }
 
 <div id="loading-screen">
   <div class="logo">🌸</div>
-  <h2>Zoe Guild · Flores</h2>
+  <h2>Cozy Florist · Flowers</h2>
   <div class="spinner-ring"></div>
-  <p>Conectando ao banco de dados…</p>
+  <p>Connecting to database…</p>
 </div>
 
 <div id="app" style="display:none">
   <header class="app-header">
-    <h1>🌸 Zoe Guild</h1>
-    <p>Galeria da Guilda · Cozy Florist</p>
+    <h1>🌸 Cozy Florist</h1>
+    <p>Community flower registry</p>
   </header>
 
   <div class="top-bar">
-    <div class="lang-toggle">
-      <button id="lang-pt" class="active" onclick="setLang('pt')">🇧🇷 PT</button>
-      <button id="lang-en" onclick="setLang('en')">🇺🇸 EN</button>
-    </div>
     <button class="sync-btn" onclick="loadAll()" id="sync-btn">
-      <span id="sync-icon">↻</span> Atualizar
+      <span id="sync-icon">↻</span> Refresh
     </button>
   </div>
 
@@ -755,7 +751,7 @@ body { background-color: var(--cream); color: var(--text); }
       <div class="rar-chips" id="rar-filter-chips"></div>
       <div class="search-wrap">
         <span class="search-icon">🌸</span>
-        <input type="text" id="search-input" placeholder="Buscar flor…"
+        <input type="text" id="search-input" placeholder="Search flower…"
           oninput="onSearchInput(this.value)" autocomplete="off">
         <div class="ac-list" id="ac-list"></div>
       </div>
@@ -763,7 +759,7 @@ body { background-color: var(--cream); color: var(--text); }
       <div class="catalog-collapse" id="catalog-collapse">
         <div class="catalog-collapse-header" onclick="toggleCatalog()">
           <span>📖</span>
-          <span>Ver catálogo completo</span>
+          <span>View full catalog</span>
           <span class="catalog-chevron" id="catalog-chevron">⌄</span>
         </div>
         <div class="catalog-collapse-body" id="catalog-body">
@@ -778,34 +774,29 @@ body { background-color: var(--cream); color: var(--text); }
         <div class="row" style="gap:8px">
           <div class="search-wrap" style="flex:1;margin-bottom:0">
             <span class="search-icon" style="font-size:15px">🔍</span>
-            <input type="text" id="galeria-search" placeholder="Filtrar jogadora…"
+            <input type="text" id="galeria-search" placeholder="Filter member…"
               oninput="renderGaleria()" style="font-size:13px;padding:8px 12px 8px 34px">
           </div>
           <button class="btn btn-sm btn-ghost" id="sort-btn"
-            onclick="toggleGaleriaSort()" style="white-space:nowrap;font-size:12px">⬇ Qtd</button>
+            onclick="toggleGaleriaSort()" style="white-space:nowrap;font-size:12px">⬇ Qty</button>
         </div>
       </div>
-      <div id="galeria-content" class="loading"><span class="spinner"></span>Carregando…</div>
+      <div id="galeria-content" class="loading"><span class="spinner"></span>Loading…</div>
     </div>
 
     <!-- ── ABA EDITAR ── -->
     <div id="tab-editar" class="tab-panel">
       <div class="card">
-        <div class="label">➕ Adicionar jogadora</div>
+        <div class="label">➕ Add member</div>
         <div class="row">
-          <input type="text" id="new-member" class="form-input" placeholder="Nome da jogadora…" style="flex:1">
-          <button class="btn btn-green btn-sm" onclick="addMembro()">Adicionar</button>
+          <input type="text" id="new-member" class="form-input" placeholder="Member name…" style="flex:1">
+          <button class="btn btn-green btn-sm" onclick="addMembro()">Add</button>
         </div>
       </div>
       <div class="card">
-        <div class="label">🌷 Adicionar flor nova ao catálogo</div>
-        <div class="row-2" style="margin-bottom:8px">
-          <input type="text" id="new-fl-en" class="form-input" placeholder="Nome EN">
-          <input type="text" id="new-fl-pt" class="form-input" placeholder="Nome PT">
-        </div>
-        <div class="row">
-          <input type="text" id="new-fl-emoji" class="form-input"
-            placeholder="🌸" style="width:64px;flex-shrink:0;text-align:center">
+        <div class="label">🌷 Add new flower to catalog</div>
+        <div class="row" style="margin-bottom:8px">
+          <input type="text" id="new-fl-en" class="form-input" placeholder="English name">
           <select id="new-fl-rar" class="form-input" style="flex:1">
             <option value="N">🌿 N — Normal</option>
             <option value="R">💙 R — Rare</option>
@@ -816,48 +807,27 @@ body { background-color: var(--cream); color: var(--text); }
           <button class="btn btn-green btn-sm" onclick="addFlorCustom()">Add</button>
         </div>
       </div>
-      <div class="label">Gerenciar flores por jogadora:</div>
-      <div id="editar-content" class="loading"><span class="spinner"></span>Carregando…</div>
-    </div>
-
-    <!-- ── ABA MISSÕES ── -->
-    <div id="tab-missoes" class="tab-panel">
-      <div class="card" style="margin-bottom:10px">
-        <div class="row" style="justify-content:space-between;margin-bottom:10px">
-          <strong style="color:var(--green-dark)">📋 Recados da Guilda</strong>
-          <button class="btn btn-green btn-sm" onclick="openMissionForm()">+ Novo</button>
-        </div>
-        <div id="mission-form" style="display:none">
-          <input type="hidden" id="mission-edit-id">
-          <input type="text" id="mission-titulo" class="form-input"
-            placeholder="Título da missão…" style="margin-bottom:8px">
-          <textarea id="mission-texto" class="form-input" placeholder="Detalhes, instruções…"></textarea>
-          <div class="row" style="margin-top:8px;justify-content:flex-end;gap:8px">
-            <button class="btn btn-ghost btn-sm" onclick="closeMissionForm()">Cancelar</button>
-            <button class="btn btn-green btn-sm" onclick="saveMission()">Salvar</button>
-          </div>
-        </div>
-      </div>
-      <div id="missoes-content" class="loading"><span class="spinner"></span>Carregando…</div>
+      <div class="label">Manage flowers by member:</div>
+      <div id="editar-content" class="loading"><span class="spinner"></span>Loading…</div>
     </div>
 
     <!-- ── ABA CONFIG ── -->
     <div id="tab-config" class="tab-panel">
       <div class="card">
-        <strong style="color:var(--green-dark);display:block;margin-bottom:10px">📊 Estatísticas da Guilda</strong>
-        <div id="stats-content"><span class="empty">Carregando…</span></div>
+        <strong style="color:var(--green-dark);display:block;margin-bottom:10px">📊 Community Statistics</strong>
+        <div id="stats-content"><span class="empty">Loading…</span></div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
         <strong style="color:var(--green-dark);display:block;margin-bottom:6px">🔥 Firebase Firestore</strong>
-        Dados salvos em tempo real na nuvem. Qualquer jogadora pode editar de qualquer dispositivo!
+        Data is saved in real time in the cloud. Any member can edit from any device!
         <br><br>
-        <strong style="color:var(--green-dark)">Projeto:</strong> zoe-cozy-florist<br>
-        <strong style="color:var(--green-dark)">Coleções:</strong>
+        <strong style="color:var(--green-dark)">Project:</strong> cozy-florist<br>
+        <strong style="color:var(--green-dark)">Collections:</strong>
         <code>catalogo</code> · <code>membros</code> · <code>colecoes</code> · <code>recados</code>
       </div>
       <div class="card">
-        <strong style="color:var(--green-dark);font-size:13px">⚠️ Regras do Firestore</strong>
-        <p style="font-size:12px;color:var(--text-muted);margin:6px 0 8px">Se aparecer erro de permissão:</p>
+        <strong style="color:var(--green-dark);font-size:13px">⚠️ Firestore Rules</strong>
+        <p style="font-size:12px;color:var(--text-muted);margin:6px 0 8px">If a permission error appears:</p>
         <div class="rules-box">rules_version = '2';<br>service cloud.firestore {<br>&nbsp;&nbsp;match /databases/{db}/documents {<br>&nbsp;&nbsp;&nbsp;&nbsp;match /{doc=**} {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if true;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
       </div>
       <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.8">
@@ -874,19 +844,16 @@ body { background-color: var(--cream); color: var(--text); }
 
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="switchTab('buscar',this)">
-      <span class="nav-icon">🔍</span><span class="nav-label">Buscar</span>
+      <span class="nav-icon">🔍</span><span class="nav-label">Search</span>
     </button>
     <button class="nav-btn" onclick="switchTab('galeria',this)">
-      <span class="nav-icon">🌺</span><span class="nav-label">Galeria</span>
+      <span class="nav-icon">🌺</span><span class="nav-label">Gallery</span>
     </button>
     <button class="nav-btn" onclick="switchTab('editar',this)">
-      <span class="nav-icon">✏️</span><span class="nav-label">Editar</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('missoes',this)">
-      <span class="nav-icon">📋</span><span class="nav-label">Missões</span>
+      <span class="nav-icon">✏️</span><span class="nav-label">Edit</span>
     </button>
     <button class="nav-btn" onclick="switchTab('config',this)">
-      <span class="nav-icon">⚙️</span><span class="nav-label">Config</span>
+      <span class="nav-icon">⚙️</span><span class="nav-label">Settings</span>
     </button>
   </nav>
 </div>
@@ -929,18 +896,17 @@ const RARITIES     = ['N','R','SR','SSR','UR'];
 // ══════════════════════════════════════════════════════════════════
 //  ESTADO DA APLICAÇÃO
 // ══════════════════════════════════════════════════════════════════
-let catalogo     = [];   // array de flores com _ptLc/_enLc pré-calculados
-let colecoes     = {};   // { membro: [ {en,pt,emoji,rarity} ] }
+let catalogo     = [];   // array of flowers with _ptLc/_enLc precomputed
+let colecoes     = {};   // { member: [ {en,pt,emoji,rarity} ] }
 let membros      = [];
-let editOpen     = {};   // { membro: bool }
-let batchPending = {};   // { membro: { florEN: bool } }
+let editOpen     = {};   // { member: bool }
+let batchPending = {};   // { member: { florEN: bool } }
 let galeriaOpen  = {};
 let currentTab   = 'buscar';
 let galeriaSortMode = 'qty';   // 'qty' | 'alpha'
 let activeRarFilter = new Set();
 let catalogOpen  = false;
-let langMode     = localStorage.getItem('lang') || 'pt';
-let missoes      = [];
+let langMode     = 'en';
 
 // ── Memoização do filtro de catálogo ─────────────────────────────
 // Evita re-filtrar quando termo + raridades não mudaram.
@@ -963,12 +929,12 @@ function invalidateFilterCache() { _filterCache = { key: null, result: [] }; }
 //  INIT
 // ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
-  applyLangUI();
+  // language fixed to English
   const statusEl = document.querySelector('#loading-screen p');
   try {
-    statusEl.textContent = 'Autenticando…';
+    statusEl.textContent = 'Authenticating…';
     await auth.signInAnonymously();
-    statusEl.textContent = 'Carregando dados…';
+    statusEl.textContent = 'Loading data…';
     await loadAll();
   } catch(e) {
     statusEl.textContent = '❌ ' + (e.code || e.message || JSON.stringify(e));
@@ -1002,21 +968,13 @@ async function loadAll() {
     colecoes = {};
     colSnap.docs.forEach(d => { colecoes[d.id] = d.data().flores || []; });
 
-    // recados SEPARADO — se a coleção não existir ainda, não trava tudo
-    try {
-      const missSnap = await db.collection('recados').orderBy('data', 'desc').get();
-      missoes = missSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-    } catch(e) {
-      missoes = [];
-    }
-
     invalidateFilterCache();
     renderCurrentTab();
     buildPills();
     buildRarChips();
     renderStats();
   } catch(e) {
-    toast('❌ Erro Firebase: ' + (e.code || e.message));
+    toast('❌ Firebase error: ' + (e.code || e.message));
   }
   if (icon) icon.className = '';
 }
@@ -1037,7 +995,6 @@ function renderCurrentTab() {
   if      (currentTab === 'galeria') renderGaleria();
   else if (currentTab === 'editar')  renderEditar();
   else if (currentTab === 'buscar')  buildPills();
-  else if (currentTab === 'missoes') renderMissoes();
   else if (currentTab === 'config')  renderStats();
 }
 
@@ -1046,19 +1003,16 @@ function renderCurrentTab() {
 // ══════════════════════════════════════════════════════════════════
 function setLang(l) {
   langMode = l;
-  localStorage.setItem('lang', l);
-  applyLangUI();
   invalidateFilterCache();
   renderCurrentTab();
   buildPills();
 }
 
 function applyLangUI() {
-  document.getElementById('lang-pt').classList.toggle('active', langMode === 'pt');
-  document.getElementById('lang-en').classList.toggle('active', langMode === 'en');
+  // no language toggle in UI; English only
 }
 
-// Nome principal e secundário conforme idioma
+// Primary and secondary flower names use English first
 
 // ══════════════════════════════════════════════════════════════════
 //  HELPER: nome da flor → caminho da imagem
@@ -1088,8 +1042,8 @@ function florIcon(f, size = 36) {
   return `<span class="flor-icon-wrap" style="width:${s};height:${s};flex-shrink:0;display:inline-block;position:relative;border:2px solid ${bd};background:${bg};image-rendering:pixelated;"><img src="${path}" alt="" width="${size}" height="${size}" style="display:block;image-rendering:pixelated;object-fit:contain;" onerror="this.style.display='none'"></span>`;
 }
 
-function florName(f) { return langMode === 'en' ? (f.en || f.pt) : (f.pt || f.en); }
-function florSub(f)  { return langMode === 'en' ? (f.pt || '')   : (f.en || ''); }
+function florName(f) { return f.en || f.pt || ''; }
+function florSub(f)  { return ''; }
 
 // ══════════════════════════════════════════════════════════════════
 //  ABA BUSCAR
@@ -1202,12 +1156,11 @@ function doSearch(lc) {
   }
 
   if (!found.length) {
-    res.innerHTML = `<div class="no-result"><div class="emoji">🌿</div><p>Nenhuma jogadora tem "<strong>${escHtml(lc)}</strong>".</p></div>`;
+    res.innerHTML = `<div class="no-result"><div class="emoji">🌿</div><p>No member has "<strong>${escHtml(lc)}</strong>".</p></div>`;
     return;
   }
 
   const rows = found.map(({ m, match }) =>
-    `<div class="result-card">
       <div class="avatar" style="background:${nameToColor(m)}">${escHtml(m[0].toUpperCase())}</div>
       <div style="flex:1;min-width:0">
         <div style="font-weight:600;color:var(--green-dark);font-size:14px">${escHtml(m)}</div>
@@ -1224,7 +1177,7 @@ function doSearch(lc) {
     </div>`
   ).join('');
 
-  res.innerHTML = `<p style="font-size:12px;color:var(--green);font-style:normal;margin-bottom:8px">✨ ${found.length} jogadora(s):</p>${rows}`;
+  res.innerHTML = `<p style="font-size:12px;color:var(--green);font-style:normal;margin-bottom:8px">✨ ${found.length} member(s):</p>${rows}`;
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -1232,7 +1185,7 @@ function doSearch(lc) {
 // ══════════════════════════════════════════════════════════════════
 function toggleGaleriaSort() {
   galeriaSortMode = galeriaSortMode === 'qty' ? 'alpha' : 'qty';
-  document.getElementById('sort-btn').textContent = galeriaSortMode === 'qty' ? '⬇ Qtd' : '🔤 A-Z';
+  document.getElementById('sort-btn').textContent = galeriaSortMode === 'qty' ? '⬇ Qty' : '🔤 A-Z';
   renderGaleria();
 }
 
@@ -1247,7 +1200,7 @@ function getCatByRar() {
 
 function renderGaleria() {
   const el = document.getElementById('galeria-content');
-  if (!membros.length) { el.innerHTML = '<p class="empty">Nenhuma jogadora cadastrada.</p>'; return; }
+if (!membros.length) { el.innerHTML = '<p class="empty">No members added yet.</p>'; return; }
 
   const filterTerm = (document.getElementById('galeria-search')?.value || '').trim().toLowerCase();
   const catByRar   = getCatByRar();
@@ -1256,14 +1209,14 @@ function renderGaleria() {
   if (galeriaSortMode === 'qty') {
     list.sort((a, b) => (colecoes[b] || []).length - (colecoes[a] || []).length);
   }
-  if (!list.length) { el.innerHTML = '<p class="empty">Nenhuma jogadora encontrada.</p>'; return; }
+  if (!list.length) { el.innerHTML = '<p class="empty">No members found.</p>'; return; }
 
   // Constrói HTML com array e join — evita concatenação em loop
   const parts = [];
   for (const m of list) {
     const flores  = (colecoes[m] || []).slice().sort((a, b) => {
       const diff = (RARITY_ORDER[a.rarity]||5) - (RARITY_ORDER[b.rarity]||5);
-      return diff !== 0 ? diff : florName(a).localeCompare(florName(b), 'pt-BR');
+      return diff !== 0 ? diff : florName(a).localeCompare(florName(b), 'en');
     });
     const isOpen = !!galeriaOpen[m];
     const color  = nameToColor(m);
@@ -1316,7 +1269,7 @@ function renderGaleria() {
       </div>
       ${isOpen ? `<div class="member-card-body">
         <div class="progress-wrap">${progressBars}</div>
-        ${flores.length ? sections : '<span class="empty" style="padding:8px 0">Sem flores.</span>'}
+        ${flores.length ? sections : '<span class="empty" style="padding:8px 0">No flowers.</span>'}
       </div>` : ''}
     </div>`);
   }
@@ -1331,7 +1284,7 @@ function toggleGaleriaCard(m) { galeriaOpen[m] = !galeriaOpen[m]; renderGaleria(
 // ══════════════════════════════════════════════════════════════════
 function exportCSV(membro) {
   const flores = colecoes[membro] || [];
-  if (!flores.length) { toast('⚠️ Sem flores para exportar'); return; }
+  if (!flores.length) { toast('⚠️ No flowers to export'); return; }
   const header = 'Nome PT,Nome EN,Emoji,Raridade\r\n';
   const rows   = flores
     .map(f => `"${(f.pt||'').replace(/"/g,'""')}","${(f.en||'').replace(/"/g,'""')}","${f.emoji||''}","${f.rarity||''}"`)
@@ -1350,7 +1303,7 @@ function exportCSV(membro) {
 // ══════════════════════════════════════════════════════════════════
 function renderEditar() {
   const el = document.getElementById('editar-content');
-  if (!membros.length) { el.innerHTML = '<p class="empty">Adicione uma jogadora acima.</p>'; return; }
+  if (!membros.length) { el.innerHTML = '<p class="empty">Add a member above.</p>'; return; }
 
   const parts = [];
   for (const m of membros) {
@@ -1413,14 +1366,14 @@ function renderEditar() {
           <div class="search-wrap" style="flex:1;margin-bottom:0">
             <span class="search-icon" style="font-size:14px">🌸</span>
             <input id="${searchId}" type="text" class="form-input"
-              placeholder="Filtrar flores…"
+              placeholder="Filter flowers…"
               style="padding:7px 12px 7px 32px;font-size:12px;border-radius:var(--radius-full)"
               oninput="filterEditFlores('${escJs(m)}','${safeKey}',this.value)">
           </div>
           ${pendCount > 0 ? `
             <span class="batch-count">${pendCount} alteração(ões)</span>
             <button class="btn btn-ghost btn-sm" onclick="cancelBatch('${escJs(m)}')">✕</button>
-            <button class="btn btn-green btn-sm" onclick="saveBatch('${escJs(m)}')">💾 Salvar</button>
+            <button class="btn btn-green btn-sm" onclick="saveBatch('${escJs(m)}')">💾 Save</button>
           ` : ''}
           <button class="btn btn-xs btn-danger-soft"
             onclick="confirmRemoveMembro('${escJs(m)}')">🗑️</button>
@@ -1443,8 +1396,8 @@ function filterEditFlores(membro, safeKey, term) {
     group.querySelectorAll('.flower-pill-edit').forEach(pill => {
       const en   = pill.dataset.en || '';
       const f    = catalogo.find(x => x.en === en);
-      const name = f ? (f._ptLc + ' ' + f._enLc) : en.toLowerCase();
-      const show = !lc || name.includes(lc);
+      const searchable = [f?.en || '', f?.pt || '', f?.rarity || ''].join(' ').toLowerCase();
+      const show = !lc || searchable.includes(lc);
       pill.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -1492,9 +1445,9 @@ async function saveBatch(membro) {
     // Um único write no Firestore para todas as alterações
     await db.collection('colecoes').doc(membro).set({ flores: colecoes[membro] });
     delete batchPending[membro];
-    toast(`✅ Salvo para ${membro}!`);
+    toast(`✅ Saved for ${membro}!`);
     renderEditar();
-  } catch(e) { toast('❌ Erro ao salvar: ' + e.message); }
+  } catch(e) { toast('❌ Error saving: ' + e.message); }
 }
 
 function cancelBatch(membro) {
@@ -1504,9 +1457,9 @@ function cancelBatch(membro) {
 
 function confirmRemoveMembro(nome) {
   showModal(
-    `Remover ${nome}?`,
-    `Todos os dados de <strong>${escHtml(nome)}</strong> serão apagados permanentemente.`,
-    'Remover', () => removeMembro(nome)
+    `Remove ${nome}?`,
+    `All data for <strong>${escHtml(nome)}</strong> will be deleted permanently.`,
+    'Remove', () => removeMembro(nome)
   );
 }
 
@@ -1519,91 +1472,7 @@ async function removeMembro(nome) {
     delete editOpen[nome];
     delete batchPending[nome];
     delete galeriaOpen[nome];
-    toast('Removida: ' + nome);
-    await loadAll();
-  } catch(e) { toast('❌ Erro: ' + e.message); }
-}
-
-// ══════════════════════════════════════════════════════════════════
-//  ABA MISSÕES
-// ══════════════════════════════════════════════════════════════════
-function getWeekKey(date) {
-  const d = new Date(date);
-  const day = d.getDay() || 7;
-  d.setDate(d.getDate() + 4 - day);
-  const y = d.getFullYear();
-  const w = Math.ceil((((d - new Date(y, 0, 1)) / 86400000) + 1) / 7);
-  return `${y}-W${String(w).padStart(2, '0')}`;
-}
-
-function currentWeekKey() { return getWeekKey(new Date()); }
-
-function renderMissoes() {
-  const el  = document.getElementById('missoes-content');
-  if (!missoes.length) { el.innerHTML = '<p class="empty">Sem recados ainda. Adicione o primeiro!</p>'; return; }
-  const cwk = currentWeekKey();
-  el.innerHTML = missoes.map(m => {
-    const isCurrent = getWeekKey(m.data?.toDate?.() || m.data) === cwk;
-    const dateStr   = m.data ? new Date(m.data?.toDate?.() || m.data).toLocaleDateString('pt-BR') : '';
-    return `<div class="mission-card ${isCurrent ? 'current-week' : ''}">
-      ${isCurrent ? '<span class="mission-week-badge">📌 Esta semana</span>' : ''}
-      <div class="mission-title">${escHtml(m.titulo)}</div>
-      <div class="mission-text">${escHtml(m.texto)}</div>
-      <div class="mission-meta">📅 ${dateStr}${m.autor ? ' · ' + escHtml(m.autor) : ''}</div>
-      <div class="mission-actions">
-        <button class="btn btn-ghost btn-xs" onclick="editMission('${escJs(m.id)}')">✏️ Editar</button>
-        <button class="btn btn-xs btn-danger-soft"
-          onclick="confirmDeleteMission('${escJs(m.id)}','${escJs(m.titulo)}')">🗑️</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function openMissionForm(id) {
-  document.getElementById('mission-form').style.display = 'block';
-  document.getElementById('mission-edit-id').value = id || '';
-  if (!id) {
-    document.getElementById('mission-titulo').value = '';
-    document.getElementById('mission-texto').value  = '';
-  }
-  document.getElementById('mission-titulo').focus();
-}
-
-function closeMissionForm() { document.getElementById('mission-form').style.display = 'none'; }
-
-function editMission(id) {
-  const m = missoes.find(x => x.id === id);
-  if (!m) return;
-  openMissionForm(id);
-  document.getElementById('mission-titulo').value = m.titulo || '';
-  document.getElementById('mission-texto').value  = m.texto  || '';
-}
-
-async function saveMission() {
-  const id     = document.getElementById('mission-edit-id').value;
-  const titulo = document.getElementById('mission-titulo').value.trim();
-  const texto  = document.getElementById('mission-texto').value.trim();
-  if (!titulo) { toast('⚠️ Título obrigatório'); return; }
-  try {
-    if (id) {
-      await db.collection('recados').doc(id).update({ titulo, texto });
-    } else {
-      await db.collection('recados').add({ titulo, texto, data: new Date(), autor: '' });
-    }
-    closeMissionForm();
-    toast(id ? '✅ Recado atualizado!' : '✅ Recado adicionado!');
-    await loadAll();
-  } catch(e) { toast('❌ Erro: ' + e.message); }
-}
-
-function confirmDeleteMission(id, titulo) {
-  showModal('Excluir recado?', `"${escHtml(titulo)}" será removido permanentemente.`, 'Excluir', () => deleteMission(id));
-}
-
-async function deleteMission(id) {
-  try {
-    await db.collection('recados').doc(id).delete();
-    toast('🗑️ Recado removido');
+    toast('Removed: ' + nome);
     await loadAll();
   } catch(e) { toast('❌ Erro: ' + e.message); }
 }
@@ -1614,7 +1483,7 @@ async function deleteMission(id) {
 function renderStats() {
   const el = document.getElementById('stats-content');
   if (!el) return;
-  if (!catalogo.length || !membros.length) { el.innerHTML = '<span class="empty">Sem dados suficientes.</span>'; return; }
+  if (!catalogo.length || !membros.length) { el.innerHTML = '<span class="empty">Not enough data yet.</span>'; return; }
 
   const freqMap  = {};
   const rarCount = {};
@@ -1644,13 +1513,13 @@ function renderStats() {
 
   el.innerHTML = `
     <div class="stat-grid">
-      <div class="stat-box"><div class="stat-num">${membros.length}</div><div class="stat-label">Jogadoras</div></div>
-      <div class="stat-box"><div class="stat-num">${catalogo.length}</div><div class="stat-label">No catálogo</div></div>
-      <div class="stat-box"><div class="stat-num">${distinct}</div><div class="stat-label">Flores distintas</div></div>
-      <div class="stat-box"><div class="stat-num">${(colecoes[topMem]||[]).length}</div><div class="stat-label">Líder: ${escHtml(topMem||'—')}</div></div>
+      <div class="stat-box"><div class="stat-num">${membros.length}</div><div class="stat-label">Members</div></div>
+      <div class="stat-box"><div class="stat-num">${catalogo.length}</div><div class="stat-label">In catalog</div></div>
+      <div class="stat-box"><div class="stat-num">${distinct}</div><div class="stat-label">Distinct flowers</div></div>
+      <div class="stat-box"><div class="stat-num">${(colecoes[topMem]||[]).length}</div><div class="stat-label">Top: ${escHtml(topMem||'—')}</div></div>
     </div>
-    ${topFlor ? `<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px">🏆 Mais comum: <strong>${topFlor.emoji||'🌸'} ${escHtml(topFlor.pt)}</strong> (${topEntry[1]} jogadoras)</p>` : ''}
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Distribuição por raridade (total colhido):</div>
+    ${topFlor ? `<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px">🏆 Most common: <strong>${topFlor.emoji||'🌸'} ${escHtml(topFlor.en || topFlor.pt)}</strong> (${topEntry[1]} members)</p>` : ''}
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Rarity distribution (total collected):</div>
     ${distBars}`;
 }
 
@@ -1666,24 +1535,22 @@ async function addMembro() {
       db.collection('colecoes').doc(nome).set({ flores: [] })
     ]);
     document.getElementById('new-member').value = '';
-    toast('✅ ' + nome + ' adicionada!');
+    toast('✅ ' + nome + ' added!');
     await loadAll();
-  } catch(e) { toast('❌ Erro: ' + e.message); }
+  } catch(e) { toast('❌ Error: ' + e.message); }
 }
 
 async function addFlorCustom() {
   const en  = document.getElementById('new-fl-en').value.trim();
-  const pt  = document.getElementById('new-fl-pt').value.trim();
-  const emo = document.getElementById('new-fl-emoji').value.trim() || '🌿';
   const rar = document.getElementById('new-fl-rar').value;
-  if (!en || !pt) { toast('⚠️ Preencha EN e PT'); return; }
+  if (!en) { toast('⚠️ Enter the English name'); return; }
   try {
-    await db.collection('catalogo').doc(en).set({ en, pt, emoji: emo, rarity: rar, rarOrder: RARITY_ORDER[rar] || 1 });
-    ['new-fl-en', 'new-fl-pt', 'new-fl-emoji'].forEach(id => document.getElementById(id).value = '');
-    _catByRar = null; // invalida cache de contagem por raridade
-    toast('🌷 Adicionada: ' + pt);
+    await db.collection('catalogo').doc(en).set({ en, pt: en, emoji: '🌸', rarity: rar, rarOrder: RARITY_ORDER[rar] || 1 });
+    document.getElementById('new-fl-en').value = '';
+    _catByRar = null; // invalidate rarity cache
+    toast('🌷 Added: ' + en);
     await loadAll();
-  } catch(e) { toast('❌ Erro: ' + e.message); }
+  } catch(e) { toast('❌ Error: ' + e.message); }
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -1696,7 +1563,7 @@ function showModal(title, body, confirmLabel, onConfirm) {
       <h3>${escHtml(title)}</h3>
       <p>${body}</p>
       <div class="modal-actions">
-        <button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancelar</button>
+        <button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancel</button>
         <button class="btn btn-red btn-sm" onclick="modalConfirm()">${escHtml(confirmLabel)}</button>
       </div>
     </div>
