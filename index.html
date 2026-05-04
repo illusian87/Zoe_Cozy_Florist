@@ -747,7 +747,9 @@ body { background-color: var(--cream); color: var(--text); }
       <div class="search-wrap">
         <span class="search-icon">🌸</span>
         <input type="text" id="search-input" placeholder="Search flower…"
-          oninput="onSearchInput(this.value)" autocomplete="off">
+          oninput="onSearchInput(this.value)"
+          onkeydown="onSearchKey(event)"
+          autocomplete="off">
         <div class="ac-list" id="ac-list"></div>
       </div>
       <div id="search-results"></div>
@@ -1119,26 +1121,53 @@ function setSearch(florEN) {
   const f = catalogo.find(x => x.en === florEN);
   document.getElementById('search-input').value = f ? florName(f) : florEN;
   document.getElementById('ac-list').style.display = 'none';
-  doSearch(florEN.toLowerCase());
+  doSearch(florEN.toLowerCase(), true);
 }
 
-// ── Debounce único para autocomplete + busca ──────────────────────
-let _inputTimer;
+function getAutocompleteSuggestions(term) {
+  if (!term) return [];
+  const lc = term.toLowerCase();
+  const exact = [];
+  const starts = [];
+  const contains = [];
+
+  for (const f of catalogo) {
+    if (activeRarFilter.size && !activeRarFilter.has(f.rarity)) continue;
+    const en = (f.en || '').toLowerCase();
+    const pt = (f.pt || '').toLowerCase();
+    if (en === lc || pt === lc) {
+      exact.push(f);
+      continue;
+    }
+    if (en.startsWith(lc) || pt.startsWith(lc)) {
+      starts.push(f);
+      continue;
+    }
+    if (en.includes(lc) || pt.includes(lc)) {
+      contains.push(f);
+    }
+  }
+
+  return exact.concat(starts, contains).slice(0, 8);
+}
+
 function onSearchInput(val) {
-  const term = val.trim().toLowerCase();
+  const term = val.trim();
   const acEl = document.getElementById('ac-list');
   const catEl = document.getElementById('catalog-collapse');
+  const resEl = document.getElementById('search-results');
 
   if (!term) {
     acEl.style.display = 'none';
-    document.getElementById('search-results').innerHTML = '';
+    resEl.innerHTML = '';
     catEl.style.display = '';
     return;
   }
-  catEl.style.display = 'none';
 
-  // Autocomplete: imediato, sem esperar debounce
-  const suggestions = getFilteredCatalog(term).slice(0, 8);
+  catEl.style.display = 'none';
+  resEl.innerHTML = '';
+
+  const suggestions = getAutocompleteSuggestions(term);
   if (suggestions.length) {
     acEl.innerHTML = suggestions.map(f =>
       `<div class="ac-item" onclick="setSearch('${escJs(f.en)}')">
@@ -1151,10 +1180,19 @@ function onSearchInput(val) {
   } else {
     acEl.style.display = 'none';
   }
+}
 
-  // Busca completa: debounce 280ms — evita processar a cada tecla
-  clearTimeout(_inputTimer);
-  _inputTimer = setTimeout(() => doSearch(term), 280);
+function onSearchKey(event) {
+  const acEl = document.getElementById('ac-list');
+  if (!acEl || acEl.style.display === 'none') return;
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    const first = acEl.querySelector('.ac-item');
+    if (first) first.click();
+  }
+  if (event.key === 'Escape') {
+    acEl.style.display = 'none';
+  }
 }
 
 document.addEventListener('click', e => {
@@ -1166,7 +1204,7 @@ document.addEventListener('click', e => {
 
 // ── Busca principal ───────────────────────────────────────────────
 // Um único loop por membros — sem filter encadeado
-function doSearch(lc) {
+function doSearch(lc, exact = false) {
   const res = document.getElementById('search-results');
   document.getElementById('ac-list').style.display = 'none';
   if (!lc) { res.innerHTML = ''; return; }
@@ -1180,7 +1218,9 @@ function doSearch(lc) {
     const match = [];
     for (const f of flores) {
       if (useRarFilter && !activeRarFilter.has(f.rarity)) continue;
-      if ((f.pt||'').toLowerCase().includes(lc) || (f.en||'').toLowerCase().includes(lc)) {
+      const enLc = (f.en||'').toLowerCase();
+      const ptLc = (f.pt||'').toLowerCase();
+      if (exact ? (enLc === lc || ptLc === lc) : (enLc.includes(lc) || ptLc.includes(lc))) {
         match.push(f);
       }
     }
@@ -1490,9 +1530,9 @@ function cancelBatch(membro) {
 
 function confirmRemoveMembro(nome) {
   showModal(
-    `Remove ${nome}?`,
-    `All data for <strong>${escHtml(nome)}</strong> will be deleted permanently.`,
-    'Remove', () => removeMembro(nome)
+    `Confirm removal of ${nome}?`,
+    `This will permanently delete all data for <strong>${escHtml(nome)}</strong>.<br><br>Click <strong>Confirm removal</strong> to proceed.`,
+    'Confirm removal', () => removeMembro(nome)
   );
 }
 
