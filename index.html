@@ -933,11 +933,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   const statusEl = document.querySelector('#loading-screen p');
   try {
     statusEl.textContent = 'Authenticating…';
-    await auth.signInAnonymously();
+    console.log('Attempting anonymous sign-in...');
+    const authPromise = auth.signInAnonymously();
+    const authTimeout = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Auth timeout after 10s')), 10000)
+    );
+    await Promise.race([authPromise, authTimeout]);
+    console.log('Auth successful');
+    
     statusEl.textContent = 'Loading data…';
-    await loadAll();
+    console.log('Starting data load...');
+    const loadTimeout = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Data load timeout after 15s')), 15000)
+    );
+    await Promise.race([loadAll(), loadTimeout]);
+    console.log('Data load successful');
   } catch(e) {
+    console.error('Error during init:', e);
     statusEl.textContent = '❌ ' + (e.code || e.message || JSON.stringify(e));
+    console.error('Full error:', e);
+    // Still show the app even if Firebase fails
+    setTimeout(() => {
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      buildRarChips();
+    }, 3000);
     return;
   }
   document.getElementById('loading-screen').style.display = 'none';
@@ -953,11 +973,20 @@ async function loadAll() {
   const icon = document.getElementById('sync-icon');
   if (icon) icon.className = 'spin';
   try {
-    const [catSnap, memSnap, colSnap] = await Promise.all([
+    console.log('Firebase collections available:', db.collection('catalogo') ? 'yes' : 'no');
+    
+    const queries = Promise.all([
       db.collection('catalogo').orderBy('rarOrder').get(),
       db.collection('membros').orderBy('nome').get(),
       db.collection('colecoes').get()
     ]);
+    
+    const [catSnap, memSnap, colSnap] = await queries;
+    
+    console.log('Catalogo docs:', catSnap.docs.length);
+    console.log('Membros docs:', memSnap.docs.length);
+    console.log('Colecoes docs:', colSnap.docs.length);
+    
     catalogo = catSnap.docs.map(d => {
       const data = { id: d.id, ...d.data() };
       data._ptLc = (data.pt || '').toLowerCase();
@@ -968,13 +997,21 @@ async function loadAll() {
     colecoes = {};
     colSnap.docs.forEach(d => { colecoes[d.id] = d.data().flores || []; });
 
+    console.log('Data loaded successfully');
     invalidateFilterCache();
     renderCurrentTab();
     buildPills();
     buildRarChips();
     renderStats();
   } catch(e) {
+    console.error('Error loading data:', e);
     toast('❌ Firebase error: ' + (e.code || e.message));
+    // Still render with empty data
+    invalidateFilterCache();
+    renderCurrentTab();
+    buildPills();
+    buildRarChips();
+    renderStats();
   }
   if (icon) icon.className = '';
 }
